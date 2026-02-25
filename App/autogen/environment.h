@@ -11,7 +11,7 @@
 Q_IMPORT_QML_PLUGIN(Tidalwave_InterfacePlugin)
 Q_IMPORT_QML_PLUGIN(Tidalwave_InterfaceContentPlugin)
 
-const char mainQmlFile[] = "qrc:/qt/qml/Tidalwave_InterfaceContent/App.qml";
+const char mainQmlFile[] = "qrc:/qt/qml/Tidalwave_InterfaceContent/Tidalwave Inferface_V1.qml";
 
 #ifdef BUILD_QDS_COMPONENTS
 

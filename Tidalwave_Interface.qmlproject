@@ -1,7 +1,7 @@
 import QmlProject
 
 Project {
-    mainFile: "Tidalwave_InterfaceContent/App.qml"
+    mainFile: "Tidalwave_InterfaceContent/Tidalwave Inferface_V1.qml"
     mainUiFile: "Tidalwave_InterfaceContent/Screen01.ui.qml"
 
     /* Include .qml, .js, and image files from current directory and subdirectories */
