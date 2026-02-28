@@ -3,9 +3,10 @@ option(QTBuild "Set ON to develop QTBuild" ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-option(ROS2 "Set ON to develop ROS" ON)
 if(APPLE)
-    option(ROS2 "Set to off" OFF)
+    set(ROS2 OFF CACHE BOOL "Enable ROS 2 support" FORCE)
+else()
+    option(ROS2 "Set ON to develop ROS" ON)
 endif()
 
 ############################################
@@ -105,7 +106,7 @@ ament_add_gtest( ROS2_ONLY_test_exec
     Backend/StateSaver/StateSaver.cpp
 )
     if(TARGET ROS2_ONLY_test_exec)
-        ament_target_dependencies(ROS2_ONLY_test_exec rclcpp  custom_interfaces 
+        ament_target_dependencies(ROS2_ONLY_test_exec rclcpp custom_interfaces 
         std_srvs)
     endif()
 ament_package()

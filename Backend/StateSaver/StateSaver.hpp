@@ -1,5 +1,6 @@
 #include "../Model.hpp"
 #include <memory>
+#include <mutex>
 class StateSaver {
 public:
   StateSaver(std::shared_ptr<DataModel> givenModel) : dataModel(givenModel) {
