@@ -27,3 +27,6 @@ If on Macbook \
 else \
 &ensp;	NOT DEVELOPED.
 &ensp;&ensp; end-if \
+
+### Reasoning 
+Due to different hardware arch, different builds are made for development and testing.
