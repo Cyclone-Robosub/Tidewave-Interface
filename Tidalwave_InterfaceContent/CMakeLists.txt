@@ -11,6 +11,8 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
     QML_FILES
         "App.qml"
         "Screen01.ui.qml"
+        "Tidalwave Inferface_V1.qml"
+        "qmldir"
 )
 
 
