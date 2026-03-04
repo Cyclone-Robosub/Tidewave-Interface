@@ -1,0 +1,5 @@
+module DesignTokens
+
+Variable_collectionTheme 1.0 Variable_collectionTheme.qml
+Variable_collectionStrings 1.0 Variable_collectionStrings.qml
+singleton Variable_collection 1.0 Variable_collection.qml
