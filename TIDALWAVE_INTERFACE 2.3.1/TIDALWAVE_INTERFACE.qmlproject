@@ -5,7 +5,7 @@ import QmlProject
 Project {
     qt6Project: true
     importPaths: [ "." ]
-    mainFile: "GRAPH_COMPONENTS.ui.qml"
+    mainFile: "TIDALWAVE_INTERFACE_P1.ui.qml"
     QmlFiles {
         files: [
             "GRAPH_COMPONENTS.ui.qml",
