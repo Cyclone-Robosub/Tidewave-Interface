@@ -1,6 +1,8 @@
 
 target_sources(${CMAKE_PROJECT_NAME} PUBLIC
     "main.cpp"
+    $<$<BOOL:${ROS2}>:ros2.cpp>
+    $<$<BOOL:${ROS2}>:StateSaver/StateSaver.cpp>
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
