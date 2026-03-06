@@ -5,9 +5,29 @@
         <file>Tidalwave_Interface/Constants.qml</file>
         <file>Tidalwave_Interface/EventListModel.qml</file>
         <file>Tidalwave_Interface/EventListSimulator.qml</file>
-        <file>Tidalwave_InterfaceContent/App.qml</file>
-        <file>Tidalwave_InterfaceContent/Screen01.ui.qml</file>
+        <file>Tidalwave_Interface/TIDALWAVE_INTERFACE_P1_1.ui.qml</file>
         <file>Tidalwave_InterfaceContent/Tidalwave Inferface_V1.qml</file>
         <file>Tidalwave_InterfaceContent/qmldir</file>
+        <file>Tidalwave_InterfaceContent/Battery_Default.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/COMPONENT_LABEL.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/COMPONENT_TESTING.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/DETAILS.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/GRAPH_COMPONENTS.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/Image_1.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/MISSION_PATH_TOGGLE.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/NAV_TEST_1.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/DEPTH.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/NAV_YAW_DEPTH.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/SELECT_BUTTON.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/TEST_OPTIONS_OVERLAY.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/TEST_OPTIONS.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/TEST.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/Rectangle_1.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1_2.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/Voltage_detail_overlay.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/Component_3.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1_1.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1.ui.qml</file>
+        <file>Tidalwave_InterfaceContent/App.qml</file>
     </qresource>
 </RCC>

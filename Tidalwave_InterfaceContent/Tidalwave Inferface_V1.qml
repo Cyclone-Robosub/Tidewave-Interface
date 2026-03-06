@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Shapes
-
+import Tidalwave_InterfaceContent
 Rectangle {
     id: tIDALWAVE_INTERFACE_P1
 
