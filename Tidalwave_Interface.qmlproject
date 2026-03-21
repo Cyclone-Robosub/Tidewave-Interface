@@ -2,17 +2,14 @@ import QmlProject
 
 Project {
     mainFile: "Tidalwave_InterfaceContent/App.qml"
-    mainUiFile: "Tidalwave_InterfaceContent/Screen01.qml"
+    mainUiFile: "Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1.ui.qml"
+    qt6Project: true
+    importPaths: [ "." ]
 
     /* Include .qml, .js, and image files from current directory and subdirectories */
     QmlFiles {
         directory: "Tidalwave_Interface"
     }
-
-    QmlFiles {
-        directory: "Tidalwave_InterfaceContent"
-    }
-
     QmlFiles {
         directory: "Generated"
     }
@@ -32,7 +29,23 @@ Project {
     ImageFiles {
         directory: "Generated"
     }
-
+     ImageFiles {
+        files: [
+            "assets/repeat_group_1.png",
+            "assets/repeat_group_3.png",
+            "assets/rOLL_1.png",
+            "assets/repeat_group_2.png",
+            "assets/rOLL.png",
+            "assets/tHRUSTER.png",
+            "assets/gRAPH_COMPONENTS_2.png",
+            "assets/gRAPH_COMPONENTS_1.png",
+            "assets/gRAPH_COMPONENTS.png",
+            "assets/cAMERA.png",
+            "assets/repeat_group_5.png",
+            "assets/repeat_group_4.png",
+            "assets/image_1.png"
+        ]
+    }
     Files {
         filter: "*.conf"
         files: ["qtquickcontrols2.conf"]
@@ -62,7 +75,9 @@ Project {
         filter: "*.glsl;*.glslv;*.glslf;*.vsh;*.fsh;*.vert;*.frag"
         directory: "."
     }
-
+    ModuleFiles {
+        files: [ "Tidalwave_Interface/DesignTokens/DesignTokens.qmlproject" ]
+    }
     Files {
         filter: "*.qsb"
         directory: "."
@@ -115,8 +130,9 @@ Project {
     // Added resource file configuration
     Resources {
         files: [
-            "Tidalwave_InterfaceContent/Screen01.qml",
-            "Tidalwave_InterfaceContent/App.qml"
+      "Tidalwave_InterfaceContent/App.qml",
+      "Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1.ui.qml"
+ "Tidalwave_InterfaceContent/TEST.ui.qml"
         ]
     }
 }

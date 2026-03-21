@@ -1,4 +1,6 @@
 module Tidalwave_InterfaceContent
 plugin Tidalwave_InterfaceContent
+
 App 1.0 App.qml
-Screen01 1.0 Screen01.ui.qml
+Tidalwave_Interface_p1 1.0 TIDALWAVE_INTERFACE_P1.ui.qml
+TEST 1.0 Test.ui.qml

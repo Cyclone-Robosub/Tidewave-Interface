@@ -9,10 +9,27 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "App.qml"
-        "Screen01.ui.qml"
-        "Tidalwave Inferface_V1.qml"
-        "qmldir"
+    "App.qml"
+       "TIDALWAVE_INTERFACE_P1.ui.qml"
+       "GRAPH_COMPONENTS.ui.qml"
+            "COMPONENT_LABEL.ui.qml"
+            "Battery_Default.ui.qml"
+            "TEST.ui.qml"
+            "MISSION_PATH_TOGGLE.ui.qml"
+            "TIDALWAVE_INTERFACE_P1_1.ui.qml"
+            "TIDALWAVE_INTERFACE_P1_2.ui.qml"
+            "DEPTH.ui.qml"
+            "NAV_YAW_DEPTH.ui.qml"
+            "NAV_TEST_1.ui.qml"
+            "SELECT_BUTTON.ui.qml"
+            "Component_3.ui.qml"
+            "TEST_OPTIONS.ui.qml"
+            "TEST_OPTIONS_OVERLAY.ui.qml"
+            "Image_1.ui.qml"
+            "DETAILS.ui.qml"
+            "COMPONENT_TESTING.ui.qml"
+            "Voltage_detail_overlay.ui.qml"
+            "Rectangle_1.ui.qml"
 )
 
 
