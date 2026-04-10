@@ -1,27 +1,42 @@
 import QtQuick
 import QtQuick.Shapes
 import Tidalwave_InterfaceContent
+import QtMultimedia
 Rectangle {
     id: tIDALWAVE_INTERFACE_P1
 
-    height: 1024
-    width: 1440
+    height: 1440
+    width: 2560
 
     clip: true
     color: "#ffffff"
 
+    
+    VideoOutput {
+    id: cAMERA
+    x: 19
+    y: 95
+    width: 640
+    height: 440    
+   
+
+    // Optional: add a background to see the area before the stream starts
     Rectangle {
-        id: cAMERA
-
-        x: 25
-        y: 100
-
-        height: 480
-        width: 853.33
-
-        clip: true
-        color: "#cecece"
-        radius: 18
+        anchors.fill: parent
+        color: "black"
+        z: -1
+    }
+}
+MediaPlayer {
+        id: ffmpegPlayer
+        source: "rtsp://localhost:8554/cam"
+        videoOutput: cAMERA 
+        // Set to true so it starts as soon as the app opens
+        autoPlay: true
+        
+        onErrorOccurred: (error, errorString) => {
+            console.log("RTSP Error: " + errorString + " here");
+        }
     }
     GRAPH_COMPONENTS {
         id: gRAPH_COMPONENTS

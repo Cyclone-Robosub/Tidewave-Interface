@@ -133,7 +133,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Qml Quick QuickTimeline ShaderTools)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core QuickTimeline Gui Widgets Qml Quick Multimedia ShaderTools)
 qt_standard_project_setup()
 
 
