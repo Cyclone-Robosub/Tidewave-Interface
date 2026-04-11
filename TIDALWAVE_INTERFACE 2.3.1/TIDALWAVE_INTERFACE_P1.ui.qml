@@ -238,7 +238,7 @@ Rectangle {
                     font.pixelSize: 12
                     font.weight: Font.Normal
                     horizontalAlignment: Text.AlignLeft
-                    text: "PITCH#"
+                    text: "PITCH"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
                     wrapMode: Text.WordWrap

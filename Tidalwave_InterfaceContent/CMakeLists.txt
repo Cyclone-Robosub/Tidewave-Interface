@@ -13,6 +13,7 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
        "TIDALWAVE_INTERFACE_P1.ui.qml"
        "GRAPH_COMPONENTS.ui.qml"
             "COMPONENT_LABEL.ui.qml"
+            "CustomImage.qml"
             "Battery_Default.ui.qml"
             "TEST.ui.qml"
             "MISSION_PATH_TOGGLE.ui.qml"
@@ -29,7 +30,15 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
             "DETAILS.ui.qml"
             "COMPONENT_TESTING.ui.qml"
             "Voltage_detail_overlay.ui.qml"
+            "AttitudeIndicator.qml"
             "Rectangle_1.ui.qml"
+        RESOURCES
+            Resources/Images/ai/ai_case.svg
+            Resources/Images/ai/ai_back.svg
+            Resources/Images/ai/ai_face.svg
+            Resources/Images/ai/ai_ring.svg
+            Resources/Images/ai/ai.svg
+
 )
 
 

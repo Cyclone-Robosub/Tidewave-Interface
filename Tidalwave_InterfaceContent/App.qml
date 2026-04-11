@@ -4,8 +4,8 @@ import Tidalwave_InterfaceContent
 
 Window {
     id: window
-    width: 1920 
-    height: 1080
+    width: 2440 
+    height: 1660
     visible: true
     title: "Tidalwave Interface"
 

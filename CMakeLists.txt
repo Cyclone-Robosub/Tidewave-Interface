@@ -4,6 +4,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 if(APPLE)
+    set(MACOSX_BUNDLE_ICON_FILE Logo.icns)
+    set(app_icon_macos "${CMAKE_CURRENT_SOURCE_DIR}/assets/Logo.icns")
+    set_source_files_properties(${app_icon_macos} PROPERTIES
+           MACOSX_PACKAGE_LOCATION "assets")
     set(ROS2 OFF CACHE BOOL "Enable ROS 2 support" FORCE)
 else()
     option(ROS2 "Set ON to develop ROS" ON)
@@ -114,6 +118,7 @@ ament_package()
 ############################################
 
 elseif(QTBuild) # ONLY QT BUILD
+
 message("Only QT build")
     cmake_minimum_required(VERSION 3.21.1)
     OPTION(QTBUILDONLY "only run the QT code" ON)
@@ -137,7 +142,8 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS Core QuickTimeline Gui Widgets Qml Quic
 qt_standard_project_setup()
 
 
-qt_add_executable(${CMAKE_PROJECT_NAME})
+qt_add_executable(${CMAKE_PROJECT_NAME} MACOSX_BUNDLE ${app_icon_macos})
+
 
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

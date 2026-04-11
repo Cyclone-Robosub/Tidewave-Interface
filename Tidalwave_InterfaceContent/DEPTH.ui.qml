@@ -35,7 +35,7 @@ Rectangle {
             font.pixelSize: 12
             font.weight: Font.Medium
             horizontalAlignment: Text.AlignLeft
-            text: "DEPTH"
+            text: "DEPTHa"
             textFormat: Text.PlainText
             verticalAlignment: Text.AlignTop
             wrapMode: Text.WordWrap

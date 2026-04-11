@@ -22,6 +22,8 @@ If on Macbook \
 &ensp;&ensp;&ensp;		mkdir build \
 &ensp;&ensp;&ensp;		cd build \
 &ensp;&ensp;&ensp;		cmake .. \
+&ensp;&ensp;&ensp;		cmake .. \
+
 &ensp;&ensp;&ensp;		./Tidalwave_InterfaceApp \
 &ensp;&ensp; end-if \
 else \
