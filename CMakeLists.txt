@@ -22,7 +22,8 @@ option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
 project(Tidalwave_InterfaceApp LANGUAGES CXX)
-
+# CMakeLists.txt
+find_package(Qt5 COMPONENTS Widgets Multimedia MultimediaWidgets REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
@@ -50,6 +51,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         custom_interfaces 
         std_srvs 
         )
+target_link_libraries( ${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets)
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
