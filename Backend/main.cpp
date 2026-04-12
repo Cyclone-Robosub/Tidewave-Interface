@@ -1,23 +1,23 @@
-// Copyright (C) 2024 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
-
+#include "Controller/Animation.h"
 #include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
 #include "autogen/environment.h"
 #include <QApplication>
+#include <QMediaPlayer>
 #include <QQmlApplicationEngine>
+#include <iostream>
+// #include <QVideoWidget>
+#include <QQmlContext>
+#include <QVBoxLayout>
+#include <QWidget>
 
 int main(int argc, char *argv[]) {
-  // bool ROSEnabled = false;
-#ifndef QTBUILDONLY
   std::shared_ptr<DataModel> dataModel = std::make_shared<DataModel>();
+#ifndef QTBUILDONLY
   rclcpp::init(argc, argv);
   std::shared_ptr<TidalwaveROS> ROSobject =
       std::make_shared<TidalwaveROS>(dataModel);
-  std::jthread ros_thread([ROSobject]() {
-    rclcpp::spin(ROSobject);
-    // ROSEnabled = true;
-  });
+  std::jthread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
   StateSaver state_saver;
   std::jthread state_saver_thread([state_saver]() {
     while (!ROSobject.ROS_enabled) {
@@ -25,16 +25,22 @@ int main(int argc, char *argv[]) {
       sleep(2);
     }
     state_saver(dataModel);
-    state_saver
-        .start(); /*A thread is created within this function, thus potential
-refactor of this lambda function into a state_saver state function */
+    state_saver.start();
   });
-  
 #endif
+
 #ifdef QTEnabled
   set_qt_environment();
   QApplication app(argc, argv);
   QQmlApplicationEngine engine;
+
+  // Create and initialize flight data model
+  PrimaryFlightData *pfd = new PrimaryFlightData;
+  Animation *animation = new Animation;
+  animation->setPfd(pfd, dataModel);
+  // Expose the flight data model to QML
+  engine.rootContext()->setContextProperty("pfd", pfd);
+  // Load your QML files
   const QUrl url(mainQmlFile);
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,
@@ -50,6 +56,9 @@ refactor of this lambda function into a state_saver state function */
 
   if (engine.rootObjects().isEmpty())
     return -1;
+
+  // Start the animation system
+  animation->init();
 
   return app.exec();
 #endif

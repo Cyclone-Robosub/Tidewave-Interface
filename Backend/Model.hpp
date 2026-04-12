@@ -19,4 +19,6 @@ struct IMU{
 struct DataModel {
 	std::atomic<bool> current_mode;
 	IMU imu_data;
+	std::atomic<double> roll = 0.0;
+	std::atomic<double> pitch = 0.0;
 };

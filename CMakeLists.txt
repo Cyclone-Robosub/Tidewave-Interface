@@ -22,7 +22,8 @@ option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
 project(Tidalwave_InterfaceApp LANGUAGES CXX)
-
+# CMakeLists.txt
+find_package(Qt5 COMPONENTS Widgets Multimedia MultimediaWidgets REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
@@ -39,7 +40,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Qml Quick QuickTimeline ShaderTools)
+find_package(Qt6 6.8 REQUIRED COMPONENTS QuickTimeline Core Gui Widgets Qml Quick QuickTimeline Multimedia ShaderTools)
 qt_standard_project_setup()
 
 
@@ -50,6 +51,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         custom_interfaces 
         std_srvs 
         )
+target_link_libraries( ${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets)
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
@@ -180,11 +182,20 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-file(GLOB TEST_SOURCES CONFIGURE_DEPENDS test/*.cpp) # ensures all the files in test are included
-add_executable(MyTests ${TEST_SOURCES})
+file(GLOB TEST_SOURCES CONFIGURE_DEPENDS Backend/test/QT_ONLY/*.cpp) # ensures all the files in test are included
+add_executable(QT_Only_Test ${TEST_SOURCES} Backend/Controller/Animation.cpp 
+    Backend/Controller/PrimaryFlightData.cpp )
 
-target_link_libraries(MyTests PRIVATE gtest_main)
+target_link_libraries(QT_Only_Test PRIVATE gtest_main Qt6::Core 
+    Qt6::Gui 
+    Qt6::Widgets 
+    Qt6::Qml 
+    Qt6::Quick 
+    Tidalwave_Interface
+    Tidalwave_Interfaceplugin
+    Tidalwave_InterfaceContent
+    Tidalwave_InterfaceContentplugin)
 
 include(GoogleTest)
-gtest_discover_tests(MyTests)
+gtest_discover_tests(QT_Only_Test)
 endif()

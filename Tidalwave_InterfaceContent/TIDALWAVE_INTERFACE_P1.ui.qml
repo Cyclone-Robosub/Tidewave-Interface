@@ -129,8 +129,8 @@ MediaPlayer {
         anchors.centerIn: parent
         width:  256
         height: 256
-        roll:   0.0    // bind your data here
-        pitch:  0.0
+        roll:   pfd.roll   // bind your data here
+        pitch:  pfd.pitch
         radius: 1
     }
         }
