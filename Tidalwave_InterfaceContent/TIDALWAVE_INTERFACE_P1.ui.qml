@@ -1,27 +1,56 @@
 import QtQuick
 import QtQuick.Shapes
 import Tidalwave_InterfaceContent
+import QtMultimedia
+// Temporary fix to hard coded x and y values that were generated.
+Flickable {
+    anchors.fill: parent
+    contentWidth: 2560
+    contentHeight: 1440
+    clip: true
+
+
 Rectangle {
     id: tIDALWAVE_INTERFACE_P1
 
-    height: 1024
-    width: 1440
+    height: 1440
+    width: 2560
 
     clip: true
     color: "#ffffff"
 
+    /*
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    anchors.margins: 20
+    */
+    VideoOutput {
+    id: cAMERA
+   // x: 19
+    //y: 95
+    width: 750
+    height: 500    
+   anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.margins: 60
+
+    // Optional: add a background to see the area before the stream starts
     Rectangle {
-        id: cAMERA
-
-        x: 25
-        y: 100
-
-        height: 480
-        width: 853.33
-
-        clip: true
-        color: "#cecece"
-        radius: 18
+        anchors.fill: parent
+        color: "black"
+        z: -1
+    }
+}
+MediaPlayer {
+        id: ffmpegPlayer
+        source: "rtsp://localhost:8554/cam"
+        videoOutput: cAMERA 
+        // Set to true so it starts as soon as the app opens
+        autoPlay: true
+        
+        onErrorOccurred: (error, errorString) => {
+            console.log("RTSP Error: " + errorString + " here");
+        }
     }
     GRAPH_COMPONENTS {
         id: gRAPH_COMPONENTS
@@ -69,7 +98,7 @@ Rectangle {
         x: 894
         y: 804
 
-        height: 195
+        height: 253
         width: 253
 
         clip: true
@@ -91,100 +120,19 @@ Rectangle {
 
                 x: 99
                 y: 12
-
+              
                 clip: true
                 property_1: COMPONENT_LABEL.Property_2.Property_2_Default
             }
-            Rectangle {
-                id: rOLL_2
-
-                x: 56.50
-                y: 43
-
-                height: 140
-                width: 140
-
-                color: "#565656"
-                radius: 500
-
-                Item {
-                    id: frame_44
-
-                    x: 4
-                    y: 4
-
-                    height: 132
-                    width: 132
-
-                    Image {
-                        id: repeat_group_1
-
-                        source: Qt.resolvedUrl("assets/repeat_group_1.png")
-                    }
-                    Rectangle {
-                        id: frame_38
-
-                        x: 6
-                        y: 6
-
-                        height: 120
-                        width: 120
-
-                        clip: true
-                        color: "#565656"
-                        radius: 500
-
-                        Rectangle {
-                            id: frame_39
-
-                            x: 56
-                            y: 56
-
-                            height: 8
-                            width: 8
-
-                            color: "#ffffff"
-                            radius: 20
-
-                            Rectangle {
-                                id: frame_40
-
-                                x: -36
-                                y: 3
-
-                                height: 2
-                                width: 80
-
-                                color: "#ffffff"
-
-                                Rectangle {
-                                    id: frame_41
-
-                                    y: -3
-
-                                    height: 5
-                                    width: 2
-
-                                    clip: true
-                                    color: "#ffffff"
-                                }
-                                Rectangle {
-                                    id: frame_42
-
-                                    x: 78
-                                    y: -3
-
-                                    height: 5
-                                    width: 2
-
-                                    clip: true
-                                    color: "#ffffff"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+             AttitudeIndicator {
+        id: graphicsAI
+        anchors.centerIn: parent
+        width:  256
+        height: 256
+        roll:   0.0    // bind your data here
+        pitch:  0.0
+        radius: 1
+    }
         }
     }
     Rectangle {
@@ -238,7 +186,7 @@ Rectangle {
                     font.pixelSize: 12
                     font.weight: Font.Normal
                     horizontalAlignment: Text.AlignLeft
-                    text: "PITCH#"
+                    text: "PITCH"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
                     wrapMode: Text.WordWrap
@@ -486,4 +434,5 @@ Rectangle {
         clip: true
         property_1: MISSION_PATH_TOGGLE.Property_2.Property_2_Default
     }
+}
 }

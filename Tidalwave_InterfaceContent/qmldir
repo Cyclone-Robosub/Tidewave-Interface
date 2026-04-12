@@ -4,3 +4,9 @@ plugin Tidalwave_InterfaceContent
 App 1.0 App.qml
 Tidalwave_Interface_p1 1.0 TIDALWAVE_INTERFACE_P1.ui.qml
 TEST 1.0 Test.ui.qml
+Battery_Default 1.0 Battery_Default.ui.qml
+Depth 1.0 DEPTH.ui.qml
+NAV_YAW_DEPTH 1.0 NAV_YAW_DEPTH.ui.qml
+Voltage 1.0 Voltage_detail_overlay.ui.qml
+Attitude 1.0 AttitudeIndicator.qml
+Custom 1.0 CustomImage.qml

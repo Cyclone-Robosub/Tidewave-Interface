@@ -16,7 +16,7 @@ Rectangle {
         x: 19
         y: 95
 
-        clip: true
+        autoPlay: true
         source: Qt.resolvedUrl("assets/cAMERA.png")
     }
     Image {

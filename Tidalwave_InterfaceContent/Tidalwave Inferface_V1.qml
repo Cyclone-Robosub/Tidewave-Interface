@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Shapes
 import Tidalwave_InterfaceContent
+import QtMultimedia
+import QtQuickTimeline
 Rectangle {
     id: tIDALWAVE_INTERFACE_P1
 
@@ -10,18 +12,38 @@ Rectangle {
     clip: true
     color: "#ffffff"
 
+    VideoOutput {
+    id: cAMERA
+    x: 19
+    y: 95
+    width: 640  // Match your FFmpeg video_size
+    height: 480
+    
+   
+
+    // Optional: add a background to see the area before the stream starts
     Rectangle {
-        id: cAMERA
+        anchors.fill: parent
+        color: "black"
+        z: -1
+    }
+}
+MediaPlayer {
+        id: ffmpegPlayer
+        
+        // The "Link" to your FFmpeg stream
+        source: "udp://127.0.0.1:9988"
+        
+        // Tells the player where to send the frames
+        videoOutput: cAMERA 
+        
+        // Set to true so it starts as soon as the app opens
+        autoPlay: true
 
-        x: 25
-        y: 100
-
-        height: 480
-        width: 853.33
-
-        clip: true
-        color: "#cecece"
-        radius: 18
+        // Optional: Error handling to see why a link might fail
+        onErrorOccurred: (error, errorString) => {
+            console.log("RTSP Error: " + errorString);
+        }
     }
     Rectangle {
         id: oVERVIEW
