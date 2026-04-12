@@ -75,15 +75,7 @@ TEST_F(TidalwaveFixture, RollPitchFuzzTest) {
       dataModel->roll.store(randomRoll);
       dataModel->pitch.store(randomPitch);
       animation->update();
-      /* Note: If your Animation class uses a Timer to pull from dataModel,
-         you need to trigger one 'tick' or call the update function directly.
-      */
-      // Manually trigger the sync from DataModel to PFD
-
-      // Process Qt Events to ensure QML/Signals react
-      
-     // std::cout << i;
-      // Assert: Check if PFD (which QML sees) matches the DataModel
+  
       EXPECT_NEAR(pfd->roll(), randomRoll, 0.0001)
           << "Failed at iteration " << i << " with Roll: " << randomRoll;
       EXPECT_NEAR(pfd->pitch(), randomPitch, 0.0001)
@@ -92,6 +84,7 @@ TEST_F(TidalwaveFixture, RollPitchFuzzTest) {
     }
   });
   Done.detach();
+  //TODO: make this a global function to call.(Refactor)
   std::thread StupidThread1([=](){
   std::string line;
   std::cin >> line;
@@ -100,6 +93,7 @@ TEST_F(TidalwaveFixture, RollPitchFuzzTest) {
     return;
   };});
   while(true){
+    //Doesn't like it when it isn't the main character.
     QApplication::processEvents();
   }
 }

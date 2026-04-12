@@ -22,6 +22,7 @@ void Animation::update()
 
     mPfd->setAngleOfAttack(21.0 * std::sin(mPlayTime / 10.0));
     mPfd->setAngleOfSideSlip(16.0 * std::sin(mPlayTime / 10.0));
+    //TODO Use memory ordering for better performance.
     mPfd->setRoll(data->roll.load());
     mPfd->setPitch(data->pitch.load());
     mPfd->setHeading(360.0 * std::sin(mPlayTime / 40.0));
