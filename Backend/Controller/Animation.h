@@ -5,7 +5,8 @@
 #define ANIMATION_H
 
 #include "PrimaryFlightData.h"
-
+#include "../Model.hpp"
+#include <memory>
 #include <QObject>
 #include <QTimer>
 
@@ -15,7 +16,7 @@ class Animation : public QObject
 public:
     explicit Animation(QObject *parent = nullptr);
 
-    void setPfd(PrimaryFlightData *newPfd);
+    void setPfd(PrimaryFlightData *newPfd, std::shared_ptr<DataModel> givenData);
 
 public slots:
     void update();
@@ -24,6 +25,7 @@ public slots:
 private:
     PrimaryFlightData *mPfd;
     QTimer mTimer;
+    std::shared_ptr<DataModel> data;
     double mPlayTime;
     quint64 mPreviousTime;
 };

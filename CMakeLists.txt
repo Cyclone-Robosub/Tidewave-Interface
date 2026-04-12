@@ -182,11 +182,20 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-file(GLOB TEST_SOURCES CONFIGURE_DEPENDS test/*.cpp) # ensures all the files in test are included
-add_executable(MyTests ${TEST_SOURCES})
+file(GLOB TEST_SOURCES CONFIGURE_DEPENDS Backend/test/QT_ONLY/*.cpp) # ensures all the files in test are included
+add_executable(QT_Only_Test ${TEST_SOURCES} Backend/Controller/Animation.cpp 
+    Backend/Controller/PrimaryFlightData.cpp )
 
-target_link_libraries(MyTests PRIVATE gtest_main)
+target_link_libraries(QT_Only_Test PRIVATE gtest_main Qt6::Core 
+    Qt6::Gui 
+    Qt6::Widgets 
+    Qt6::Qml 
+    Qt6::Quick 
+    Tidalwave_Interface
+    Tidalwave_Interfaceplugin
+    Tidalwave_InterfaceContent
+    Tidalwave_InterfaceContentplugin)
 
 include(GoogleTest)
-gtest_discover_tests(MyTests)
+gtest_discover_tests(QT_Only_Test)
 endif()

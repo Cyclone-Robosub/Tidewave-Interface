@@ -22,8 +22,8 @@ void Animation::update()
 
     mPfd->setAngleOfAttack(21.0 * std::sin(mPlayTime / 10.0));
     mPfd->setAngleOfSideSlip(16.0 * std::sin(mPlayTime / 10.0));
-    mPfd->setRoll(180.0 * std::sin(mPlayTime / 50.0));
-    mPfd->setPitch(90.0 * std::sin(mPlayTime / 20.0));
+    mPfd->setRoll(data->roll.load());
+    mPfd->setPitch(data->pitch.load());
     mPfd->setHeading(360.0 * std::sin(mPlayTime / 40.0));
     mPfd->setSlipSkid(1.0 * std::sin(mPlayTime / 10.0));
     mPfd->setTurnRate(1.0 * std::sin(mPlayTime / 10.0));
@@ -73,7 +73,8 @@ void Animation::init()
     mTimer.start(10);
 }
 
-void Animation::setPfd(PrimaryFlightData *newPfd)
-{
-    mPfd = newPfd;
+void Animation::setPfd(PrimaryFlightData *newPfd,
+                       std::shared_ptr<DataModel> givenData) {
+                        data = givenData;
+  mPfd = newPfd;
 }
