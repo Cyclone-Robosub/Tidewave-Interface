@@ -1,12 +1,12 @@
 #include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
 #include "autogen/environment.h"
-#include "PrimaryFlightData.h"  
-#include "Animation.h"         
+#include "Controller/Animation.h"       
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QMediaPlayer>
-#include <QVideoWidget>
+//#include <QVideoWidget>
+#include <QQmlContext>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -39,10 +39,12 @@ int main(int argc, char *argv[]) {
   PrimaryFlightData *pfd = new PrimaryFlightData;
   Animation *animation = new Animation;
   animation->setPfd(pfd);
-
+  pfd->setRoll(10.1);
+  pfd->setPitch(28.1);
   // Expose the flight data model to QML
   engine.rootContext()->setContextProperty("pfd", pfd);
-
+  pfd->setRoll(10.1);
+  pfd->setPitch(28.1);
   // Load your QML files
   const QUrl url(mainQmlFile);
   QObject::connect(
@@ -62,7 +64,7 @@ int main(int argc, char *argv[]) {
 
   // Start the animation system
   animation->init();
-
+  animation->update();
   return app.exec();
 #endif
 }
