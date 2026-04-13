@@ -36,9 +36,25 @@ void TidalwaveROS::CreateRobotROSSub() {
 
 		imu.pressure = msg->pressure.fluid_pressure;
 	};
+	 auto topic_callback =
+      [this](remote_control_interface::msg::Gamepad::UniquePtr msg) -> void {
+		std::lock_guard<std::mutex> lock(dataModel->joystick_data.mtx);
+		dataModel->joystick_data.x = msg->x;
+		dataModel->joystick_data.y = msg->y;
+		dataModel->joystick_data.sink = msg->sink;
+		dataModel->joystick_data.rise = msg->rise;
+		dataModel->joystick_data.pitch = msg->pitch;
+		dataModel->joystick_data.yaw = msg->yaw;
+		
+        // Get the values: x, y, rise, sink, yaw, pitch
+        // Convert to PWM signals for 8 thrusters
 
+        // Publish the PWM signals to thrusters
+      };
 	Current_Control_sub = this->create_subscription<std_msgs::msg::Bool>(
 		"current_mode", rclcpp::QoS(10), currentModeLamb, RobotOptions);
 	imu_sub = this->create_subscription<custom_interfaces::msg::Imu>(
 		"imu_custom", 10, currentIMU);
+		joystick_sub =
+      this->create_subscription<remote_control_interface::msg::Gamepad>("ps5_controller", rclcpp::QoS(10), topic_callback, RobotOptions);
 }

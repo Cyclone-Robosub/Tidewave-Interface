@@ -28,6 +28,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
+find_package(remote_control_interface REQUIRED)
 find_package(std_srvs REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -49,6 +50,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     PRIVATE
        rclcpp 
         custom_interfaces 
+        remote_control_interface
         std_srvs 
         )
 target_link_libraries( ${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets)
@@ -83,12 +85,12 @@ ament_add_gtest( testExec
     Backend/ros2.cpp
 )
     if(TARGET testExec)
-        ament_target_dependencies(testExec rclcpp  custom_interfaces 
+        ament_target_dependencies(testExec rclcpp remote_control_interface custom_interfaces 
         std_srvs)
     endif()
 ament_package()
 
-############################################
+#################################################
 
 elseif(NOT QTBuild AND ROS2)
 message("Only ros2 build")
@@ -98,6 +100,7 @@ project(Tidalwave_InterfaceApp)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(remote_control_interface REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(std_srvs REQUIRED)
 
@@ -112,7 +115,7 @@ ament_add_gtest( ROS2_ONLY_test_exec
     Backend/StateSaver/StateSaver.cpp
 )
     if(TARGET ROS2_ONLY_test_exec)
-        ament_target_dependencies(ROS2_ONLY_test_exec rclcpp custom_interfaces 
+        ament_target_dependencies(ROS2_ONLY_test_exec rclcpp custom_interfaces remote_control_interface
         std_srvs)
     endif()
 ament_package()

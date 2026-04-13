@@ -47,6 +47,58 @@ TEST_F(TidalwaveFixture, CurrentMode) {
   }
 
   EXPECT_TRUE(success) << "Failed to detect current_mode change within timeout";
+
+
+  
+  auto joystick_pub = test_pub_node->create_publisher<remote_control_interface::msg::Gamepad>(
+      "ps5_controller", rclcpp::QoS(10));
+
+  const float test_x = 0.5f;
+  const float test_y = -0.3f;
+  const float test_sink = 0.2f;
+  const float test_rise = -0.1f;
+  const float test_pitch = 0.4f;
+  const float test_yaw = -0.2f;
+
+  auto msgJoy = remote_control_interface::msg::Gamepad();
+  msgJoy.x = test_x;
+  msgJoy.y = test_y;
+  msgJoy.sink = test_sink;
+  msgJoy.rise = test_rise;
+ msgJoy.pitch = test_pitch;
+  msgJoy.yaw = test_yaw;
+
+   start_time = std::chrono::steady_clock::now();
+   success = false;
+ joystick_pub->publish(msgJoy);
+  while (std::chrono::steady_clock::now() - start_time < 2s) {
+    std::cout << "Published joystick message" << std::endl;
+
+    // Check if the data was received and stored in the data model
+    std::lock_guard<std::mutex> lock(dataModel->joystick_data.mtx);
+    if (dataModel->joystick_data.x == test_x &&
+        dataModel->joystick_data.y == test_y &&
+        dataModel->joystick_data.sink == test_sink &&
+        dataModel->joystick_data.rise == test_rise &&
+        dataModel->joystick_data.pitch == test_pitch &&
+        dataModel->joystick_data.yaw == test_yaw) {
+      success = true;
+      break;
+    }
+
+    std::this_thread::sleep_for(100ms);
+  }
+
+  EXPECT_TRUE(success) << "Failed to receive and process joystick data within timeout";
+
+  std::lock_guard<std::mutex> lock(dataModel->joystick_data.mtx);
+  EXPECT_FLOAT_EQ(dataModel->joystick_data.x, test_x) << "X value mismatch";
+  EXPECT_FLOAT_EQ(dataModel->joystick_data.y, test_y) << "Y value mismatch";
+  EXPECT_FLOAT_EQ(dataModel->joystick_data.sink, test_sink) << "Sink value mismatch";
+  EXPECT_FLOAT_EQ(dataModel->joystick_data.rise, test_rise) << "Rise value mismatch";
+  EXPECT_FLOAT_EQ(dataModel->joystick_data.pitch, test_pitch) << "Pitch value mismatch";
+  EXPECT_FLOAT_EQ(dataModel->joystick_data.yaw, test_yaw) << "Yaw value mismatch";
+
   rclcpp::shutdown();
   ros_thread.join();
 }
