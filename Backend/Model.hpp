@@ -15,10 +15,20 @@ struct IMU{
 	double pressure; // pressure
 };
 
-
+struct Joystick{
+	std::mutex mtx;
+	double x;
+	double y;
+	double rise;
+	double sink;
+	double yaw;
+	double pitch;
+};
 struct DataModel {
 	std::atomic<bool> current_mode;
 	IMU imu_data;
+	Joystick joystick_data;
 	std::atomic<double> roll = 0.0;
 	std::atomic<double> pitch = 0.0;
 };
+
