@@ -17,13 +17,15 @@ struct IMU{
 
 struct Joystick{
 	std::mutex mtx;
-	double x;
+	double x; //
 	double y;
 	double rise;
 	double sink;
 	double yaw;
 	double pitch;
 };
+
+
 struct DataModel {
 	std::atomic<bool> current_mode;
 	IMU imu_data;
