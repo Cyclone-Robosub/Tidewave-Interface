@@ -13,7 +13,8 @@ else()
     option(ROS2 "Set ON to develop ROS" ON)
 endif()
 
-############################################
+####################################################################
+
 if(QTBuild AND ROS2)
 message("Normal build")
 cmake_minimum_required(VERSION 3.21.1)
@@ -120,7 +121,7 @@ ament_add_gtest( ROS2_ONLY_test_exec
     endif()
 ament_package()
 
-############################################
+###############################################################
 
 elseif(QTBuild) # ONLY QT BUILD
 

@@ -25,7 +25,7 @@ public slots:
 private:
     PrimaryFlightData *mPfd;
     QTimer mTimer;
-    std::shared_ptr<DataModel> data;
+    std::shared_ptr<DataModel> dataModel;
     double mPlayTime;
     quint64 mPreviousTime;
 };
