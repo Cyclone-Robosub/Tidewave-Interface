@@ -13,6 +13,9 @@ struct IMU{
 	double m_x, m_y, m_z; // magnetic field
 	
 	double pressure; // pressure
+
+	std::atomic<float> roll = 0.0;
+	std::atomic<float> pitch = 0.0;
 };
 
 struct Joystick{
@@ -30,7 +33,5 @@ struct DataModel {
 	std::atomic<bool> current_mode;
 	IMU imu_data;
 	Joystick joystick_data;
-	std::atomic<double> roll = 0.0;
-	std::atomic<double> pitch = 0.0;
 };
 

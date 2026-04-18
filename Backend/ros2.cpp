@@ -35,6 +35,8 @@ void TidalwaveROS::CreateRobotROSSub() {
 		imu.m_z = msg->mag_array.magnetic_field.z;
 
 		imu.pressure = msg->pressure.fluid_pressure;
+		imu.roll.store(msg->roll);
+		imu.pitch.store(msg->store);
 	};
 	 auto topic_callback =
       [this](remote_control_interface::msg::Gamepad::UniquePtr msg) -> void {
@@ -45,11 +47,6 @@ void TidalwaveROS::CreateRobotROSSub() {
 		dataModel->joystick_data.rise = msg->rise;
 		dataModel->joystick_data.pitch = msg->pitch;
 		dataModel->joystick_data.yaw = msg->yaw;
-		
-        // Get the values: x, y, rise, sink, yaw, pitch
-        // Convert to PWM signals for 8 thrusters
-
-        // Publish the PWM signals to thrusters
       };
 	Current_Control_sub = this->create_subscription<std_msgs::msg::Bool>(
 		"current_mode", rclcpp::QoS(10), currentModeLamb, RobotOptions);
