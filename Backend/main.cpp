@@ -10,6 +10,7 @@
 #include <shared_mutex>
 // #include <QVideoWidget>
 #include <QQmlContext>
+#include <thread>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -32,8 +33,7 @@ int main(int argc, char *argv[]) {
     state_saver.start();
   });
 #endif
-std::thread KernelThread(StartThread);
-
+std::thread KernelThread(StartThread, dataModel);
 #ifdef QTEnabled
   set_qt_environment();
   QApplication app(argc, argv);
@@ -65,7 +65,7 @@ std::thread KernelThread(StartThread);
   animation->init();
  
  
-
+      KernelThread.join();
   return app.exec();
 #endif
 }
