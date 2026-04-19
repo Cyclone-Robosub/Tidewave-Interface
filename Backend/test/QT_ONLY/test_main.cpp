@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <chrono>
 #include <gtest/gtest.h>
 #include <random>
 #include <thread>
@@ -53,37 +54,40 @@ protected:
 
   void SetUp() override {
     // Optional: Reset model values before each test
-    dataModel->roll.store(0.0);
-    dataModel->pitch.store(0.0);
+    dataModel->imu_data.roll.store(0.0);
+    dataModel->imu_data.pitch.store(0.0);
   }
 };
 
 TEST_F(TidalwaveFixture, RollPitchFuzzTest) {
+  std::atomic<int>i = 0;
+  std::atomic<bool> running{false};
   std::thread Done([&]() {
+    running = true;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> rollDist(-180.0, 180.0);
     std::uniform_real_distribution<> pitchDist(-90.0, 90.0);
 
     const int iterations = 100;
-    int i = 0;
-    while(true){
+    while(running){
       double randomRoll = rollDist(gen);
       double randomPitch = pitchDist(gen);
 
       // Act: Update DataModel
-      dataModel->roll.store(randomRoll);
-      dataModel->pitch.store(randomPitch);
+      dataModel->imu_data.roll.store(randomRoll);
+      dataModel->imu_data.pitch.store(randomPitch);
       animation->update();
   
       EXPECT_NEAR(pfd->roll(), randomRoll, 0.0001)
-          << "Failed at iteration " << i << " with Roll: " << randomRoll;
+          << "Failed at iteration " << i.load() << " with Roll: " << randomRoll;
       EXPECT_NEAR(pfd->pitch(), randomPitch, 0.0001)
-          << "Failed at iteration " << i << " with Pitch: " << randomPitch;
-    sleep(1);
+          << "Failed at iteration " << i.load() << " with Pitch: " << randomPitch;
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      i++;
     }
   });
-  Done.detach();
+ // Done.detach();
   //TODO: make this a global function to call.(Refactor)
   std::thread StupidThread1([=](){
   std::string line;
@@ -92,8 +96,53 @@ TEST_F(TidalwaveFixture, RollPitchFuzzTest) {
     std::cout << "next test" << std::endl;
     return;
   };});
-  while(true){
+  while(i < 200){
     //Doesn't like it when it isn't the main character.
+    QApplication::processEvents();
+  }
+  running = false;
+  Done.join();
+  StupidThread1.join();
+}
+TEST_F(TidalwaveFixture, RollPitchIncrementTest) {
+  std::thread Done([&]() {
+    double randomRoll = 0.0;
+    double randomPitch = 0.0;
+    int i = 0;
+    while (true) {
+      if(randomRoll > 180){
+        randomRoll = 0.0;
+      }
+      if(randomPitch > 90){
+        randomPitch = 0.0;
+      }
+      // Act: Update DataModel
+      dataModel->imu_data.roll.store(randomRoll);
+      dataModel->imu_data.pitch.store(randomPitch);
+      animation->update();
+
+      EXPECT_NEAR(pfd->roll(), randomRoll, 0.0001)
+          << "Failed at iteration " << i << " with Roll: " << randomRoll;
+      EXPECT_NEAR(pfd->pitch(), randomPitch, 0.0001)
+          << "Failed at iteration " << i << " with Pitch: " << randomPitch;
+      std::this_thread::sleep_for(std::chrono::milliseconds(20));
+      randomRoll += 0.5;
+      randomPitch += 0.5;
+      i++;
+    }
+  });
+  Done.detach();
+  // TODO: make this a global function to call.(Refactor)
+  std::thread StupidThread1([=]() {
+    std::string line;
+    std::cin >> line;
+    if (line == "next") {
+      std::cout << "next test" << std::endl;
+      return;
+    };
+  });
+  while (true) {
+    // Doesn't like it when it isn't the main character.
     QApplication::processEvents();
   }
 }
