@@ -1,7 +1,7 @@
 #include "ros2.hpp"
 
 void TidalwaveROS::CreateRobotROSSub() {
-	std::cout << "sub creation, ";
+	std::cout << "ROS Subscribing Starting\n";
 	auto currentModeLamb = [this](std_msgs::msg::Bool::SharedPtr msg) -> void {
 		dataModel->current_mode = msg->data;
 		ROS_enabled = true;
@@ -36,7 +36,7 @@ void TidalwaveROS::CreateRobotROSSub() {
 
 		imu.pressure = msg->pressure.fluid_pressure;
 		imu.roll.store(msg->roll);
-		imu.pitch.store(msg->store);
+		imu.pitch.store(msg->pitch);
 	};
 	 auto topic_callback =
       [this](remote_control_interface::msg::Gamepad::UniquePtr msg) -> void {
