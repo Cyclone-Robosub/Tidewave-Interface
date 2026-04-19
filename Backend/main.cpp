@@ -1,4 +1,5 @@
 #include "Controller/Animation.h"
+#include "Controller/Kernel.cpp"
 #include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
 #include "autogen/environment.h"
@@ -6,13 +7,16 @@
 #include <QMediaPlayer>
 #include <QQmlApplicationEngine>
 #include <iostream>
+#include <shared_mutex>
 // #include <QVideoWidget>
 #include <QQmlContext>
 #include <QVBoxLayout>
 #include <QWidget>
 
+
+
 int main(int argc, char *argv[]) {
-  std::shared_ptr<DataModel> dataModel = std::make_shared<DataModel>();
+ std::shared_ptr<DataModel> dataModel = std::make_shared<DataModel>();
 #ifndef QTBUILDONLY
   rclcpp::init(argc, argv);
   std::shared_ptr<TidalwaveROS> ROSobject =
@@ -28,6 +32,7 @@ int main(int argc, char *argv[]) {
     state_saver.start();
   });
 #endif
+std::thread KernelThread(StartThread);
 
 #ifdef QTEnabled
   set_qt_environment();
@@ -56,9 +61,10 @@ int main(int argc, char *argv[]) {
 
   if (engine.rootObjects().isEmpty())
     return -1;
-
   // Start the animation system
   animation->init();
+ 
+ 
 
   return app.exec();
 #endif
