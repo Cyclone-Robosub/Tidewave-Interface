@@ -5,7 +5,7 @@ ROS2
 - [ ] Math Implementation or IMU pass through actual roll and pitch
 
 ### Start and Stop Communication
-- [ ] Find Startup script and setup ROS2 implementation
+- [ ] Contact Sys-Arch team on how to communicate startup script.
 - [ ] Implement Controller Actions and Model
 
 ### Completed Column ✓

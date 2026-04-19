@@ -1,6 +1,7 @@
 #pragma once
 #include <atomic>
-
+#include <condition_variable>
+#include <shared_mutex>
 struct IMU{
 	double p_x, p_y, p_z; // point
 	double o_x, o_y, o_z, o_w; // orientation
@@ -27,11 +28,16 @@ struct Joystick{
 	double yaw;
 	double pitch;
 };
-
+struct ControlPath{
+	std::condition_variable_any Messenger;
+	std::shared_mutex ControlDataMutex;
+	bool isRunning{false};
+};
 
 struct DataModel {
 	std::atomic<bool> current_mode;
 	IMU imu_data;
 	Joystick joystick_data;
+	ControlPath control_path;
 };
 

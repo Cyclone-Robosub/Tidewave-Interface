@@ -23,7 +23,7 @@ protected:
   std::shared_ptr<rclcpp::Publisher<std_msgs::msg::Bool>> publisher;
 };
 
-TEST_F(TidalwaveFixture, CurrentMode) {
+TEST_F(TidalwaveFixture, EverythingTest) {
   // 1. Start spinning the node in a background thread
   std::jthread ros_thread([this]() { rclcpp::spin(node); });
 
@@ -47,9 +47,39 @@ TEST_F(TidalwaveFixture, CurrentMode) {
   }
 
   EXPECT_TRUE(success) << "Failed to detect current_mode change within timeout";
-
-
+  std::atomic<bool> Finite_Success = false;
+  // Test finite state machine publishing
+  // Create a subscriber to check the finite_state_machine topic
+    auto finite_state_sub = test_pub_node->create_subscription<std_msgs::msg::String>(
+      "finite_state_machine",
+      10,
+      [&](const std_msgs::msg::String::SharedPtr msg) {
+        std::cout << "Received finite state message: " << msg->data << std::endl;
+        if (msg->data == "Start") {
+          Finite_Success = true;
+        }
+      });
+  // Set the control_path.isRunning flag to true to trigger the finite state machine
+  std::cout << "about to wait LOCK\n" << std::endl;
+    std::unique_lock<std::shared_mutex> lock(dataModel->control_path.ControlDataMutex);
+    dataModel->control_path.isRunning = true;
   
+  dataModel->control_path.Messenger.notify_all();
+      lock.unlock();
+  // Wait for the finite state message to be published
+  start_time = std::chrono::steady_clock::now();
+
+  while (std::chrono::steady_clock::now() - start_time < 100s) {
+    std::cout << "Waiting for finite state message..." << std::endl;
+    if (Finite_Success) {
+      break;
+    }
+    std::this_thread::sleep_for(200ms);
+  }
+
+  EXPECT_TRUE(Finite_Success) << "Failed to receive finite state 'Start' message within timeout";
+
+  // Test joystick functionality
   auto joystick_pub = test_pub_node->create_publisher<remote_control_interface::msg::Gamepad>(
       "ps5_controller", rclcpp::QoS(10));
 
@@ -65,12 +95,12 @@ TEST_F(TidalwaveFixture, CurrentMode) {
   msgJoy.y = test_y;
   msgJoy.sink = test_sink;
   msgJoy.rise = test_rise;
- msgJoy.pitch = test_pitch;
+  msgJoy.pitch = test_pitch;
   msgJoy.yaw = test_yaw;
 
-   start_time = std::chrono::steady_clock::now();
-   success = false;
- joystick_pub->publish(msgJoy);
+  start_time = std::chrono::steady_clock::now();
+  success = false;
+  joystick_pub->publish(msgJoy);
   while (std::chrono::steady_clock::now() - start_time < 2s) {
     std::cout << "Published joystick message" << std::endl;
 
@@ -91,7 +121,7 @@ TEST_F(TidalwaveFixture, CurrentMode) {
 
   EXPECT_TRUE(success) << "Failed to receive and process joystick data within timeout";
 
-  std::lock_guard<std::mutex> lock(dataModel->joystick_data.mtx);
+  std::lock_guard<std::mutex> locklol(dataModel->joystick_data.mtx);
   EXPECT_FLOAT_EQ(dataModel->joystick_data.x, test_x) << "X value mismatch";
   EXPECT_FLOAT_EQ(dataModel->joystick_data.y, test_y) << "Y value mismatch";
   EXPECT_FLOAT_EQ(dataModel->joystick_data.sink, test_sink) << "Sink value mismatch";

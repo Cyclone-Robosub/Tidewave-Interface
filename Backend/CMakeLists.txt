@@ -1,6 +1,7 @@
 
 target_sources(${CMAKE_PROJECT_NAME} PUBLIC
     "main.cpp"
+    "Controller/Kernel.cpp"
     "Controller/Animation.cpp"
     "Controller/PrimaryFlightData.cpp"
     $<$<BOOL:${ROS2}>:ros2.cpp>
