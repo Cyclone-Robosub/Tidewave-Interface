@@ -55,6 +55,8 @@ colcon build
 source install/setup.bash
 cd ../..
 colcon build
+cd build/Tidalwave_InterfaceApp
+./Tidalwave_InterfaceApp
 ```
 If version problems arise, check where your Qt download is located on your computer and input the directory after the equals sign in the Qt_Root argument. 
 ```bash
