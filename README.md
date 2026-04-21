@@ -58,6 +58,15 @@ colcon build
 cd build/Tidalwave_InterfaceApp
 ./Tidalwave_InterfaceApp
 ```
+#### Tools to Install
+```bash
+sudo apt update
+sudo apt install qt6-base-dev 
+sudo apt install qt6-multimedia-dev
+sudo apt install qt6-quicktimeline-dev
+sudo apt install qt6-declarative-dev
+sudo apt install qt6-shadertools-dev
+```
 If version problems arise, check where your Qt download is located on your computer and input the directory after the equals sign in the Qt_Root argument. 
 ```bash
 colcon build --cmake-args -DQt_ROOT=$HOME/Qt/6.7.3/gcc_64
