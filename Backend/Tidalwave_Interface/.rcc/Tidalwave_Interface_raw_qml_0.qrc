@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="/qt/qml/Tidalwave_Interface/">
+    <file alias="Constants.qml">/home/cyclone-dev-1/Tidalwave_Interface/Tidalwave_Interface/Constants.qml</file>
+    <file alias="EventListSimulator.qml">/home/cyclone-dev-1/Tidalwave_Interface/Tidalwave_Interface/EventListSimulator.qml</file>
+    <file alias="EventListModel.qml">/home/cyclone-dev-1/Tidalwave_Interface/Tidalwave_Interface/EventListModel.qml</file>
+  </qresource>
+</RCC>
+

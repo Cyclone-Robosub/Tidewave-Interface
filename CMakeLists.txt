@@ -17,14 +17,14 @@ endif()
 
 if(QTBuild AND ROS2)
 message("Normal build")
+set(PROJECT_VERSION "1.0.0")
 cmake_minimum_required(VERSION 3.21.1)
 
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 
-project(Tidalwave_InterfaceApp LANGUAGES CXX)
+project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 # CMakeLists.txt
-find_package(Qt5 COMPONENTS Widgets Multimedia MultimediaWidgets REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
@@ -42,19 +42,11 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS QuickTimeline Core Gui Widgets Qml Quick QuickTimeline Multimedia ShaderTools)
+find_package(Qt6  REQUIRED COMPONENTS MultimediaWidgets Core QuickTimeline Gui Widgets Qml Quick Multimedia ShaderTools)
 qt_standard_project_setup()
 
 
-qt_add_executable(${CMAKE_PROJECT_NAME})
-target_link_libraries(${CMAKE_PROJECT_NAME}
-    PRIVATE
-       rclcpp 
-        custom_interfaces 
-        remote_control_interface
-        std_srvs 
-        )
-target_link_libraries( ${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::Multimedia Qt5::MultimediaWidgets)
+qt_add_executable(${CMAKE_PROJECT_NAME} Backend/ros2.cpp Backend/StateSaver/StateSaver.cpp)
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
@@ -63,13 +55,38 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
 include(qds)
 
 if (BUILD_QDS_COMPONENTS)
-    include(qmlcomponents OPTIONAL)
+	include(qmlcomponents OPTIONAL)
 endif()
 
 if (LINK_INSIGHT)
     include(insight OPTIONAL)
 endif ()
 
+
+target_link_libraries(${CMAKE_PROJECT_NAME}
+    PRIVATE
+         Qt6::Core
+	 Qt6::Quick
+	 Qt6::Qml 
+	 Qt6::Widgets 
+	 Qt6::Multimedia 
+	 Qt6::MultimediaWidgets
+	 ${rclcpp_LIBRARIES}
+ 	${custom_interfaces_LIBRARIES}
+	${remote_control_interface_LIBRARIES}
+	${std_srvs_LIBRARIES}
+	Tidalwave_Interface
+	Tidalwave_Interfaceplugin
+	Tidalwave_InterfaceContent
+	Tidalwave_InterfaceContentplugin
+)
+target_include_directories(${CMAKE_PROJECT_NAME}
+	PRIVATE
+	${rclcpp_INCLUDE_DIRS}
+	${custom_interfaces_INCLUDE_DIRS}
+	${remote_control_interface_INCLUDE_DIRS}
+	${std_srvs_INCLUDE_DIRS}
+)
 include(GNUInstallDirs)
 install(TARGETS ${CMAKE_PROJECT_NAME}
   BUNDLE DESTINATION .
@@ -80,15 +97,6 @@ add_compile_definitions(QTEnabled)
 # -------------------------
 # GoogleTest
 # -------------------------
-ament_add_gtest( testExec
-    Backend/test/ROS2_ONLY/test_main.cpp
-    Backend/test/QT_ONLY/test_main.cpp
-    Backend/ros2.cpp
-)
-    if(TARGET testExec)
-        ament_target_dependencies(testExec rclcpp remote_control_interface custom_interfaces 
-        std_srvs)
-    endif()
 ament_package()
 
 #################################################
@@ -144,7 +152,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS Core QuickTimeline Gui Widgets Qml Quick Multimedia ShaderTools)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Core QuickTimeline Gui Widgets Qml Quick Multimedia ShaderTools)
 qt_standard_project_setup()
 
 

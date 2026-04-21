@@ -1,7 +1,7 @@
 qt_add_library(QuickStudioDesignEffects STATIC)
 qt6_add_qml_module(QuickStudioDesignEffects
     URI "QtQuick.Studio.DesignEffects"
-    VERSION "${PROJECT_VERSION}"
+    VERSION 1.0.0
     DESIGNER_SUPPORTED
     RESOURCE_PREFIX "/qt-project.org/imports"
     PAST_MAJOR_VERSIONS 1

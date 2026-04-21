@@ -1,0 +1,10 @@
+module Tidalwave_Interface
+linktarget Tidalwave_Interfaceplugin
+optional plugin Tidalwave_Interfaceplugin
+classname Tidalwave_InterfacePlugin
+typeinfo Tidalwave_Interface.qmltypes
+prefer :/qt/qml/Tidalwave_Interface/
+singleton Constants 1.0 Constants.qml
+EventListSimulator 1.0 EventListSimulator.qml
+EventListModel 1.0 EventListModel.qml
+
