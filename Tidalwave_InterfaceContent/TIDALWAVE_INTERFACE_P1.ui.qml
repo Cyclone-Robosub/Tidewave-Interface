@@ -43,11 +43,10 @@ Rectangle {
 }
 MediaPlayer {
         id: ffmpegPlayer
-        source: "rtsp://localhost:8554/cam"
+        source: "udp://127.0.0.1:9988"
         videoOutput: cAMERA 
         // Set to true so it starts as soon as the app opens
-        autoPlay: true
-        
+       Component.onCompleted: ffmpegPlayer.play() 
         onErrorOccurred: (error, errorString) => {
             console.log("RTSP Error: " + errorString + " here");
         }

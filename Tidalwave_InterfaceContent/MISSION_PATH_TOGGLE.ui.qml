@@ -59,8 +59,6 @@ Rectangle {
 
         clip: true
         color: "#a6a6a6"
-        topLeftRadius: 24
-        topRightRadius: 24
 
         Item {
             id: frame_19

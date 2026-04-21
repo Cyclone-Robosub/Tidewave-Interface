@@ -1,7 +1,7 @@
 qt_add_library(QuickStudioApplication STATIC)
 qt6_add_qml_module(QuickStudioApplication
     URI "QtQuick.Studio.Application"
-    VERSION "${PROJECT_VERSION}"
+    VERSION 1.0.0
     RESOURCE_PREFIX "/qt-project.org/imports"
     DESIGNER_SUPPORTED
     ${qds_qml_extra_args}

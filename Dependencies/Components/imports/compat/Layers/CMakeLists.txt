@@ -1,7 +1,7 @@
 qt_add_library(QuickUltraLiteStudioLayers STATIC)
 qt6_add_qml_module(QuickUltraLiteStudioLayers
     URI "QtQuickUltralite.Layers"
-    VERSION "${PROJECT_VERSION}"
+    VERSION 1.0.0
     RESOURCE_PREFIX "/qt-project.org/imports"
     DESIGNER_SUPPORTED
     PAST_MAJOR_VERSIONS 1 2

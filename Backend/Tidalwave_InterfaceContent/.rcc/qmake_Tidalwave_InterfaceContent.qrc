@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/Tidalwave_InterfaceContent">
+    <file alias="qmldir">/home/cyclone-dev-1/Tidalwave_Interface/Backend/qml/Tidalwave_InterfaceContent/qmldir</file>
+  </qresource>
+</RCC>
+

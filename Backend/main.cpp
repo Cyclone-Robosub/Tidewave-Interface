@@ -13,7 +13,10 @@
 #include <thread>
 #include <QVBoxLayout>
 #include <QWidget>
-
+#ifndef QTBUILDONLY
+#include "rclcpp/rclcpp.hpp"
+#include "ros2.hpp"
+#endif
 
 
 int main(int argc, char *argv[]) {
@@ -23,15 +26,6 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<TidalwaveROS> ROSobject =
       std::make_shared<TidalwaveROS>(dataModel);
   std::jthread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
-  StateSaver state_saver;
-  std::jthread state_saver_thread([state_saver]() {
-    while (!ROSobject.ROS_enabled) {
-      std::cerr << "ROS is not starting for Tidalwave Interface\n";
-      sleep(2);
-    }
-    state_saver(dataModel);
-    state_saver.start();
-  });
 #endif
 std::thread KernelThread(StartThread, dataModel);
 #ifdef QTEnabled
@@ -65,7 +59,7 @@ std::thread KernelThread(StartThread, dataModel);
   animation->init();
  
  
-      KernelThread.join();
+      KernelThread.detach();
   return app.exec();
 #endif
 }
