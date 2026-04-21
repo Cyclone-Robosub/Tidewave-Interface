@@ -40,7 +40,7 @@ make
 
 > Assuming you have went through the trial and error process of downloading every QT package imaginable,
 ```bash
-source /opt/
+source /opt/ros/jazzy/setup.bash
 cd Backend/custom_interfaces
 colcon build
 source install/setup.bash
