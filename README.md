@@ -16,10 +16,15 @@ Qt dev 6.7 or higher required
 Starting from the main folder:
 
 ```bash
+source /opt/ros/jazzy/setup.bash
 cd Backend/custom_interfaces
 colcon build
 source install/setup.bash
-cd ../../
+cd ..
+cd remote_control_interface
+colcon build
+source install/setup.bash
+cd ../..
 colcon build --cmake-args -DQTBuild=OFF
 cd build
 ./ROS2_ONLY_Test_exec 
