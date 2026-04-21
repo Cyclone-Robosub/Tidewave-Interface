@@ -14,7 +14,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #ifndef QTBUILDONLY
-#include "rclcpp/rclcpp.hpp"
 #include "ros2.hpp"
 #endif
 
@@ -25,7 +24,7 @@ int main(int argc, char *argv[]) {
   rclcpp::init(argc, argv);
   std::shared_ptr<TidalwaveROS> ROSobject =
       std::make_shared<TidalwaveROS>(dataModel);
-  std::jthread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
+  std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
 #endif
 std::thread KernelThread(StartThread, dataModel);
 #ifdef QTEnabled
