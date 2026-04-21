@@ -23,8 +23,6 @@ Rectangle {
 
         clip: true
         color: "#a6a6a6"
-        topLeftRadius: 18
-        topRightRadius: 18
 
         Text {
             id: vELOCITY_1

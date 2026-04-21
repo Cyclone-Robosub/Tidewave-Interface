@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="qtquickcontrols2.conf">/home/cyclone-dev-1/Tidalwave_Interface/qtquickcontrols2.conf</file>
+  </qresource>
+</RCC>
+

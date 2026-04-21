@@ -1,12 +1,19 @@
 
+if(ROS2)
 target_sources(${CMAKE_PROJECT_NAME} PUBLIC
     "main.cpp"
-    "Controller/Kernel.cpp"
     "Controller/Animation.cpp"
     "Controller/PrimaryFlightData.cpp"
-    $<$<BOOL:${ROS2}>:ros2.cpp>
-    $<$<BOOL:${ROS2}>:StateSaver/StateSaver.cpp>
+    "ros2.cpp"
+    "StateSaver/StateSaver.cpp"
 )
+else()
+	target_sources(${CMAKE_PROJECT_NAME} PUBLIC
+    "main.cpp"
+    "Controller/Animation.cpp"
+    "Controller/PrimaryFlightData.cpp"
+)
+endif()
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core

@@ -6,7 +6,7 @@
 qt_add_library(Tidalwave_InterfaceContent STATIC)
 qt6_add_qml_module(Tidalwave_InterfaceContent
     URI "Tidalwave_InterfaceContent"
-    VERSION 1.0
+    VERSION 1.0.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
     "App.qml"
