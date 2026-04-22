@@ -1,3 +1,0 @@
-[submodule "Backend/Controller/QJoysticks"]
-	path = Backend/Controller/QJoysticks
-	url = https://github.com/alex-spataru/QJoysticks.git
