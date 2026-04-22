@@ -1,8 +1,8 @@
 # Backend
 ROS2 
 
-### Attitude Indicator
-- [ ] Math Implementation or IMU pass through actual roll and pitch
+### Camera
+- [ ] Fix Delay 
 
 ### Start and Stop Communication
 - [ ] Contact Sys-Arch team on how to communicate startup script.
