@@ -13,6 +13,16 @@ else()
     option(ROS2 "Set ON to develop ROS" ON)
 endif()
 
+include(FetchContent)
+
+FetchContent_Declare(
+  libssh #
+  GIT_REPOSITORY https://git.libssh.org/projects/libssh.git
+  GIT_TAG        libssh-0.10.5 
+)
+
+
+FetchContent_MakeAvailable(libssh)
 ####################################################################
 
 if(QTBuild AND ROS2)
@@ -65,6 +75,7 @@ endif ()
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
     PRIVATE
+        ssh
          Qt6::Core
 	 Qt6::Quick
 	 Qt6::Qml 
@@ -124,7 +135,7 @@ ament_add_gtest( ROS2_ONLY_test_exec
     Backend/StateSaver/StateSaver.cpp
 )
     if(TARGET ROS2_ONLY_test_exec)
-        ament_target_dependencies(ROS2_ONLY_test_exec rclcpp custom_interfaces remote_control_interface
+        ament_target_dependencies(ROS2_ONLY_test_exec ssh rclcpp custom_interfaces remote_control_interface
         std_srvs)
     endif()
 ament_package()
@@ -184,7 +195,7 @@ add_compile_definitions(QTEnabled)
 # -------------------------
 # GoogleTest
 # -------------------------
-include(FetchContent)
+
 FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
@@ -199,6 +210,7 @@ add_executable(QT_Only_Test ${TEST_SOURCES} Backend/Controller/Animation.cpp
     Backend/Controller/PrimaryFlightData.cpp )
 
 target_link_libraries(QT_Only_Test PRIVATE gtest_main Qt6::Core 
+    ssh
     Qt6::Gui 
     Qt6::Widgets 
     Qt6::Qml 

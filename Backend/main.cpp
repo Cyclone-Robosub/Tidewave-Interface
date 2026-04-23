@@ -1,5 +1,5 @@
 #include "Controller/Animation.h"
-#include "Controller/Kernel.cpp"
+#include "Controller/SSH_Connection.hpp"
 #include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
 #include "autogen/environment.h"
@@ -26,7 +26,10 @@ int main(int argc, char *argv[]) {
       std::make_shared<TidalwaveROS>(dataModel);
   std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
 #endif
-std::thread KernelThread(StartThread, dataModel);
+  std::thread connection_thread([&](){
+    SSH_Connection connection = SSH_Connection(dataModel);
+  });
+  connection_thread.detach();
 #ifdef QTEnabled
   set_qt_environment();
   QApplication app(argc, argv);
@@ -58,7 +61,6 @@ std::thread KernelThread(StartThread, dataModel);
   animation->init();
  
  
-      KernelThread.detach();
   return app.exec();
 #endif
 }
