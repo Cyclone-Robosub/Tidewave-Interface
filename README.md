@@ -16,12 +16,17 @@ Qt dev 6.7 or higher required
 Starting from the main folder:
 
 ```bash
+source /opt/ros/jazzy/setup.bash
 cd Backend/custom_interfaces
 colcon build
 source install/setup.bash
-cd ../../
+cd ..
+cd remote_control_interface
+colcon build
+source install/setup.bash
+cd ../..
 colcon build --cmake-args -DQTBuild=OFF
-cd build
+cd build/TidalWave_InterfaceApp
 ./ROS2_ONLY_Test_exec 
 ```
 > Note: will only test the ros2 parts.
@@ -50,6 +55,17 @@ colcon build
 source install/setup.bash
 cd ../..
 colcon build
+cd build/Tidalwave_InterfaceApp
+./Tidalwave_InterfaceApp
+```
+#### Tools to Install
+```bash
+sudo apt update
+sudo apt install qt6-base-dev 
+sudo apt install qt6-multimedia-dev
+sudo apt install qt6-quicktimeline-dev
+sudo apt install qt6-declarative-dev
+sudo apt install qt6-shadertools-dev
 ```
 If version problems arise, check where your Qt download is located on your computer and input the directory after the equals sign in the Qt_Root argument. 
 ```bash

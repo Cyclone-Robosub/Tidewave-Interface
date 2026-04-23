@@ -35,8 +35,8 @@ void TidalwaveROS::CreateRobotROSSub() {
 		imu.m_z = msg->mag_array.magnetic_field.z;
 
 		imu.pressure = msg->pressure.fluid_pressure;
-		imu.roll.store(msg->roll);
-		imu.pitch.store(msg->pitch);
+		imu.roll.store((msg->roll*-180)/3.1415); //the imu is upside down
+		imu.pitch.store((msg->pitch*180)/3.1415);
 	};
 	 auto topic_callback =
       [this](remote_control_interface::msg::Gamepad::UniquePtr msg) -> void {
