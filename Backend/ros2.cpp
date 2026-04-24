@@ -38,20 +38,66 @@ void TidalwaveROS::CreateRobotROSSub() {
 		imu.roll.store((msg->roll*-180)/3.1415); //the imu is upside down
 		imu.pitch.store((msg->pitch*180)/3.1415);
 	};
-	 auto topic_callback =
-      [this](remote_control_interface::msg::Gamepad::UniquePtr msg) -> void {
-		std::lock_guard<std::mutex> lock(dataModel->joystick_data.mtx);
-		dataModel->joystick_data.x = msg->x;
-		dataModel->joystick_data.y = msg->y;
-		dataModel->joystick_data.sink = msg->sink;
-		dataModel->joystick_data.rise = msg->rise;
-		dataModel->joystick_data.pitch = msg->pitch;
-		dataModel->joystick_data.yaw = msg->yaw;
-      };
 	Current_Control_sub = this->create_subscription<std_msgs::msg::Bool>(
 		"current_mode", rclcpp::QoS(10), currentModeLamb, RobotOptions);
 	imu_sub = this->create_subscription<custom_interfaces::msg::Imu>(
 		"imu_custom", 10, currentIMU);
-		joystick_sub =
-      this->create_subscription<remote_control_interface::msg::Gamepad>("ps5_controller", rclcpp::QoS(10), topic_callback, RobotOptions);
+}
+void TidalwaveROS::update_gamepad(){
+	SDL_JoystickUpdate();
+	while(!joystick_connected_){
+		joystick_ = SDL_JoystickOpen(0);
+		if(joystick_){
+			joystick_connected_ = true;
+		}else{
+			std::cout << "Controller disconnected\n";
+			std::this_thread::sleep_for(1s);
+		}
+	}
+	auto message = custom_interfaces::msg::Gamepad();
+	// AI-generated code from previously AI generated code.
+	// --- Analog Axes Helpers ---
+        auto get_axis = [this](int axis_index, bool invert = false) -> float {
+            float val = SDL_JoystickGetAxis(joystick_, axis_index) / 32767.0f;
+            if (std::abs(val) < 0.1f) val = 0.0f; // Deadzone
+            return invert ? -val : val;
+        };
+
+        auto get_trigger = [this](int axis_index) -> float {
+            int16_t raw = SDL_JoystickGetAxis(joystick_, axis_index);
+            // Map -32768..32767 to 0.0..1.0
+            return (static_cast<float>(raw) + 32768.0f) / 65535.0f;
+        };
+
+        // --- Axis Mapping ---
+        message.x     = get_axis(0);          // Left Stick X
+        message.y     = get_axis(1, true);    // Left Stick Y (Inverted)
+        message.yaw   = get_axis(3);          // Right Stick X
+        message.pitch = get_axis(4, true);    // Right Stick Y (Inverted)
+        message.sink  = get_trigger(2);       // L2
+        message.rise  = get_trigger(5);       // R2
+
+        // --- Button Mapping ---
+        // Indices based on standard SDL2 PS5/DualSense driver layout
+        message.cross_button    = SDL_JoystickGetButton(joystick_, 0);
+        message.circle_button   = SDL_JoystickGetButton(joystick_, 1);
+        message.square_button   = SDL_JoystickGetButton(joystick_, 2);
+        message.triangle_button = SDL_JoystickGetButton(joystick_, 3);
+        
+        message.bumper_left     = SDL_JoystickGetButton(joystick_, 4);
+        message.bumper_right    = SDL_JoystickGetButton(joystick_, 5);
+        
+        message.select          = SDL_JoystickGetButton(joystick_, 8); // 'Create' button
+        message.start           = SDL_JoystickGetButton(joystick_, 9); // 'Options' button
+        
+        message.joystick_press_left  = SDL_JoystickGetButton(joystick_, 11);
+        message.joystick_press_right = SDL_JoystickGetButton(joystick_, 12);
+
+        // --- D-Pad (SDL Hat) ---
+        uint8_t hat = SDL_JoystickGetHat(joystick_, 0);
+        message.dpad_up    = (hat & SDL_HAT_UP);
+        message.dpad_down  = (hat & SDL_HAT_DOWN);
+        message.dpad_left  = (hat & SDL_HAT_LEFT);
+        message.dpad_right = (hat & SDL_HAT_RIGHT);
+	Joystick_pub->publish(message);
 }
