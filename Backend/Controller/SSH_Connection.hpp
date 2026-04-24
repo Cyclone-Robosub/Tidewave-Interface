@@ -10,10 +10,14 @@
 Make a worker function that takes in the given SSH channel, specific Model Data to detect, 
 starting bool state, and start and stop commands location. This function will use the mutex of the control data and condition variable in order to correctly change when the desired input is made.
 
-Reduce code repetition.
-Less steps to add more features.
-Centralized Data Inputs
-Easier Testing Implementation and Flexibility. 
+Pros:
+  Reduce code repetition.
+  Less steps to add more features.
+  Centralized Data Inputs
+  Easier Testing Implementation and Flexibility. 
+
+Cons:
+  Debugging might be harder if not accounted for?
 */
 
 
@@ -30,8 +34,8 @@ public:
       if (SetupSSHConnection() == SSH_OK) {
         // Inital State
         std::thread softwareThread(&SSH_Connection::StartRobotSoftwareState, this);
-		//Last function call should have the main thread work on it.
-		KillSwitchLoop();
+		    //Last function call should have the main thread work on it.
+        void KillSwitch_ActivateState();
       }
     }
   };
@@ -59,8 +63,9 @@ private:
   void StartRobotSoftwareState(); // Output -> Goes to StopRobotState
   void StopRobotSoftwareState();  // Output -> Goes to StartRobotState
   // Kill_Switch Electrical Thrusters Control
-  void KillSwitchLoop();
-  void KillSwitchStatus();
+  void KillSwitch_ActivateState();
+  void KillSwitch_DeactivateState();
+  //void KillSwitchStatus();
   bool is_KillSwitchOn;
   //  std::condition_variable KernelMessenger;
 };
