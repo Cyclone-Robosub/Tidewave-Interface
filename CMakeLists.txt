@@ -20,9 +20,14 @@ FetchContent_Declare(
   GIT_REPOSITORY https://git.libssh.org/projects/libssh.git
   GIT_TAG        libssh-0.10.5 
 )
-
-
 FetchContent_MakeAvailable(libssh)
+FetchContent_Declare(
+  SDL2
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+  GIT_TAG        release-2.30.2  # Use the latest stable 2.x release
+  SOURCE_SUBDIR  .
+)
+FetchContent_MakeAvailable(SDL2)
 ####################################################################
 
 if(QTBuild AND ROS2)
@@ -77,6 +82,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     PRIVATE
         ssh
          Qt6::Core
+         SDL2::SDL2
 	 Qt6::Quick
 	 Qt6::Qml 
 	 Qt6::Widgets 
@@ -116,13 +122,15 @@ elseif(NOT QTBuild AND ROS2)
 message("Only ros2 build")
 cmake_minimum_required(VERSION 3.8)
 project(Tidalwave_InterfaceApp)
-
+add_subdirectory(Backend/custom_interfaces)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(remote_control_interface REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBSSH REQUIRED libssh)
 
 OPTION(ROS2ONLY "only run the ros2 parts" ON)
 add_compile_definitions(ROS2ONLY)
@@ -135,8 +143,11 @@ ament_add_gtest( ROS2_ONLY_test_exec
     Backend/StateSaver/StateSaver.cpp
 )
     if(TARGET ROS2_ONLY_test_exec)
-        ament_target_dependencies(ROS2_ONLY_test_exec ssh rclcpp custom_interfaces remote_control_interface
+        ament_target_dependencies(ROS2_ONLY_test_exec rclcpp custom_interfaces remote_control_interface
         std_srvs)
+        target_link_libraries(ROS2_ONLY_test_exec
+  SDL2::SDL2
+)
     endif()
 ament_package()
 
