@@ -6,7 +6,19 @@
 #include <shared_mutex>
 #include <thread>
 #include <atomic>
+/* If it goes past software and hardware startups and status changing, 
+Make a worker function that takes in the given SSH channel, specific Model Data to detect, 
+starting the bool state, and the start and stop commands location. This function will use the mutex of the control data and the condition variable in order to correctly change when the desired input is made.
 
+Pros:
+  Reduce code repetition.
+  Fewer steps to add more features.
+  Centralized Data Inputs
+  Easier Testing Implementation and Flexibility. 
+
+Cons:
+  Debugging might be harder if not accounted for.
+*/
 class SSH_Connection {
 public:
     SSH_Connection(std::shared_ptr<DataModel> givenModel)
