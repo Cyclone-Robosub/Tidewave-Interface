@@ -21,7 +21,7 @@ struct IMU{
 
 struct Joystick{
 	std::mutex mtx;
-	double x; //
+	double x; 
 	double y;
 	double rise;
 	double sink;
@@ -30,8 +30,12 @@ struct Joystick{
 };
 struct ControlPath{
 	std::condition_variable_any Messenger;
-	std::shared_mutex ControlDataMutex;
-	bool isRunning{false};
+	std::shared_mutex SoftwareDataMutex;
+    std::shared_mutex FirmwareDataMutex;
+    bool isSoftwareCalled{false};
+	bool isFirmwareCalled{false};
+	std::atomic<bool> isSoftwareRunning{false};
+	std::atomic<bool> isFirmwareRunning{true};
 };
 
 struct DataModel {
