@@ -31,11 +31,11 @@ struct Joystick{
 struct ControlPath{
 	std::condition_variable_any Messenger;
 	std::shared_mutex SoftwareDataMutex;
-    std::shared_mutex HardwareDataMutex;
+    std::shared_mutex FirmwareDataMutex;
     bool isSoftwareCalled{false};
-	bool isHardwareCalled{false};
+	bool isFirmwareCalled{false};
 	std::atomic<bool> isSoftwareRunning{false};
-	std::atomic<bool> isHardwareRunning{true};
+	std::atomic<bool> isFirmwareRunning{true};
 };
 
 struct DataModel {

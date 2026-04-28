@@ -1,152 +1,123 @@
 #include "SSH_Connection.hpp"
+#include <fstream>
+#include <cstring>
+
+void SSH_Connection::Watchdog() {
+    // Watchdog implementation
+}
 
 int SSH_Connection::SetupSSHConnection() {
-  ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "propulsion");
-  int connection_status = ssh_connect(ssh_sessionPi5);
-  if (connection_status != SSH_OK) {
-    // Send Error to Dashboard
-    return SSH_ERROR;
-  } else {
-    // Authentication
-    // Skipping verifying server's identity, because what else would we plug our
-    // laptop into with this HostName?
-    connection_status = ssh_userauth_password(ssh_sessionPi5, NULL, "");
-    if (connection_status != SSH_AUTH_SUCCESS) {
-      // Send Error to Dashboard
-      std::cerr << ssh_get_error(ssh_sessionPi5) << std::endl;
-      return SSH_ERROR;
-    }
-    channelSoftware = ssh_channel_new(ssh_sessionPi5);
-    channelHardware = ssh_channel_new(ssh_sessionPi5);
-    if (channelSoftware == NULL || channelHardware == NULL) {
-      // Send Error to Dashboard;
-      return SSH_ERROR;
-    }
-    return SSH_OK;
-  }
-};
-
-void SSH_Connection::StartRobotSoftwareState() {
-  // Wait for Start Input
-  // Wait for Permission to Check
-  std::unique_lock<std::shared_mutex> lk(
-      dataModel->control_path.SoftwareDataMutex);
-  // Wait until we get the signal to Start
-  dataModel->control_path.Messenger.wait(
-      lk, [&] { return dataModel->control_path.isSoftwareCalled; });
-  std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
-  dataModel->control_path.isSoftwareCalled = false; //Clear signal.
-  lk.unlock(); 
-// Execute Start -> NOTIFY ANY OTHER KERNEL THREADS
-  //	KernelMessenger.notify_all();
-
-  // Execute Start Script on Robot
-SendStartCommand:
-  int result = ssh_channel_request_exec(channelSoftware, "");
-  if (result == SSH_ERROR) {
-    // Send Error to Dashboard
-    dataModel->control_path.isSoftwareRunning = false;
-    channelSoftware = ssh_channel_new(ssh_sessionPi5);
-    if (channelSoftware == NULL) {
-      // Send Error to Dashboard;
-      std::cerr << "Channel Error\n";
+    ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "propulsion");
+    int connection_status = ssh_connect(ssh_sessionPi5);
+    if (connection_status != SSH_OK) {
+        // Send Error to Dashboard
+        return SSH_ERROR;
     } else {
-      std::cerr << "Bad Command\n";
+        // Authentication
+        connection_status = ssh_userauth_password(ssh_sessionPi5, NULL, ""); //Password hashed.
+        if (connection_status != SSH_AUTH_SUCCESS) {
+            // Send Error to Dashboard
+            std::cerr << ssh_get_error(ssh_sessionPi5) << std::endl;
+            return SSH_ERROR;
+        }
+        channelSoftware = ssh_channel_new(ssh_sessionPi5);
+        channelFirmware = ssh_channel_new(ssh_sessionPi5);
+        if (channelSoftware == NULL || channelFirmware == NULL) {
+            // Send Error to Dashboard;
+            return SSH_ERROR;
+        }
+        return SSH_OK;
     }
-  } else {
-    std::cout << "Command Sent Successfully -> Start Command" << std::endl;
-    dataModel->control_path.isSoftwareRunning = true;
-	  StopRobotSoftwareState();
-  }
 }
 
-void SSH_Connection::StopRobotSoftwareState() {
-  // Wait for Stop Input
-  // Wait for Permission to Check
-  std::unique_lock<std::shared_mutex> lk(
-      dataModel->control_path.SoftwareDataMutex);
-  // Wait until we get the signal to Stop
-  dataModel->control_path.Messenger.wait(
-      lk, [&] { return (dataModel->control_path.isSoftwareCalled); });
-   dataModel->control_path.isSoftwareCalled = false;
-  lk.unlock();  
-std::cout << "--------------STOPPING ROBOT SOFTWARE--------------\n";
-SendStopCommand:
-  int result = ssh_channel_request_exec(channelSoftware, "");
-  if (result == SSH_ERROR) {
-    // Send Error to Dashboard
-    dataModel->control_path.isSoftwareRunning = true;
-    channelSoftware = ssh_channel_new(ssh_sessionPi5);
-    if (channelSoftware == NULL) {
-      // Send Error to Dashboard;
-      std::cerr << "Channel Error\n";
+void SSH_Connection::ExecuteCommand(ssh_channel channel, const std::string& command) {
+    int result = ssh_channel_request_exec(channel, command.c_str());
+    if (result == SSH_ERROR) {
+        // Send Error to Dashboard
+        runningState = !runningState; // Toggle state
+        channel = ssh_channel_new(ssh_sessionPi5);
+        if (channel == NULL) {
+            std::cerr << "Channel Error\n";
+        } else {
+            result = ssh_channel_request_exec(channel, command.c_str());
+            if (result == SSH_ERROR) {
+                std::cerr << "Bad Command\n";
+            }
+        }
     } else {
-      std::cerr << "Bad Command\n";
+        std::cout << "Command Sent Successfully -> " << command << std::endl;
+        runningState = !runningState; // Toggle state
     }
-  } else {
-    std::cout << "Command Sent Successfully -> Stop Software Command"
-              << std::endl;
-    dataModel->control_path.isSoftwareRunning = false;
-	StartRobotSoftwareState();
-  }
 }
 
-void SSH_Connection::KillSwitch_ActivateState() {
-  // Wait for Start Input
-  // Wait for Permission to Check
-  std::unique_lock<std::shared_mutex> lk(
-      dataModel->control_path.HardwareDataMutex);
-  // Wait until we get the signal to Start
-  dataModel->control_path.Messenger.wait(
-      lk, [&] { return (dataModel->control_path.isHardwareCalled); });
-  lk.unlock();
-  std::cout << "--------------ACTIVATING KILL SWITCH--------------\n";
+void SSH_Connection::ExecuteScript(ssh_channel channel, const std::string& scriptPath) {
+    std::ifstream scriptFile(scriptPath);
+    std::string line;
 
-SendActivateCommand:
-  int result = ssh_channel_request_exec(channelHardware, "");
-  if (result == SSH_ERROR) {
-    // Send Error to Dashboard
-    dataModel->control_path.isHardwareRunning = true;
-    channelHardware = ssh_channel_new(ssh_sessionPi5);
-    if (channelHardware == NULL) {
-      // Send Error to Dashboard;
-      std::cerr << "Channel Error\n";
-    } else {
-      std::cerr << "Bad Command\n";
+    while (std::getline(scriptFile, line)) {
+        char cArr[line.length() + 1];
+        strcpy(cArr, line.c_str());
+        int bitsWritten = ssh_channel_write(channel, cArr, line.length() + 1);
+
+        if (bitsWritten != line.length() + 1) {
+            // Send Error to Dashboard
+            runningState = false;
+            channel = ssh_channel_new(ssh_sessionPi5);
+            if (channel == NULL) {
+                std::cerr << "Channel Error\n";
+                return;
+            } else {
+                bitsWritten = ssh_channel_write(channel, cArr, line.length() + 1);
+                if (bitsWritten != line.length() + 1) {
+                    std::cerr << "Bad Command\n";
+                    return;
+                }
+            }
+        }
     }
-  } else {
-    std::cout << "Command Sent Successfully -> Activate Kill Switch Command" << std::endl;
-    dataModel->control_path.isHardwareRunning = false;
-	KillSwitch_DeactivateState();
-  }
+    std::cout << "Commands Sent Successfully -> " << scriptPath << std::endl;
+    runningState = true;
 }
 
-void SSH_Connection::KillSwitch_DeactivateState() {
-  // Wait for Stop Input
-  // Wait for Permission to Check
-  std::unique_lock<std::shared_mutex> lk(
-      dataModel->control_path.HardwareDataMutex);
-  // Wait until we get the signal to Stop
-  dataModel->control_path.Messenger.wait(
-      lk, [&] { return dataModel->control_path.isHardwareCalled; });
-	lk.unlock();
-  std::cout << "--------------Deactivating Kill Switch--------------\n";
-  // Kill Switch Deactivate
-DeactivateCommand:
-  int result = ssh_channel_request_exec(channelHardware, "");
-  if (result == SSH_ERROR) {
-    // Send Error to Dashboard
-    channelHardware = ssh_channel_new(ssh_sessionPi5);
-    if (channelSoftware == NULL) {
-      // Send Error to Dashboard;
-      std::cerr << "Channel Error\n";
-    } else {
-      std::cerr << "Bad Command\n";
+void SSH_Connection::SoftwareStateMachine() {
+    while (true) {
+        // Wait for Start Input
+        std::unique_lock<std::shared_mutex> lk(dataModel->control_path.SoftwareDataMutex);
+        dataModel->control_path.Messenger.wait(
+            lk, [&] { return dataModel->control_path.isSoftwareCalled; });
+        dataModel->control_path.isSoftwareCalled = false;
+        lk.unlock();
+
+        if (dataModel->control_path.isSoftwareRunning) {
+            // Stop the software
+            std::cout << "--------------STOPPING ROBOT SOFTWARE--------------\n";
+          //  ExecuteCommand(channelSoftware, "bash", dataModel->control_path.isSoftwareRunning);
+        } else {
+            // Start the software
+            std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
+         //   ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh", dataModel->control_path.isSoftwareRunning);
+        }
     }
-  } else {
-    std::cout << "Command Sent Successfully -> Stop Software Command"
-              << std::endl;
-	dataModel->control_path.isHardwareRunning= true;    
-StartRobotSoftwareState();
-  }
 }
+
+void SSH_Connection::FirmwareStateMachine() {
+    while (true) {
+        // Wait for Activate/Deactivate Input
+        std::unique_lock<std::shared_mutex> lk(dataModel->control_path.FirmwareDataMutex);
+        dataModel->control_path.Messenger.wait(
+            lk, [&] { return dataModel->control_path.isFirmwareCalled; });
+        dataModel->control_path.isFirmwareCalled = false;
+        lk.unlock();
+
+        if (dataModel->control_path.isFirmwareRunning) {
+            // Deactivate the kill switch
+            std::cout << "--------------DEACTIVATING KILL SWITCH--------------\n";
+          //  ExecuteCommand(channelFirmware, "", dataModel->control_path.isFirmwareRunning);
+        } else {
+            // Activate the kill switch
+            std::cout << "--------------ACTIVATING KILL SWITCH--------------\n";
+          //  ExecuteCommand(channelFirmware, "", dataModel->control_path.isFirmwareRunning);
+        }
+    }
+}
+
