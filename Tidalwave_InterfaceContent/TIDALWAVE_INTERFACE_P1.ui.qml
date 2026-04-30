@@ -9,7 +9,8 @@ Flickable {
     contentHeight: 1440
     clip: true
 
-
+property alias videoSurface: cAMERA 
+    property alias cameraActive: cAMERA.isCameraActive
 Rectangle {
     id: tIDALWAVE_INTERFACE_P1
 
@@ -24,15 +25,16 @@ Rectangle {
     anchors.right: parent.right
     anchors.margins: 20
     */
-    VideoOutput {
+   VideoOutput {
     id: cAMERA
-   // x: 19
-    //y: 95
     width: 750
-    height: 500    
-   anchors.top: parent.top
+    height: 500
+    anchors.top: parent.top
     anchors.left: parent.left
     anchors.margins: 60
+
+    // Property to track camera state
+    property bool isCameraActive: false
 
     // Optional: add a background to see the area before the stream starts
     Rectangle {
@@ -40,17 +42,236 @@ Rectangle {
         color: "black"
         z: -1
     }
-}
-MediaPlayer {
-        id: ffmpegPlayer
-        source: "rtsp://localhost:8554/cam"
-        videoOutput: cAMERA 
-        // Set to true so it starts as soon as the app opens
-       Component.onCompleted: ffmpegPlayer.play() 
-        onErrorOccurred: (error, errorString) => {
-            console.log("RTSP Error: " + errorString + " here");
+
+    // Camera UI elements
+    Rectangle {
+        id: cameraUI
+        height: 512
+        width: 892
+        clip: true
+        color: "#ccdbdc"
+        radius: 12
+        visible: cAMERA.isCameraActive
+
+        Rectangle {
+            id: frame_2
+            x: 18
+            y: 18
+            height: 476
+            width: 856
+            border.color: "#9ad1d4"
+            border.width: 1
+            clip: true
+            color: "#ffffff"
+            radius: 12
+
+            // Recording controls
+            Item {
+                id: rECORDING
+                x: 667
+                y: 12
+                height: 30
+                width: 177
+                visible: cAMERA.isCameraActive
+
+                Rectangle {
+                    id: tIME
+                    height: 30
+                    width: 109
+                    border.color: "#9ad1d4"
+                    border.width: 1
+                    clip: true
+                    color: "#ffffff"
+                    radius: 12
+
+                    Item {
+                        id: cIRCLE
+                        x: 12
+                        y: 10
+                        height: 10
+                        width: 8
+                        clip: true
+
+                        Rectangle {
+                            id: rECORDING_1
+                            y: 2
+                            height: 8
+                            width: 8
+                            clip: true
+                            color: "#ff0606"
+                            radius: 100
+                        }
+                    }
+
+                    Text {
+                        id: element
+                        x: 26
+                        y: 4
+                        height: 22
+                        width: 72
+                        color: "#01696c"
+                        font.family: "Univers"
+                        font.pixelSize: 18
+                        font.weight: Font.Normal
+                        horizontalAlignment: Text.AlignLeft
+                        text: "00:00:00"
+                        textFormat: Text.PlainText
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.WordWrap
+                    }
+                }
+
+                Rectangle {
+                    id: pLAY
+                    x: 115
+                    y: 1
+                    height: 28
+                    width: 28
+                    border.color: "#9ad1d4"
+                    border.width: 1
+                    clip: true
+                    color: "#ffffff"
+                    radius: 200
+
+                    Rectangle {
+                        id: frame_53
+                        x: 11
+                        y: 11
+                        height: 6
+                        width: 6
+                        clip: true
+                        color: "#02b0b6"
+                        radius: 100
+                    }
+                }
+
+                Rectangle {
+                    id: sAVE_DL
+                    x: 149
+                    y: 1
+                    height: 28
+                    width: 28
+                    border.color: "#9ad1d4"
+                    border.width: 1
+                    clip: true
+                    color: "#ffffff"
+                    radius: 200
+
+                    Rectangle {
+                        id: frame_54
+                        x: 11
+                        y: 11
+                        height: 6
+                        width: 6
+                        clip: true
+                        color: "#02b0b6"
+                        radius: 100
+                    }
+                }
+            }
+
+            Rectangle {
+                id: fEED
+                x: 12
+                y: 12
+                height: 30
+                width: 95
+                border.color: "#9ad1d4"
+                border.width: 1
+                clip: true
+                color: "#ffffff"
+                radius: 12
+
+                Text {
+                    id: fEED_01
+                    x: 12
+                    y: 4
+                    height: 22
+                    width: 72
+                    color: "#01696c"
+                    font.family: "Univers"
+                    font.pixelSize: 18
+                    font.weight: Font.Normal
+                    horizontalAlignment: Text.AlignLeft
+                    text: "FEED 01"
+                    textFormat: Text.PlainText
+                    verticalAlignment: Text.AlignTop
+                    wrapMode: Text.WordWrap
+                }
+            }
+
+            Item {
+                id: cAMERA_SELECTOR
+                x: 415
+                y: 458
+                height: 6
+                width: 26
+
+                Rectangle {
+                    id: cIRCLE_1
+                    height: 6
+                    width: 6
+                    clip: true
+                    color: "#878787"
+                    radius: 100
+                }
+
+                Rectangle {
+                    id: cIRCLE_2
+                    x: 10
+                    height: 6
+                    width: 6
+                    clip: true
+                    color: "#bebebe"
+                    radius: 100
+                }
+
+                Rectangle {
+                    id: cIRCLE_3
+                    x: 20
+                    height: 6
+                    width: 6
+                    clip: true
+                    color: "#bebebe"
+                    radius: 100
+                }
+            }
         }
     }
+
+    // Offline UI
+    Item {
+        id: oFFLINE
+        x: 239
+        y: 227
+        height: 22
+        width: 378
+        visible: !cAMERA.isCameraActive
+
+        Item {
+            id: cAMERA_FEED_OFFLINE
+            height: 22
+            width: 378
+
+            Text {
+                id: oFFLINE_1
+                x: 151.50
+                height: 22
+                width: 76
+                color: "#9ad1d4"
+                font.family: "Univers"
+                font.pixelSize: 18
+                font.weight: Font.Normal
+                horizontalAlignment: Text.AlignLeft
+                text: "OFFLINE"
+                textFormat: Text.PlainText
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.WordWrap
+            }
+        }
+    }
+}
+
     GRAPH_COMPONENTS {
         id: gRAPH_COMPONENTS
 
@@ -405,7 +626,7 @@ MediaPlayer {
                     width: 52
 
                     Text {
-                        id: element
+                    //    id: element
 
                         height: 15
                         width: 53
@@ -432,6 +653,48 @@ MediaPlayer {
 
         clip: true
         property_1: MISSION_PATH_TOGGLE.Property_2.Property_2_Default
+    }
+    // Place this at the very bottom of tIDALWAVE_INTERFACE_P1
+    Rectangle {
+        id: e_STOP
+        width: 160
+        height: 160
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.margins: 10 // Gives it that slight offset from the corner
+        color: "#ccdbdc"
+        radius: 12
+        z: 100 // High Z-order ensures it stays above the camera and bars
+
+        Rectangle {
+            id: e_STOP_OUTER_CIRCLE
+            anchors.centerIn: parent
+            height: 124
+            width: 124
+            border.color: "#9ad1d4"
+            border.width: 1
+            color: "#f1f8f9"
+            radius: 500
+
+            Rectangle {
+                id: e_STOP_INNER_CIRCLE
+                anchors.centerIn: parent
+                height: 100
+                width: 100
+                color: "#ff4545"
+                radius: 500
+
+                Text {
+                    id: sTOP_TEXT
+                    anchors.centerIn: parent
+                    color: "#f0f6fa"
+                    font.family: "Univers"
+                    font.pixelSize: 20
+                    font.weight: Font.Bold
+                    text: "STOP"
+                }
+            }
+        }
     }
 }
 }
