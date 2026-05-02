@@ -70,8 +70,8 @@ private:
     void FirmwareStateMachine();
 
     // Helper functions
-    void ExecuteCommand(ssh_channel channel, const std::string& command, bool& runningState);
-    void ExecuteScript(ssh_channel channel, const std::string& scriptPath, bool& runningState);
+    void ExecuteCommand(ssh_channel channel, const std::string& command);
+    void ExecuteScript(ssh_channel channel, const std::string& scriptPath);
 
     bool is_KillSwitchOn;
 };
