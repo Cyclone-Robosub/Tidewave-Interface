@@ -7,7 +7,11 @@
 - [ ] Hardware Test
   - [ ] Testing Function
 ### Mission Path Communication
-- [ ] Service Call to start Mission Manager.
-  - [ ] Ensure proper logic in the Kernel.cpp
+- [ ] Service Call parameter fill in to start Mission Manager.
+
+
+
+### Software Testing
+- [ ] SSH Communication and Mission Path
 ### Completed Column ✓
 - [x] Completed task title  

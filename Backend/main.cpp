@@ -1,5 +1,5 @@
 #include "Controller/Animation.h"
-#include "Controller/SSH_Connection.hpp"
+#include "Controller/Kernel.cpp"
 #include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
 #include "autogen/environment.h"
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
 #endif
   std::thread connection_thread([&](){
-    SSH_Connection connection = SSH_Connection(dataModel);
+    SSH_Connection connection = SSH_Connection(dataModel, ROSobject);
   });
   connection_thread.detach();
 #ifdef QTEnabled

@@ -96,6 +96,7 @@ void SSH_Connection::SoftwareStateMachine() {
             // Start the software
             std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
          //   ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh", dataModel->control_path);
+         ROSObject->MMServiceCall();
          // isSoftwareRunning = true;
         }
     }

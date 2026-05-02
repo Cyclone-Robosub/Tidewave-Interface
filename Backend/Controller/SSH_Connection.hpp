@@ -1,6 +1,7 @@
 #include "../Model.hpp"
 #include <iostream>
 #include <libssh/libssh.h>
+#include "../ros2.hpp"
 #include <memory>
 #include <mutex>
 #include <shared_mutex>
@@ -21,15 +22,15 @@ Cons:
 */
 class SSH_Connection {
 public:
-    SSH_Connection(std::shared_ptr<DataModel> givenModel)
-        : dataModel(givenModel) {
+    SSH_Connection(std::shared_ptr<DataModel> givenModel, std::shared_ptr<TidalwaveROS> givenROS)
+        : dataModel(givenModel), ROSobject(givenROS) {
         if (ssh_sessionPi5 == NULL) {
             // Send Error to dashboard
         } else {
             if (SetupSSHConnection() == SSH_OK) {
                 // Start state machines
                 softwareThread = std::thread(&SSH_Connection::SoftwareStateMachine, this);
-                Watchdog();
+                softwareThread.join();
             }
         }
     }
@@ -49,7 +50,6 @@ public:
 
     ~SSH_Connection() {
         if (softwareThread.joinable()) softwareThread.join();
-        if (picoThread.joinable()) picoThread.join();
     }
 
 private:
@@ -58,15 +58,15 @@ private:
     ssh_session ssh_sessionPi5 = ssh_new();
     ssh_channel channelSoftware = NULL;
     std::shared_ptr<DataModel> dataModel;
-
+    std::shared_ptr<TidalwaveROS> ROSobject;
     int SetupSSHConnection();
 
     // State machine functions
     void SoftwareStateMachine();
 
     // Helper functions
-    void ExecuteCommand(ssh_channel channel, const std::string& command);
-    void ExecuteScript(ssh_channel channel, const std::string& scriptPath);
+    int ExecuteCommand(ssh_channel channel, const std::string& command);
+    int ExecuteScript(ssh_channel channel, const std::string& scriptPath);
 
     bool is_KillSwitchOn;
 };
