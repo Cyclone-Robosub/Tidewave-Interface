@@ -43,7 +43,7 @@ make
 > Note: will only test the Qt parts.
 ### x86 (Windows/Ubuntu) 
 
-> Assuming you have went through the trial and error process of downloading every QT package imaginable,
+> Assuming you have went through the trial and error process of downloading every QT package imaginable, run this script inside the Tidalwave Interface folder.
 ```bash
 source /opt/ros/jazzy/setup.bash
 cd Backend/custom_interfaces
