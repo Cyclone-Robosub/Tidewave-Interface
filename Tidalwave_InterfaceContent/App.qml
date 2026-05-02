@@ -34,7 +34,7 @@ Window {
     TIDALWAVE_INTERFACE_P1 {
         id: mainUI
         anchors.fill: parent
-        videoSurface.fillMode: VideoOutput.PreserveAspectFit
+        /* FIXME implement this: videoSurface.fillMode: VideoOutput.PreserveAspectFit*/
         cameraActive : false
     }
 
