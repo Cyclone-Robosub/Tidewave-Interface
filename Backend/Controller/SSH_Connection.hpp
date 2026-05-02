@@ -29,7 +29,6 @@ public:
             if (SetupSSHConnection() == SSH_OK) {
                 // Start state machines
                 softwareThread = std::thread(&SSH_Connection::SoftwareStateMachine, this);
-                picoThread = std::thread(&SSH_Connection::FirmwareStateMachine, this);
                 Watchdog();
             }
         }
@@ -55,19 +54,15 @@ public:
 
 private:
     void Watchdog();
-    std::atomic<bool> Failure;
     std::thread softwareThread;
-    std::thread picoThread;
     ssh_session ssh_sessionPi5 = ssh_new();
     ssh_channel channelSoftware = NULL;
-    ssh_channel channelFirmware = NULL;
     std::shared_ptr<DataModel> dataModel;
 
     int SetupSSHConnection();
 
     // State machine functions
     void SoftwareStateMachine();
-    void FirmwareStateMachine();
 
     // Helper functions
     void ExecuteCommand(ssh_channel channel, const std::string& command);
