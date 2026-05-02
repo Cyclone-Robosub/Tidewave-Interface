@@ -31,7 +31,6 @@ int SSH_Connection::ExecuteCommand(ssh_channel channel, const std::string& comma
     int result = ssh_channel_request_exec(channel, command.c_str());
     if (result == SSH_ERROR) {
         // Send Error to Dashboard
-        runningState = !runningState; // Toggle state
         channel = ssh_channel_new(ssh_sessionPi5);
         if (channel == NULL) {
             std::cerr << "Channel Error\n";
@@ -59,7 +58,6 @@ int SSH_Connection::ExecuteScript(ssh_channel channel, const std::string& script
 
         if (bitsWritten != line.length() + 1) {
             // Send Error to Dashboard
-            runningState = false;
             channel = ssh_channel_new(ssh_sessionPi5);
             if (channel == NULL) {
                 std::cerr << "Channel Error\n";
