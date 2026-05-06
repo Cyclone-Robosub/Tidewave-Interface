@@ -12,7 +12,7 @@ int SSH_Connection::SetupSSHConnection() {
         return SSH_ERROR;
     } else {
         // Authentication
-        connection_status = ssh_userauth_password(ssh_sessionPi5, NULL, ""); //Password hashed.
+        connection_status = ssh_userauth_publickey_auto(session, NULL, NULL);
         if (connection_status != SSH_AUTH_SUCCESS) {
             // Send Error to Dashboard
             std::cerr << ssh_get_error(ssh_sessionPi5) << std::endl;
@@ -87,17 +87,15 @@ void SSH_Connection::SoftwareStateMachine() {
         if (dataModel->control_path.isSoftwareRunning) {
             // Stop the software
             std::cout << "--------------STOPPING ROBOT SOFTWARE--------------\n";
-          /*  if(ExecuteCommand(channelSoftware, "bash")){
+            if(ExecuteCommand(channelSoftware, "tmux kill-server")){
                     isSoftwareRunning = false; 
-        }*/
-          
-
+             }
         } else {
             // Start the software
             std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
-         //   ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh", dataModel->control_path);
-         ROSObject->MMServiceCall();
-         // isSoftwareRunning = true;
+         if(ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh", dataModel->control_path)){
+            ROSObject->MMServiceCall();
+            isSoftwareRunning = true;}
         }
     }
 }
