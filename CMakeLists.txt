@@ -42,6 +42,7 @@ project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 # CMakeLists.txt
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(LibSSH REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(remote_control_interface REQUIRED)
@@ -92,6 +93,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
  	${custom_interfaces_LIBRARIES}
 	${remote_control_interface_LIBRARIES}
 	${std_srvs_LIBRARIES}
+    ${LIBSSH_LIBRARIES}
 	Tidalwave_Interface
 	Tidalwave_Interfaceplugin
 	Tidalwave_InterfaceContent
