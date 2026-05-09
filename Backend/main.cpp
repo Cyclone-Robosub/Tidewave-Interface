@@ -1,5 +1,5 @@
 #include "Controller/Animation.h"
-#include "Controller/Kernel.cpp"
+#include "Controller/SSH_Connection.hpp"
 #include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
 #include "autogen/environment.h"
