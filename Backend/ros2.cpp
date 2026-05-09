@@ -100,6 +100,8 @@ void TidalwaveROS::update_gamepad(){
         message.dpad_left  = (hat & SDL_HAT_LEFT);
         message.dpad_right = (hat & SDL_HAT_RIGHT);
 	Joystick_pub->publish(message);
+	auto messageHeartbeat = std_msgs::msg::Empty();
+	JoystickHB_pub->publish(messageHeartbeat);
 }
 
 void TidalwaveROS::MMServiceCall(){
