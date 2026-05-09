@@ -9,10 +9,11 @@ int SSH_Connection::SetupSSHConnection() {
     int connection_status = ssh_connect(ssh_sessionPi5);
     if (connection_status != SSH_OK) {
         // Send Error to Dashboard
+        std::cout << "SSH_Connection Connection to Robot Failed\n";
         return SSH_ERROR;
     } else {
         // Authentication
-        connection_status = ssh_userauth_publickey_auto(session, NULL, NULL);
+        connection_status = ssh_userauth_publickey_auto(ssh_sessionPi5, NULL, NULL);
         if (connection_status != SSH_AUTH_SUCCESS) {
             // Send Error to Dashboard
             std::cerr << ssh_get_error(ssh_sessionPi5) << std::endl;
@@ -88,14 +89,14 @@ void SSH_Connection::SoftwareStateMachine() {
             // Stop the software
             std::cout << "--------------STOPPING ROBOT SOFTWARE--------------\n";
             if(ExecuteCommand(channelSoftware, "tmux kill-server")){
-                    isSoftwareRunning = false; 
+                    dataModel->control_path.isSoftwareRunning = false; 
              }
         } else {
             // Start the software
             std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
-         if(ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh", dataModel->control_path)){
-            ROSObject->MMServiceCall();
-            isSoftwareRunning = true;}
+         if(ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh")){
+            ROSobject->MMServiceCall();
+            dataModel->control_path.isSoftwareRunning = true;}
         }
     }
 }
