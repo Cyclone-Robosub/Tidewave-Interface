@@ -5,7 +5,7 @@
 
 
 int SSH_Connection::SetupSSHConnection() {
-    ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "propulsion");
+    ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "cyclone@propulsion.local");
     int connection_status = ssh_connect(ssh_sessionPi5);
     if (connection_status != SSH_OK) {
         // Send Error to Dashboard
@@ -13,7 +13,8 @@ int SSH_Connection::SetupSSHConnection() {
         return SSH_ERROR;
     } else {
         // Authentication
-        connection_status = ssh_userauth_publickey_auto(ssh_sessionPi5, NULL, NULL);
+        ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "propulsion");
+        int connection_status = ssh_connect(ssh_sessionPi5);
         if (connection_status != SSH_AUTH_SUCCESS) {
             // Send Error to Dashboard
             std::cerr << ssh_get_error(ssh_sessionPi5) << std::endl;
