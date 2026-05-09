@@ -1,12 +1,17 @@
 # Backend
-ROS2 
 
-### Camera
-- [ ] Fix Delay 
+### SSH Communication
+- [ ] Authentication Handling
+  - [ ] Password hash or SSH key passing
+- [ ] Create Script to start the robot 
+- [ ] Hardware Test
+  - [ ] Testing Function
+### Mission Path Communication
+- [ ] Service Call parameter fill in to start Mission Manager.
 
-### Start and Stop Communication
-- [ ] Contact Sys-Arch team on how to communicate startup script.
-- [ ] Implement Controller Actions and Model
 
+
+### Software Testing
+- [ ] SSH Communication and Mission Path
 ### Completed Column ✓
 - [x] Completed task title  
