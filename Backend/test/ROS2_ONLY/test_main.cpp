@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
+#include "../../Controller/SSH_Connection.hpp"
 
-#include "../../ros2.hpp"
 
 using namespace std::chrono_literals;
 
@@ -24,18 +24,16 @@ protected:
 };
 
 TEST_F(TidalwaveFixture, EverythingTest) {
-  // 1. Start spinning the node in a background thread
   std::jthread ros_thread([this]() { rclcpp::spin(node); });
-
-  // 2. Prepare the message
   auto msg = std_msgs::msg::Bool();
   msg.data = true;
-
-  // 3. Publish and wait for the atomic load to flip
-  // We use a timeout to prevent the test from hanging forever if it fails
   auto start_time = std::chrono::steady_clock::now();
   bool success = false;
-
+  std::thread connection_thread([&](){
+    std::cout << "here";
+    SSH_Connection connection = SSH_Connection(dataModel,node);
+  });
+  connection_thread.detach();
   while (std::chrono::steady_clock::now() - start_time < 2s) {
     publisher->publish(msg);
     std::cout << "published msg" << std::endl;
@@ -46,7 +44,19 @@ TEST_F(TidalwaveFixture, EverythingTest) {
     std::this_thread::sleep_for(100ms);
   }
 
-  EXPECT_TRUE(success) << "Failed to detect current_mode change within timeout";
+  EXPECT_TRUE(success) << "Failed to detect current_mode change within timeout\n";
+  std::unique_lock<std::shared_mutex> lk(dataModel->control_path.SoftwareDataMutex);
+  dataModel->control_path.isSoftwareCalled = true;
+  dataModel->control_path.Messenger.notify_all();
+  lk.unlock();
+  start_time = std::chrono::steady_clock::now();
+  while(std::chrono::steady_clock::now() - start_time < 8s){
+    if(!dataModel->control_path.isSoftwareRunning){
+      std::cout << "waiting\n";
+      sleep(1);
+    }
+  }
+  EXPECT_TRUE(dataModel->control_path.isSoftwareRunning) << "Failed to start\n";
   rclcpp::shutdown();
   ros_thread.join();
 }

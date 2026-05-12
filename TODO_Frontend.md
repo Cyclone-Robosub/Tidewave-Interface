@@ -6,7 +6,7 @@
 - [ ] Hardware Testing
 
 ### Start Software Button
-- [ ] Controller Code
+- [ ] Controller code for UI. 
  
 ### Graphs and Tables
 - [ ] Implement Graphs and Tables with the new UI Files.

@@ -12,7 +12,7 @@ if(APPLE)
 else()
     option(ROS2 "Set ON to develop ROS" ON)
 endif()
-
+ 
 include(FetchContent)
 
 FetchContent_Declare(
@@ -42,6 +42,7 @@ project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 # CMakeLists.txt
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(LibSSH REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(remote_control_interface REQUIRED)
@@ -92,6 +93,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
  	${custom_interfaces_LIBRARIES}
 	${remote_control_interface_LIBRARIES}
 	${std_srvs_LIBRARIES}
+    ${LIBSSH_LIBRARIES}
 	Tidalwave_Interface
 	Tidalwave_Interfaceplugin
 	Tidalwave_InterfaceContent
@@ -129,6 +131,7 @@ find_package(custom_interfaces REQUIRED)
 find_package(remote_control_interface REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(LibSSH REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBSSH REQUIRED libssh)
 
@@ -140,13 +143,15 @@ add_compile_definitions(ROS2ONLY)
 ament_add_gtest( ROS2_ONLY_test_exec
     Backend/test/ROS2_ONLY/test_main.cpp
     Backend/ros2.cpp
+    Backend/Controller/SSH_Connection.cpp
     Backend/StateSaver/StateSaver.cpp
 )
     if(TARGET ROS2_ONLY_test_exec)
         ament_target_dependencies(ROS2_ONLY_test_exec rclcpp custom_interfaces remote_control_interface
-        std_srvs)
+        std_srvs )
         target_link_libraries(ROS2_ONLY_test_exec
-  SDL2::SDL2
+  SDL2::SDL2 
+  ${LIBSSH_LIBRARIES}
 )
     endif()
 ament_package()

@@ -5,14 +5,16 @@
 
 
 int SSH_Connection::SetupSSHConnection() {
-    ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "propulsion");
+    ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "cyclone@propulsion.local");
     int connection_status = ssh_connect(ssh_sessionPi5);
     if (connection_status != SSH_OK) {
         // Send Error to Dashboard
+        std::cout << "SSH_Connection Connection to Robot Failed\n";
         return SSH_ERROR;
     } else {
         // Authentication
-        connection_status = ssh_userauth_password(ssh_sessionPi5, NULL, ""); //Password hashed.
+        ssh_options_set(ssh_sessionPi5, SSH_OPTIONS_HOST, "propulsion");
+        int connection_status = ssh_connect(ssh_sessionPi5);
         if (connection_status != SSH_AUTH_SUCCESS) {
             // Send Error to Dashboard
             std::cerr << ssh_get_error(ssh_sessionPi5) << std::endl;
@@ -87,16 +89,15 @@ void SSH_Connection::SoftwareStateMachine() {
         if (dataModel->control_path.isSoftwareRunning) {
             // Stop the software
             std::cout << "--------------STOPPING ROBOT SOFTWARE--------------\n";
-          /*  if(ExecuteCommand(channelSoftware, "bash")){
-                    isSoftwareRunning = false; 
-        }*/
-          
-
+            if(ExecuteCommand(channelSoftware, "tmux kill-server")){
+                    dataModel->control_path.isSoftwareRunning = false; 
+             }
         } else {
             // Start the software
             std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
-         //   ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh", dataModel->control_path);
-         // isSoftwareRunning = true;
+         if(ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh")){
+            ROSobject->MMServiceCall();
+            dataModel->control_path.isSoftwareRunning = true;}
         }
     }
 }

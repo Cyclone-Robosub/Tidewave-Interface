@@ -26,8 +26,8 @@ colcon build
 source install/setup.bash
 cd ../..
 colcon build --cmake-args -DQTBuild=OFF
-cd build/TidalWave_InterfaceApp
-./ROS2_ONLY_Test_exec 
+cd build/Tidalwave_InterfaceApp
+./ROS2_ONLY_test_exec 
 ```
 > Note: will only test the ros2 parts.
 #### Without ROS2 Environment

@@ -36,9 +36,9 @@ struct ControlPath{
 };
 
 struct DataModel {
-	std::atomic<bool> current_mode;
 	IMU imu_data;
-	Joystick joystick_data;
 	ControlPath control_path;
+	Joystick joystick_data;
+	std::atomic<bool> current_mode;
 };
 

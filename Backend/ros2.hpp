@@ -8,6 +8,7 @@
 #include "remote_control_interface/msg/gamepad.hpp"
 #include <SDL2/SDL.h>
 #include <atomic>
+// #include "example_interfaces/srv/add_two_ints.hpp"
 #include <memory>
 using namespace std::chrono_literals;
 class TidalwaveROS : public rclcpp::Node {
@@ -27,7 +28,7 @@ public:
   };
 
   std::atomic<bool> ROS_enabled{false};
-
+  void MMServiceCall();
 private:
   std::shared_ptr<DataModel> dataModel;
   void CreateRobotROSSub();
