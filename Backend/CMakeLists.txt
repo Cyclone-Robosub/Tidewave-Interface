@@ -11,7 +11,6 @@ target_sources(${CMAKE_PROJECT_NAME} PUBLIC
 else()
 	target_sources(${CMAKE_PROJECT_NAME} PUBLIC
     "main.cpp"
-    "Controller/SSH_Connection.cpp"
     "Controller/Animation.cpp"
     "Controller/PrimaryFlightData.cpp"
 )
