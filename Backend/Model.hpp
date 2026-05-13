@@ -18,7 +18,9 @@ struct IMU{
 	std::atomic<float> roll = 0.0;
 	std::atomic<float> pitch = 0.0;
 };
+struct HeartBeats{
 
+};
 struct Joystick{
 	std::mutex mtx;
 	double x; 
@@ -37,6 +39,7 @@ struct ControlPath{
 
 struct DataModel {
 	IMU imu_data;
+	HeartBeats heartbeats;
 	ControlPath control_path;
 	Joystick joystick_data;
 	std::atomic<bool> current_mode;

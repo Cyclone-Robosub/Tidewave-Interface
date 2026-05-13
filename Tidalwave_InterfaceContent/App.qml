@@ -5,11 +5,11 @@ import Tidalwave_InterfaceContent
 
 Window {
     id: window
-    width: 2440 
-    height: 1660
+    width: 1920 
+    height: 1080
     visible: true
     title: "Tidalwave Interface"
-
+    color:"#295551"
     // 1. Define the Player here (Logic is allowed in .qml)
    MediaPlayer {
     id: ffmpegPlayer
@@ -35,13 +35,13 @@ Window {
         id: mainUI
         anchors.fill: parent
         /* FIXME implement this: videoSurface.fillMode: VideoOutput.PreserveAspectFit*/
-        cameraActive : false
+      //  cameraActive : false
     }
 
     // 3. Start the stream
     Component.onCompleted: {
         console.log("COMPLETED")
-        mainUI.cameraActive = true
+   //     mainUI.cameraActive = true
         ffmpegPlayer.play()
     }
 }

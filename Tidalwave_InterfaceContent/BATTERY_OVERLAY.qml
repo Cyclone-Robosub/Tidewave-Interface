@@ -3,11 +3,11 @@ import QtQuick
 Rectangle {
     id: bATTERY_OVERLAY
 
-    height: 659
+    height: 584
     width: 564
 
-    color: "#ccdbdc"
-    radius: 24
+    color: "#ffffff"
+    radius: 12
 
     Rectangle {
         id: gRAPH
@@ -24,92 +24,11 @@ Rectangle {
         color: "#ffffff"
         radius: 16
 
-        Item {
-            id: gRAPH_TITLE
-
-            x: 16
-            y: 16
-
-            height: 32
-            width: 484
-
-            Item {
-                id: nUMBER_DROPDOWN
-
-                x: 4
-                y: 7.50
-
-                height: 17
-                width: 170
-
-                Text {
-                    id: overall_Battery
-                    x: 0
-                    y: -6
-
-                    height: 17
-                    width: 171
-
-                    color: "#01696c"
-                    font.family: "Univers"
-                    font.pixelSize: 24
-                    font.weight: Font.Normal
-                    horizontalAlignment: Text.AlignLeft
-                    text: "Overall Battery"
-                    textFormat: Text.PlainText
-                    verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
-                }
-            }
-            Item {
-                id: vALUE_UNOM
-
-                x: 403
-
-                height: 32
-                width: 77
-
-                Rectangle {
-                    id: gRAPH_NUMBER
-                    x: 0
-                    y: -1
-
-                    height: 32
-                    width: 77
-
-                    color: "#01696c"
-                    radius: 8
-
-                    Text {
-                        id: element
-
-                        x: 11
-                        y: -1
-
-                        height: 20
-                        width: 58
-
-                        color: "#f6f6f6"
-                        font.family: "Univers"
-                        font.pixelSize: 28
-                        font.weight: Font.Normal
-                        horizontalAlignment: Text.AlignLeft
-                        text: "94%"
-                        textFormat: Text.PlainText
-                        verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
-                    }
-                }
-            }
-        }
         Rectangle {
             id: gRAPH_1
 
-            x: 16
-            y: 60
-
-            height: 119
-            width: 484
+            height: 195
+            width: 516
 
             border.color: "#9ad1d4"
             border.width: 0.50
@@ -117,30 +36,35 @@ Rectangle {
             color: "#f1f8f9"
             radius: 12
 
-            Item {
+            Rectangle {
                 id: _y
 
                 x: 12
                 y: 18
 
-                height: 73
-                width: 460
+                height: 149
+                width: 492
 
                 clip: true
+                color: "transparent"
 
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH
@@ -155,7 +79,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_1
+                            id: element
 
                             height: 6
                             width: 12
@@ -168,16 +92,17 @@ Rectangle {
                             text: "80"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_1
@@ -685,21 +610,25 @@ Rectangle {
                         }
                     }
                 }
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE_1
 
-                    y: 20
+                    y: 45.33
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK_1
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_47
@@ -714,7 +643,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_2
+                            id: element_1
 
                             height: 6
                             width: 12
@@ -727,16 +656,17 @@ Rectangle {
                             text: "60"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE_1
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_48
@@ -1244,21 +1174,25 @@ Rectangle {
                         }
                     }
                 }
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE_2
 
-                    y: 40
+                    y: 90.67
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK_2
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_94
@@ -1273,7 +1207,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_3
+                            id: element_2
 
                             height: 6
                             width: 12
@@ -1286,16 +1220,17 @@ Rectangle {
                             text: "40"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE_2
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_95
@@ -1803,21 +1738,25 @@ Rectangle {
                         }
                     }
                 }
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE_3
 
-                    y: 60
+                    y: 136
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK_3
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_141
@@ -1832,7 +1771,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_4
+                            id: element_3
 
                             height: 6
                             width: 12
@@ -1845,16 +1784,17 @@ Rectangle {
                             text: "20"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE_3
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_142
@@ -2363,14 +2303,16 @@ Rectangle {
                     }
                 }
             }
-            Item {
+            Rectangle {
                 id: frame_1
 
                 x: 12
-                y: 101
+                y: 177
 
                 height: 6
-                width: 460
+                width: 492
+
+                color: "transparent"
 
                 Text {
                     id: s
@@ -2386,12 +2328,11 @@ Rectangle {
                     text: "36s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_1
 
-                    x: 74.83
+                    x: 80.17
 
                     height: 6
                     width: 18
@@ -2404,12 +2345,11 @@ Rectangle {
                     text: "30s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_2
 
-                    x: 149.67
+                    x: 160.33
 
                     height: 6
                     width: 18
@@ -2422,12 +2362,11 @@ Rectangle {
                     text: "24s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_3
 
-                    x: 224.50
+                    x: 240.50
 
                     height: 6
                     width: 18
@@ -2440,12 +2379,11 @@ Rectangle {
                     text: "18s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_4
 
-                    x: 299.33
+                    x: 320.67
 
                     height: 6
                     width: 18
@@ -2458,12 +2396,11 @@ Rectangle {
                     text: "12s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_5
 
-                    x: 374.17
+                    x: 400.83
 
                     height: 6
                     width: 12
@@ -2476,12 +2413,11 @@ Rectangle {
                     text: "6s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: nOW
 
-                    x: 443
+                    x: 475
 
                     height: 6
                     width: 18
@@ -2494,31 +2430,103 @@ Rectangle {
                     text: "NOW"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
+                }
+            }
+            Rectangle {
+                id: oVERALL_BATTERY
+
+                x: 12
+                y: 12
+
+                height: 30
+                width: 191
+
+                border.color: "#9ad1d4"
+                border.width: 1
+                clip: true
+                color: "#ffffff"
+                radius: 12
+
+                Text {
+                    id: oVERALL_BATTERY_1
+
+                    x: 12
+                    y: 4
+
+                    height: 22
+                    width: 168
+
+                    color: "#01696c"
+                    font.family: "Univers"
+                    font.pixelSize: 18
+                    font.weight: Font.Normal
+                    horizontalAlignment: Text.AlignLeft
+                    text: "OVERALL BATTERY"
+                    textFormat: Text.PlainText
+                    verticalAlignment: Text.AlignTop
                 }
             }
         }
+        Rectangle {
+            id: oVERALL_BATTERY_NUM
+
+            x: 443
+            y: 12
+
+            height: 30
+            width: 61
+
+            border.color: "#9ad1d4"
+            border.width: 1
+            clip: true
+            color: "#01696c"
+            opacity: 0.90
+            radius: 12
+
+            Text {
+                id: element_4
+
+                x: 12
+                y: 4
+
+                height: 22
+                width: 38
+
+                color: "#ffffff"
+                font.family: "Univers"
+                font.pixelSize: 18
+                font.weight: Font.Normal
+                horizontalAlignment: Text.AlignLeft
+                text: "94%"
+                textFormat: Text.PlainText
+                verticalAlignment: Text.AlignTop
+            }
+        }
     }
-    Item {
+    Rectangle {
         id: bATTERY_ALL
 
         x: 24
         y: 235
 
-        height: 400
+        height: 325
         width: 516
 
-        Item {
+        color: "transparent"
+
+        Rectangle {
             id: bATTERY_ROW
 
-            height: 195
+            height: 156.50
             width: 516
+
+            color: "transparent"
 
             Rectangle {
                 id: gRAPH_2
 
-                height: 195
-                width: 253
+                height: 156.50
+                width: 252
 
                 border.color: "#9ad1d4"
                 border.width: 1
@@ -2526,90 +2534,11 @@ Rectangle {
                 color: "#ffffff"
                 radius: 16
 
-                Item {
-                    id: gRAPH_TITLE_1
-
-                    x: 16
-                    y: 16
-
-                    height: 25
-                    width: 221
-
-                    Item {
-                        id: nUMBER_DROPDOWN_1
-
-                        x: 4
-                        y: 6
-
-                        height: 13
-                        width: 58
-
-                        Text {
-                            id: cell_1
-                            x: 0
-                            y: -5
-
-                            height: 13
-                            width: 59
-
-                            color: "#01696c"
-                            font.family: "Univers"
-                            font.pixelSize: 18
-                            font.weight: Font.Normal
-                            horizontalAlignment: Text.AlignLeft
-                            text: "Cell #1"
-                            textFormat: Text.PlainText
-                            verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
-                        }
-                    }
-                    Item {
-                        id: vALUE_UNOM_1
-
-                        x: 160
-
-                        height: 25
-                        width: 57
-
-                        Rectangle {
-                            id: gRAPH_NUMBER_1
-
-                            height: 25
-                            width: 57
-
-                            color: "#01696c"
-                            radius: 8
-
-                            Text {
-                                id: element_5
-
-                                x: 10
-                                y: 2
-
-                                height: 13
-                                width: 38
-
-                                color: "#f6f6f6"
-                                font.family: "Univers"
-                                font.pixelSize: 18
-                                font.weight: Font.Normal
-                                horizontalAlignment: Text.AlignLeft
-                                text: "95%"
-                                textFormat: Text.PlainText
-                                verticalAlignment: Text.AlignTop
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-                }
                 Rectangle {
                     id: gRAPH_3
 
-                    x: 16
-                    y: 53
-
-                    height: 126
-                    width: 221
+                    height: 156.50
+                    width: 252
 
                     border.color: "#9ad1d4"
                     border.width: 0.50
@@ -2617,30 +2546,35 @@ Rectangle {
                     color: "#f1f8f9"
                     radius: 12
 
-                    Item {
+                    Rectangle {
                         id: _y_1
 
                         x: 12
                         y: 18
 
-                        height: 80
-                        width: 197
+                        height: 110.50
+                        width: 228
 
                         clip: true
+                        color: "transparent"
 
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_4
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_4
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_188
@@ -2655,7 +2589,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_6
+                                    id: element_5
 
                                     height: 6
                                     width: 12
@@ -2668,16 +2602,17 @@ Rectangle {
                                     text: "80"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_4
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_189
@@ -2987,21 +2922,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_5
 
-                            y: 22.33
+                            y: 32.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_5
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_217
@@ -3016,7 +2955,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_7
+                                    id: element_6
 
                                     height: 6
                                     width: 12
@@ -3029,16 +2968,17 @@ Rectangle {
                                     text: "60"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_5
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_218
@@ -3348,21 +3288,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_6
 
-                            y: 44.67
+                            y: 65
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_6
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_246
@@ -3377,7 +3321,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_8
+                                    id: element_7
 
                                     height: 6
                                     width: 12
@@ -3390,16 +3334,17 @@ Rectangle {
                                     text: "40"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_6
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_247
@@ -3709,21 +3654,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_7
 
-                            y: 67
+                            y: 97.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_7
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_275
@@ -3738,7 +3687,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_9
+                                    id: element_8
 
                                     height: 6
                                     width: 12
@@ -3751,16 +3700,17 @@ Rectangle {
                                     text: "20"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_7
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_276
@@ -4071,14 +4021,16 @@ Rectangle {
                             }
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: frame_2
 
                         x: 12
-                        y: 108
+                        y: 138.50
 
                         height: 6
-                        width: 197
+                        width: 228
+
+                        color: "transparent"
 
                         Text {
                             id: s_6
@@ -4094,12 +4046,11 @@ Rectangle {
                             text: "24s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_7
 
-                            x: 46.50
+                            x: 54.25
 
                             height: 6
                             width: 18
@@ -4112,12 +4063,11 @@ Rectangle {
                             text: "18s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_8
 
-                            x: 93
+                            x: 108.50
 
                             height: 6
                             width: 18
@@ -4130,12 +4080,11 @@ Rectangle {
                             text: "12s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_9
 
-                            x: 139.50
+                            x: 162.75
 
                             height: 6
                             width: 12
@@ -4148,12 +4097,11 @@ Rectangle {
                             text: "6s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: nOW_1
 
-                            x: 180
+                            x: 211
 
                             height: 6
                             width: 18
@@ -4166,7 +4114,75 @@ Rectangle {
                             text: "NOW"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
+                        }
+                    }
+                    Rectangle {
+                        id: cELL_NUMBER
+
+                        x: 12
+                        y: 12
+
+                        height: 28
+                        width: 85
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#ffffff"
+                        radius: 12
+
+                        Text {
+                            id: cELL_1
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 62
+
+                            color: "#01696c"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "CELL #1"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
+                        }
+                    }
+                    Rectangle {
+                        id: cELL_
+
+                        x: 184
+                        y: 12
+
+                        height: 28
+                        width: 57
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#01696c"
+                        opacity: 0.90
+                        radius: 12
+
+                        Text {
+                            id: element_9
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 34
+
+                            color: "#ffffff"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "94%"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
                         }
                     }
                 }
@@ -4174,10 +4190,10 @@ Rectangle {
             Rectangle {
                 id: gRAPH_4
 
-                x: 263
+                x: 264
 
-                height: 195
-                width: 253
+                height: 156.50
+                width: 252
 
                 border.color: "#9ad1d4"
                 border.width: 1
@@ -4185,90 +4201,11 @@ Rectangle {
                 color: "#ffffff"
                 radius: 16
 
-                Item {
-                    id: gRAPH_TITLE_2
-
-                    x: 16
-                    y: 16
-
-                    height: 25
-                    width: 221
-
-                    Item {
-                        id: nUMBER_DROPDOWN_2
-
-                        x: 4
-                        y: 6
-
-                        height: 13
-                        width: 58
-
-                        Text {
-                            id: cell_2
-                            x: 0
-                            y: -4
-
-                            height: 13
-                            width: 59
-
-                            color: "#01696c"
-                            font.family: "Univers"
-                            font.pixelSize: 18
-                            font.weight: Font.Normal
-                            horizontalAlignment: Text.AlignLeft
-                            text: "Cell #2"
-                            textFormat: Text.PlainText
-                            verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
-                        }
-                    }
-                    Item {
-                        id: vALUE_UNOM_2
-
-                        x: 160
-
-                        height: 25
-                        width: 57
-
-                        Rectangle {
-                            id: gRAPH_NUMBER_2
-
-                            height: 25
-                            width: 57
-
-                            color: "#01696c"
-                            radius: 8
-
-                            Text {
-                                id: element_10
-
-                                x: 11
-                                y: 2
-
-                                height: 13
-                                width: 38
-
-                                color: "#f6f6f6"
-                                font.family: "Univers"
-                                font.pixelSize: 18
-                                font.weight: Font.Normal
-                                horizontalAlignment: Text.AlignLeft
-                                text: "86%"
-                                textFormat: Text.PlainText
-                                verticalAlignment: Text.AlignTop
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-                }
                 Rectangle {
                     id: gRAPH_5
 
-                    x: 16
-                    y: 53
-
-                    height: 126
-                    width: 221
+                    height: 156.50
+                    width: 252
 
                     border.color: "#9ad1d4"
                     border.width: 0.50
@@ -4276,30 +4213,35 @@ Rectangle {
                     color: "#f1f8f9"
                     radius: 12
 
-                    Item {
+                    Rectangle {
                         id: _y_2
 
                         x: 12
                         y: 18
 
-                        height: 80
-                        width: 197
+                        height: 110.50
+                        width: 228
 
                         clip: true
+                        color: "transparent"
 
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_8
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_8
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_304
@@ -4314,7 +4256,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_11
+                                    id: element_10
 
                                     height: 6
                                     width: 12
@@ -4327,16 +4269,17 @@ Rectangle {
                                     text: "80"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_8
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_305
@@ -4646,21 +4589,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_9
 
-                            y: 22.33
+                            y: 32.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_9
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_333
@@ -4675,7 +4622,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_12
+                                    id: element_11
 
                                     height: 6
                                     width: 12
@@ -4688,16 +4635,17 @@ Rectangle {
                                     text: "60"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_9
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_334
@@ -5007,21 +4955,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_10
 
-                            y: 44.67
+                            y: 65
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_10
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_362
@@ -5036,7 +4988,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_13
+                                    id: element_12
 
                                     height: 6
                                     width: 12
@@ -5049,16 +5001,17 @@ Rectangle {
                                     text: "40"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_10
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_363
@@ -5368,21 +5321,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_11
 
-                            y: 67
+                            y: 97.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_11
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_391
@@ -5397,7 +5354,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_14
+                                    id: element_13
 
                                     height: 6
                                     width: 12
@@ -5410,16 +5367,17 @@ Rectangle {
                                     text: "20"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_11
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_392
@@ -5730,14 +5688,16 @@ Rectangle {
                             }
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: frame_3
 
                         x: 12
-                        y: 108
+                        y: 138.50
 
                         height: 6
-                        width: 197
+                        width: 228
+
+                        color: "transparent"
 
                         Text {
                             id: s_10
@@ -5753,12 +5713,11 @@ Rectangle {
                             text: "24s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_11
 
-                            x: 46.50
+                            x: 54.25
 
                             height: 6
                             width: 18
@@ -5771,12 +5730,11 @@ Rectangle {
                             text: "18s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_12
 
-                            x: 93
+                            x: 108.50
 
                             height: 6
                             width: 18
@@ -5789,12 +5747,11 @@ Rectangle {
                             text: "12s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_13
 
-                            x: 139.50
+                            x: 162.75
 
                             height: 6
                             width: 12
@@ -5807,12 +5764,11 @@ Rectangle {
                             text: "6s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: nOW_2
 
-                            x: 180
+                            x: 211
 
                             height: 6
                             width: 18
@@ -5825,25 +5781,95 @@ Rectangle {
                             text: "NOW"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
+                        }
+                    }
+                    Rectangle {
+                        id: cELL_NUMBER_1
+
+                        x: 12
+                        y: 12
+
+                        height: 28
+                        width: 85
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#ffffff"
+                        radius: 12
+
+                        Text {
+                            id: cELL_2
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 62
+
+                            color: "#01696c"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "CELL #1"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
+                        }
+                    }
+                    Rectangle {
+                        id: cELL__2
+
+                        x: 184
+                        y: 12
+
+                        height: 28
+                        width: 57
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#01696c"
+                        opacity: 0.90
+                        radius: 12
+
+                        Text {
+                            id: element_14
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 34
+
+                            color: "#ffffff"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "94%"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
                         }
                     }
                 }
             }
         }
-        Item {
-            id: bATTERY_ROW_2
+        Rectangle {
+            id: bATTERY_ROW_1
 
-            y: 205
+            y: 168.50
 
-            height: 195
+            height: 156.50
             width: 516
+
+            color: "transparent"
 
             Rectangle {
                 id: gRAPH_6
 
-                height: 195
-                width: 253
+                height: 156.50
+                width: 252
 
                 border.color: "#9ad1d4"
                 border.width: 1
@@ -5851,90 +5877,11 @@ Rectangle {
                 color: "#ffffff"
                 radius: 16
 
-                Item {
-                    id: gRAPH_TITLE_3
-
-                    x: 16
-                    y: 16
-
-                    height: 25
-                    width: 221
-
-                    Item {
-                        id: nUMBER_DROPDOWN_3
-
-                        x: 4
-                        y: 6
-
-                        height: 13
-                        width: 58
-
-                        Text {
-                            id: cell_3
-                            x: 0
-                            y: -4
-
-                            height: 13
-                            width: 59
-
-                            color: "#01696c"
-                            font.family: "Univers"
-                            font.pixelSize: 18
-                            font.weight: Font.Normal
-                            horizontalAlignment: Text.AlignLeft
-                            text: "Cell #3"
-                            textFormat: Text.PlainText
-                            verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
-                        }
-                    }
-                    Item {
-                        id: vALUE_UNOM_3
-
-                        x: 160
-
-                        height: 25
-                        width: 57
-
-                        Rectangle {
-                            id: gRAPH_NUMBER_3
-
-                            height: 25
-                            width: 57
-
-                            color: "#01696c"
-                            radius: 8
-
-                            Text {
-                                id: element_15
-
-                                x: 11
-                                y: 2
-
-                                height: 16
-                                width: 39
-
-                                color: "#f6f6f6"
-                                font.family: "Univers"
-                                font.pixelSize: 18
-                                font.weight: Font.Normal
-                                horizontalAlignment: Text.AlignLeft
-                                text: "89%"
-                                textFormat: Text.PlainText
-                                verticalAlignment: Text.AlignTop
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-                }
                 Rectangle {
                     id: gRAPH_7
 
-                    x: 16
-                    y: 53
-
-                    height: 126
-                    width: 221
+                    height: 156.50
+                    width: 252
 
                     border.color: "#9ad1d4"
                     border.width: 0.50
@@ -5942,30 +5889,35 @@ Rectangle {
                     color: "#f1f8f9"
                     radius: 12
 
-                    Item {
+                    Rectangle {
                         id: _y_3
 
                         x: 12
                         y: 18
 
-                        height: 80
-                        width: 197
+                        height: 110.50
+                        width: 228
 
                         clip: true
+                        color: "transparent"
 
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_12
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_12
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_420
@@ -5980,7 +5932,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_16
+                                    id: element_15
 
                                     height: 6
                                     width: 12
@@ -5993,16 +5945,17 @@ Rectangle {
                                     text: "80"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_12
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_421
@@ -6312,21 +6265,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_13
 
-                            y: 22.33
+                            y: 32.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_13
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_449
@@ -6341,7 +6298,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_17
+                                    id: element_16
 
                                     height: 6
                                     width: 12
@@ -6354,16 +6311,17 @@ Rectangle {
                                     text: "60"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_13
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_450
@@ -6673,21 +6631,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_14
 
-                            y: 44.67
+                            y: 65
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_14
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_478
@@ -6702,7 +6664,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_18
+                                    id: element_17
 
                                     height: 6
                                     width: 12
@@ -6715,16 +6677,17 @@ Rectangle {
                                     text: "40"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_14
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_479
@@ -7034,21 +6997,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_15
 
-                            y: 67
+                            y: 97.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_15
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_507
@@ -7063,7 +7030,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_19
+                                    id: element_18
 
                                     height: 6
                                     width: 12
@@ -7076,16 +7043,17 @@ Rectangle {
                                     text: "20"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_15
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_508
@@ -7396,14 +7364,16 @@ Rectangle {
                             }
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: frame_4
 
                         x: 12
-                        y: 108
+                        y: 138.50
 
                         height: 6
-                        width: 197
+                        width: 228
+
+                        color: "transparent"
 
                         Text {
                             id: s_14
@@ -7419,12 +7389,11 @@ Rectangle {
                             text: "24s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_15
 
-                            x: 46.50
+                            x: 54.25
 
                             height: 6
                             width: 18
@@ -7437,12 +7406,11 @@ Rectangle {
                             text: "18s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_16
 
-                            x: 93
+                            x: 108.50
 
                             height: 6
                             width: 18
@@ -7455,12 +7423,11 @@ Rectangle {
                             text: "12s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_17
 
-                            x: 139.50
+                            x: 162.75
 
                             height: 6
                             width: 12
@@ -7473,12 +7440,11 @@ Rectangle {
                             text: "6s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: nOW_3
 
-                            x: 180
+                            x: 211
 
                             height: 6
                             width: 18
@@ -7491,7 +7457,75 @@ Rectangle {
                             text: "NOW"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
+                        }
+                    }
+                    Rectangle {
+                        id: cELL_NUMBER_2
+
+                        x: 12
+                        y: 12
+
+                        height: 28
+                        width: 85
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#ffffff"
+                        radius: 12
+
+                        Text {
+                            id: cELL_3
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 62
+
+                            color: "#01696c"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "CELL #1"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
+                        }
+                    }
+                    Rectangle {
+                        id: cELL__3
+
+                        x: 184
+                        y: 12
+
+                        height: 28
+                        width: 57
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#01696c"
+                        opacity: 0.90
+                        radius: 12
+
+                        Text {
+                            id: element_19
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 34
+
+                            color: "#ffffff"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "94%"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
                         }
                     }
                 }
@@ -7499,10 +7533,10 @@ Rectangle {
             Rectangle {
                 id: gRAPH_8
 
-                x: 263
+                x: 264
 
-                height: 195
-                width: 253
+                height: 156.50
+                width: 252
 
                 border.color: "#9ad1d4"
                 border.width: 1
@@ -7510,90 +7544,11 @@ Rectangle {
                 color: "#ffffff"
                 radius: 16
 
-                Item {
-                    id: gRAPH_TITLE_4
-
-                    x: 16
-                    y: 16
-
-                    height: 25
-                    width: 221
-
-                    Item {
-                        id: nUMBER_DROPDOWN_4
-
-                        x: 4
-                        y: 6
-
-                        height: 13
-                        width: 58
-
-                        Text {
-                            id: cell_4
-                            x: 0
-                            y: -5
-
-                            height: 13
-                            width: 59
-
-                            color: "#01696c"
-                            font.family: "Univers"
-                            font.pixelSize: 18
-                            font.weight: Font.Normal
-                            horizontalAlignment: Text.AlignLeft
-                            text: "Cell #4"
-                            textFormat: Text.PlainText
-                            verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
-                        }
-                    }
-                    Item {
-                        id: vALUE_UNOM_4
-
-                        x: 160
-
-                        height: 25
-                        width: 57
-
-                        Rectangle {
-                            id: gRAPH_NUMBER_4
-
-                            height: 25
-                            width: 57
-
-                            color: "#01696c"
-                            radius: 8
-
-                            Text {
-                                id: element_20
-
-                                x: 11
-                                y: 2
-
-                                height: 13
-                                width: 38
-
-                                color: "#f6f6f6"
-                                font.family: "Univers"
-                                font.pixelSize: 18
-                                font.weight: Font.Normal
-                                horizontalAlignment: Text.AlignLeft
-                                text: "92%"
-                                textFormat: Text.PlainText
-                                verticalAlignment: Text.AlignTop
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-                    }
-                }
                 Rectangle {
                     id: gRAPH_9
 
-                    x: 16
-                    y: 53
-
-                    height: 126
-                    width: 221
+                    height: 156.50
+                    width: 252
 
                     border.color: "#9ad1d4"
                     border.width: 0.50
@@ -7601,30 +7556,35 @@ Rectangle {
                     color: "#f1f8f9"
                     radius: 12
 
-                    Item {
+                    Rectangle {
                         id: _y_4
 
                         x: 12
                         y: 18
 
-                        height: 80
-                        width: 197
+                        height: 110.50
+                        width: 228
 
                         clip: true
+                        color: "transparent"
 
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_16
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_16
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_536
@@ -7639,7 +7599,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_21
+                                    id: element_20
 
                                     height: 6
                                     width: 12
@@ -7652,16 +7612,17 @@ Rectangle {
                                     text: "80"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_16
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_537
@@ -7971,21 +7932,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_17
 
-                            y: 22.33
+                            y: 32.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_17
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_565
@@ -8000,7 +7965,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_22
+                                    id: element_21
 
                                     height: 6
                                     width: 12
@@ -8013,16 +7978,17 @@ Rectangle {
                                     text: "60"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_17
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_566
@@ -8332,21 +8298,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_18
 
-                            y: 44.67
+                            y: 65
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_18
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_594
@@ -8361,7 +8331,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_23
+                                    id: element_22
 
                                     height: 6
                                     width: 12
@@ -8374,16 +8344,17 @@ Rectangle {
                                     text: "40"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_18
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_595
@@ -8693,21 +8664,25 @@ Rectangle {
                                 }
                             }
                         }
-                        Item {
+                        Rectangle {
                             id: nUM_DASHLINE_19
 
-                            y: 67
+                            y: 97.50
 
                             height: 13
-                            width: 197
+                            width: 228
 
-                            Item {
+                            color: "transparent"
+
+                            Rectangle {
                                 id: nUM_TICK_19
 
                                 y: 1
 
                                 height: 6
                                 width: 11
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_623
@@ -8722,7 +8697,7 @@ Rectangle {
                                     visible: false
                                 }
                                 Text {
-                                    id: element_24
+                                    id: element_23
 
                                     height: 6
                                     width: 12
@@ -8735,16 +8710,17 @@ Rectangle {
                                     text: "20"
                                     textFormat: Text.PlainText
                                     verticalAlignment: Text.AlignTop
-                                    wrapMode: Text.WordWrap
                                 }
                             }
-                            Item {
+                            Rectangle {
                                 id: dASH_LINE_19
 
                                 y: 11
 
                                 height: 1
                                 width: 330
+
+                                color: "transparent"
 
                                 Rectangle {
                                     id: dASH_624
@@ -9055,14 +9031,16 @@ Rectangle {
                             }
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: frame_5
 
                         x: 12
-                        y: 108
+                        y: 138.50
 
                         height: 6
-                        width: 197
+                        width: 228
+
+                        color: "transparent"
 
                         Text {
                             id: s_18
@@ -9078,12 +9056,11 @@ Rectangle {
                             text: "24s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_19
 
-                            x: 46.50
+                            x: 54.25
 
                             height: 6
                             width: 18
@@ -9096,12 +9073,11 @@ Rectangle {
                             text: "18s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_20
 
-                            x: 93
+                            x: 108.50
 
                             height: 6
                             width: 18
@@ -9114,12 +9090,11 @@ Rectangle {
                             text: "12s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: s_21
 
-                            x: 139.50
+                            x: 162.75
 
                             height: 6
                             width: 12
@@ -9132,12 +9107,11 @@ Rectangle {
                             text: "6s"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                         Text {
                             id: nOW_4
 
-                            x: 180
+                            x: 211
 
                             height: 6
                             width: 18
@@ -9150,7 +9124,75 @@ Rectangle {
                             text: "NOW"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
+                        }
+                    }
+                    Rectangle {
+                        id: cELL_NUMBER_3
+
+                        x: 12
+                        y: 12
+
+                        height: 28
+                        width: 85
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#ffffff"
+                        radius: 12
+
+                        Text {
+                            id: cELL_4
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 62
+
+                            color: "#01696c"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "CELL #1"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
+                        }
+                    }
+                    Rectangle {
+                        id: cELL__4
+
+                        x: 184
+                        y: 12
+
+                        height: 28
+                        width: 57
+
+                        border.color: "#9ad1d4"
+                        border.width: 1
+                        clip: true
+                        color: "#01696c"
+                        opacity: 0.90
+                        radius: 12
+
+                        Text {
+                            id: element_24
+
+                            x: 12
+                            y: 4
+
+                            height: 20
+                            width: 34
+
+                            color: "#ffffff"
+                            font.family: "Univers"
+                            font.pixelSize: 16
+                            font.weight: Font.Normal
+                            horizontalAlignment: Text.AlignLeft
+                            text: "94%"
+                            textFormat: Text.PlainText
+                            verticalAlignment: Text.AlignTop
                         }
                     }
                 }

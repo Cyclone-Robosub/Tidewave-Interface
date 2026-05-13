@@ -10,7 +10,7 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
     "App.qml"
-       "TIDALWAVE_INTERFACE_P1.ui.qml"
+       "TIDALWAVE_INTERFACE_P1.qml"
        "GRAPH_COMPONENTS.ui.qml"
             "COMPONENT_LABEL.ui.qml"
             "CustomImage.qml"

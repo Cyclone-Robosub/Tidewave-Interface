@@ -16,5 +16,8 @@
 - [ ] Incorporate new UI files into front end.
  - [ ] Battery Priority. 
 
+
+### CLI Tool testing
+- [ ] Need to test on Thinkpad
 ### Completed Column ✓
 - [x] Completed task title  

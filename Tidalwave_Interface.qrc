@@ -10,7 +10,7 @@
         <file>Tidalwave_InterfaceContent/qmldir</file>
         <file>Tidalwave_InterfaceContent/Battery_Default.ui.qml</file>
         <file>Tidalwave_InterfaceContent/AttitudeIndicator.qml</file>
-         <file>Tidalwave_InterfaceContent/CustomImage.qml</file>
+        <file>Tidalwave_InterfaceContent/CustomImage.qml</file>
         <file>Tidalwave_InterfaceContent/COMPONENT_LABEL.ui.qml</file>
         <file>Tidalwave_InterfaceContent/COMPONENT_TESTING.ui.qml</file>
         <file>Tidalwave_InterfaceContent/DETAILS.ui.qml</file>
@@ -31,5 +31,6 @@
         <file>Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1_1.ui.qml</file>
         <file>Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1.ui.qml</file>
         <file>Tidalwave_InterfaceContent/App.qml</file>
+        <file>Tidalwave_InterfaceContent/TIDALWAVE_INTERFACE_P1.qml</file>
     </qresource>
 </RCC>
