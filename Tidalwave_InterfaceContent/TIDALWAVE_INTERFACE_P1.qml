@@ -388,7 +388,7 @@ Flickable {
                             font.pixelSize: 14
                             font.weight: Font.Normal
                             horizontalAlignment: Text.AlignHCenter
-                            text: "5° | -2°"
+                            text: "0° | -0°"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignVCenter
                         }
