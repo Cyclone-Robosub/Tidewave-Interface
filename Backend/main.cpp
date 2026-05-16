@@ -1,7 +1,6 @@
 #include "Controller/Animation.h"
-#include "Controller/Kernel.cpp"
-#include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
+#include "StateSaver/SSH_Connection.hpp"
 #include "autogen/environment.h"
 #include <QApplication>
 #include <QMediaPlayer>
@@ -32,7 +31,7 @@ int main(int argc, char *argv[]) {
   });
   connection_thread.detach();
 #ifdef QTEnabled
-  system("ros2 run pwm_cli pwm_cli_node > /dev/null 2>&1 &");
+  system(""gnome-terminal -- bash -c \"echo Starting PWM_CLI; ros2 run pwm_cli pwm_cli_node; exec bash \"");
   set_qt_environment();
   QApplication app(argc, argv);
   QQmlApplicationEngine engine;
