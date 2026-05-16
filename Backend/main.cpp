@@ -13,9 +13,6 @@
 #include <thread>
 #include <QVBoxLayout>
 #include <QWidget>
-#ifndef QTBUILDONLY
-#include "ros2.hpp"
-#endif
 
 
 int main(int argc, char *argv[]) {
