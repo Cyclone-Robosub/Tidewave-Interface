@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   });
   connection_thread.detach();
 #ifdef QTEnabled
-  system(""gnome-terminal -- bash -c \"echo Starting PWM_CLI; ros2 run pwm_cli pwm_cli_node; exec bash \"");
+  system("gnome-terminal -- bash -c \"echo Starting PWM_CLI; ros2 run pwm_cli pwm_cli_node; exec bash \"");
   set_qt_environment();
   QApplication app(argc, argv);
   QQmlApplicationEngine engine;
