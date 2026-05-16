@@ -103,18 +103,3 @@ void TidalwaveROS::update_gamepad(){
 	auto messageHeartbeat = std_msgs::msg::Empty();
 	JoystickHB_pub->publish(messageHeartbeat);
 }
-
-void TidalwaveROS::MMServiceCall(){
-	/*
-	auto MMClient = node->create_client<AddTwoInts>("add_two_ints");
-      while (!MMClient->wait_for_service(std::chrono::seconds(1))) {
-    if (!rclcpp::ok()) {
-      RCLCPP_ERROR(node->get_logger(), "client interrupted while waiting for service to appear.");
-      return 1;
-    }
-  }
-	auto MMRequest = std::make_shared<AddTwoInts::Request>();
-    continue code...
-	 */
-   
-}

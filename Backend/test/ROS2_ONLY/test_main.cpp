@@ -31,7 +31,7 @@ TEST_F(TidalwaveFixture, EverythingTest) {
   bool success = false;
   std::thread connection_thread([&](){
     std::cout << "here";
-    SSH_Connection connection = SSH_Connection(dataModel,node);
+    SSH_Connection connection = SSH_Connection(dataModel);
   });
   connection_thread.detach();
   while (std::chrono::steady_clock::now() - start_time < 2s) {

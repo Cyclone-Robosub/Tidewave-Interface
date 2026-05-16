@@ -6,6 +6,7 @@
 #include "std_msgs/msg/empty.hpp"
 #include "custom_interfaces/msg/imu.hpp"
 #include "custom_interfaces/msg/gamepad.hpp"
+#include "std_srvs/srv/trigger.hpp"
 #include "remote_control_interface/msg/gamepad.hpp"
 #include <SDL2/SDL.h>
 #include <atomic>
@@ -29,7 +30,6 @@ public:
   };
 
   std::atomic<bool> ROS_enabled{false};
-  void MMServiceCall();
 private:
   std::shared_ptr<DataModel> dataModel;
   void CreateRobotROSSub();

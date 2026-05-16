@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
 #endif
   std::thread connection_thread([&](){
-    SSH_Connection connection = SSH_Connection(dataModel, ROSobject);
+    SSH_Connection connection = SSH_Connection(dataModel);
   });
   connection_thread.detach();
 #ifdef QTEnabled
