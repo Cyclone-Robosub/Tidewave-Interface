@@ -17,14 +17,10 @@ Starting from the main folder:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-cd Backend/custom_interfaces
+cd Backend
 colcon build
 source install/setup.bash
 cd ..
-cd remote_control_interface
-colcon build
-source install/setup.bash
-cd ../..
 colcon build --cmake-args -DQTBuild=OFF
 cd build/Tidalwave_InterfaceApp
 ./ROS2_ONLY_test_exec 
@@ -54,14 +50,10 @@ sudo apt install qt6-shadertools-dev
 > Assuming you have went through the trial and error process of downloading every QT package imaginable, run this script inside the Tidalwave Interface folder.
 ```bash
 source /opt/ros/jazzy/setup.bash
-cd Backend/custom_interfaces
+cd Backend
 colcon build
 source install/setup.bash
 cd ..
-cd remote_control_interface
-colcon build
-source install/setup.bash
-cd ../..
 colcon build
 cd build/Tidalwave_InterfaceApp
 ./Tidalwave_InterfaceApp

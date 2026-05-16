@@ -1,9 +1,10 @@
 #include "Controller/Animation.h"
-#include "Model.hpp"
 #include "StateSaver/StateSaver.hpp"
+#include "Controller/SSH_Connection.hpp"
 #include "autogen/environment.h"
 #include <QApplication>
 #include <QMediaPlayer>
+#include <cstdlib>
 #include <QQmlApplicationEngine>
 #include <iostream>
 #include <shared_mutex>
@@ -26,13 +27,15 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<TidalwaveROS> ROSobject =
       std::make_shared<TidalwaveROS>(dataModel);
   std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
-  std::thread connection_thread([&]() {
-    SSH_Connection connection = SSH_Connection(dataModel, ROSobject);
+#endif
+  std::thread connection_thread([&](){
+    SSH_Connection connection = SSH_Connection(dataModel);
   });
   connection_thread.detach();
 #endif
  
 #ifdef QTEnabled
+  system("gnome-terminal -- bash -c \"echo Starting PWM_CLI; ros2 run pwm_cli pwm_cli_node; exec bash \"");
   set_qt_environment();
   QApplication app(argc, argv);
   QQmlApplicationEngine engine;

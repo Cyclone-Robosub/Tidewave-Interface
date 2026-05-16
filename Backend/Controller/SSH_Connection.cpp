@@ -96,9 +96,26 @@ void SSH_Connection::SoftwareStateMachine() {
             // Start the software
             std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
          if(ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh")){
-            ROSobject->MMServiceCall();
-            dataModel->control_path.isSoftwareRunning = true;}
+            MMServiceCall();
+            dataModel->control_path.isSoftwareRunning = true;
+        }
         }
     }
 }
-
+void SSH_Connection::MMServiceCall(){
+    std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("mission_manager");
+auto MMClient = node->create_client<std_srvs::srv::Trigger>("prime_signal_service");
+		auto MMRequest = std::make_shared<std_srvs::srv::Trigger::Request>();
+    while (!MMClient->wait_for_service(std::chrono::seconds(1))) {
+		std::cout << "waiting for service\n";
+  }	
+  	auto result = MMClient->async_send_request(MMRequest);
+	if (rclcpp::spin_until_future_complete(node, result) ==
+    rclcpp::FutureReturnCode::SUCCESS)
+  {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Mission Manager Status ", result.get()->success);
+  } else if(!result.get()->success) {
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR MISSION MANAGER SERVICE\n");
+	std::cout << result.get()->message << std::endl;
+  }
+}

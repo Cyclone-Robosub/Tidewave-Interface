@@ -22,8 +22,8 @@ Cons:
 */
 class SSH_Connection {
 public:
-    SSH_Connection(std::shared_ptr<DataModel> givenModel, std::shared_ptr<TidalwaveROS> givenROS)
-        : dataModel(givenModel), ROSobject(givenROS) {
+    SSH_Connection(std::shared_ptr<DataModel> givenModel)
+        : dataModel(givenModel) {
         ssh_sessionPi5 = ssh_new();
         if (ssh_sessionPi5 == NULL) {
             // Send Error to dashboard
@@ -55,12 +55,11 @@ public:
     }
 
 private:
-    void Watchdog();
+    void MMServiceCall();
     std::thread softwareThread;
     ssh_session ssh_sessionPi5;
     ssh_channel channelSoftware = NULL;
     std::shared_ptr<DataModel> dataModel;
-    std::shared_ptr<TidalwaveROS> ROSobject;
     int SetupSSHConnection();
 
     // State machine functions
