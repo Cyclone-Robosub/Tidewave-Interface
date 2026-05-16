@@ -1,6 +1,6 @@
 #include "Controller/Animation.h"
 #include "StateSaver/StateSaver.hpp"
-#include "StateSaver/SSH_Connection.hpp"
+#include "Controller/SSH_Connection.hpp"
 #include "autogen/environment.h"
 #include <QApplication>
 #include <QMediaPlayer>
