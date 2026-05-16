@@ -15,6 +15,7 @@
 #ifndef QTBUILDONLY
 #include "ros2.hpp"
 #include "Controller/SSH_Connection.hpp"
+#include "Controller/listeners.hpp"
 #endif
 
 
@@ -58,6 +59,8 @@ int main(int argc, char *argv[]) {
 
   if (engine.rootObjects().isEmpty())
     return -1;
+
+  Listeners *listeners = new Listeners(dataModel, engine.rootContext());
   // Start the animation system
   animation->init();
  

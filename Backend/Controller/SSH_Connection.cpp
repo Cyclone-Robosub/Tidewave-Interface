@@ -82,8 +82,8 @@ void SSH_Connection::SoftwareStateMachine() {
         // Wait for Start Input
         std::unique_lock<std::shared_mutex> lk(dataModel->control_path.SoftwareDataMutex);
         dataModel->control_path.Messenger.wait(
-            lk, [&] { return dataModel->control_path.isSoftwareCalled; });
-        dataModel->control_path.isSoftwareCalled = false;
+            lk, [&] { return dataModel->control_path.isSoftwareStateCalled; });
+        dataModel->control_path.isSoftwareStateCalled = false;
         lk.unlock();
 
         if (dataModel->control_path.isSoftwareRunning) {
