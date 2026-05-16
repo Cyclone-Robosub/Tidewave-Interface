@@ -17,14 +17,10 @@ Starting from the main folder:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-cd Backend/custom_interfaces
+cd Backend
 colcon build
 source install/setup.bash
 cd ..
-cd remote_control_interface
-colcon build
-source install/setup.bash
-cd ../..
 colcon build --cmake-args -DQTBuild=OFF
 cd build/Tidalwave_InterfaceApp
 ./ROS2_ONLY_test_exec 

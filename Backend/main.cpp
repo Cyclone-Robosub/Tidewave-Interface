@@ -5,6 +5,7 @@
 #include "autogen/environment.h"
 #include <QApplication>
 #include <QMediaPlayer>
+#include <cstdlib>
 #include <QQmlApplicationEngine>
 #include <iostream>
 #include <shared_mutex>
@@ -31,6 +32,7 @@ int main(int argc, char *argv[]) {
   });
   connection_thread.detach();
 #ifdef QTEnabled
+  system("ros2 run pwm_cli pwm_cli_node > /dev/null 2>&1 &");
   set_qt_environment();
   QApplication app(argc, argv);
   QQmlApplicationEngine engine;
