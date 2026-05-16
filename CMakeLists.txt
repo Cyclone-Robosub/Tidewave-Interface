@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 if(APPLE)
-    set(MACOSX_BUNDLE_ICON_FILE Logo.icns)
     set(app_icon_macos "${CMAKE_CURRENT_SOURCE_DIR}/assets/Logo.icns")
     set_source_files_properties(${app_icon_macos} PROPERTIES
            MACOSX_PACKAGE_LOCATION "assets")
@@ -12,15 +11,10 @@ if(APPLE)
 else()
     option(ROS2 "Set ON to develop ROS" ON)
 endif()
-
+ 
 include(FetchContent)
 
-FetchContent_Declare(
-  libssh #
-  GIT_REPOSITORY https://git.libssh.org/projects/libssh.git
-  GIT_TAG        libssh-0.10.5 
-)
-FetchContent_MakeAvailable(libssh)
+
 FetchContent_Declare(
   SDL2
   GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
@@ -42,6 +36,7 @@ project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 # CMakeLists.txt
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(LibSSH REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(remote_control_interface REQUIRED)
@@ -92,6 +87,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
  	${custom_interfaces_LIBRARIES}
 	${remote_control_interface_LIBRARIES}
 	${std_srvs_LIBRARIES}
+    ${LIBSSH_LIBRARIES}
 	Tidalwave_Interface
 	Tidalwave_Interfaceplugin
 	Tidalwave_InterfaceContent
@@ -222,9 +218,9 @@ enable_testing()
 file(GLOB TEST_SOURCES CONFIGURE_DEPENDS Backend/test/QT_ONLY/*.cpp) # ensures all the files in test are included
 add_executable(QT_Only_Test ${TEST_SOURCES} Backend/Controller/Animation.cpp 
     Backend/Controller/PrimaryFlightData.cpp )
-
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "Logo.icns")
 target_link_libraries(QT_Only_Test PRIVATE gtest_main Qt6::Core 
-    ssh
+ 
     Qt6::Gui 
     Qt6::Widgets 
     Qt6::Qml 

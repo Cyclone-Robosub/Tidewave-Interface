@@ -46,7 +46,7 @@ TEST_F(TidalwaveFixture, EverythingTest) {
 
   EXPECT_TRUE(success) << "Failed to detect current_mode change within timeout\n";
   std::unique_lock<std::shared_mutex> lk(dataModel->control_path.SoftwareDataMutex);
-  dataModel->control_path.isSoftwareCalled = true;
+  dataModel->control_path.isSoftwareStateCalled = true;
   dataModel->control_path.Messenger.notify_all();
   lk.unlock();
   start_time = std::chrono::steady_clock::now();

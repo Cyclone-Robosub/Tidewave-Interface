@@ -13,6 +13,11 @@
 #include <thread>
 #include <QVBoxLayout>
 #include <QWidget>
+#ifndef QTBUILDONLY
+#include "ros2.hpp"
+#include "Controller/SSH_Connection.hpp"
+#include "Controller/listeners.hpp"
+#endif
 
 
 int main(int argc, char *argv[]) {
@@ -27,6 +32,8 @@ int main(int argc, char *argv[]) {
     SSH_Connection connection = SSH_Connection(dataModel);
   });
   connection_thread.detach();
+#endif
+ 
 #ifdef QTEnabled
   system("gnome-terminal -- bash -c \"echo Starting PWM_CLI; ros2 run pwm_cli pwm_cli_node; exec bash \"");
   set_qt_environment();
@@ -55,6 +62,8 @@ int main(int argc, char *argv[]) {
 
   if (engine.rootObjects().isEmpty())
     return -1;
+
+  Listeners *listeners = new Listeners(dataModel, engine.rootContext());
   // Start the animation system
   animation->init();
  
