@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QQmlContext>
 #include <string>
-#include "Model.hpp"
+#include "../Model.hpp"
 
 class MissingItemException : std::exception {
     std::string objectName;
@@ -24,6 +24,7 @@ class Listeners : public QObject {
     Q_OBJECT
 
     using slotFunction = void (*)();
+    using pathUpdateFunction = void (*)(ControlPath *path);
 
     public slots:
         void EStop();
@@ -32,7 +33,7 @@ class Listeners : public QObject {
         std::shared_ptr<DataModel> dataModel;
         QQmlContext *qmlContext;
         void ConnectSlots(void);
-        void SharedSlot(slotFunction update_ui);
+        void SharedSlot(slotFunction update_ui, pathUpdateFunction updatePath);
 };
 
 #endif
