@@ -3,11 +3,9 @@
 ### SSH Communication
 - [ ] Authentication Handling
   - [ ] Password hash or SSH key passing
-### Mission Path Communication
-- [ ] Service Call parameter fill in to start Mission Manager.
-
-
-
+- [ ] Create Script to start the robot 
+- [ ] Hardware Test
+  - [ ] Testing Function
 ### Software Testing
 - [ ] SSH Communication and Mission Path
 ### Completed Column ✓

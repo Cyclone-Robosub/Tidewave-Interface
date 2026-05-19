@@ -5,8 +5,10 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "std_msgs/msg/empty.hpp"
 #include "custom_interfaces/msg/imu.hpp"
 #include "custom_interfaces/msg/gamepad.hpp"
+#include "std_srvs/srv/trigger.hpp"
 #include "remote_control_interface/msg/gamepad.hpp"
 #include <SDL2/SDL.h>
 #include <atomic>
@@ -30,7 +32,6 @@ public:
   };
 
   std::atomic<bool> ROS_enabled{false};
-  void MMServiceCall();
 private:
   std::shared_ptr<DataModel> dataModel;
   void CreateRobotROSSub();
@@ -41,6 +42,7 @@ private:
 
   // PUBLISHERS
   rclcpp::Publisher<custom_interfaces::msg::Gamepad>::SharedPtr Joystick_pub;
+  rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr JoystickHB_pub;
   void update_gamepad();
   rclcpp::TimerBase::SharedPtr timer_joystick;
   SDL_Joystick* joystick_;
