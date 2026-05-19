@@ -1,3 +1,5 @@
+#ifndef SSH_CONNECTION_HPP
+#define SSH_CONNECTION_HPP
 #include "../Model.hpp"
 #include <iostream>
 #include <libssh/libssh.h>
@@ -71,3 +73,4 @@ private:
 
     bool is_KillSwitchOn;
 };
+#endif

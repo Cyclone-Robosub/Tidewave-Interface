@@ -27,7 +27,6 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<TidalwaveROS> ROSobject =
       std::make_shared<TidalwaveROS>(dataModel);
   std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
-#endif
   std::thread connection_thread([&](){
     SSH_Connection connection = SSH_Connection(dataModel);
   });
