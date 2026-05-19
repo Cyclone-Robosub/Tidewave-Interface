@@ -1,7 +1,7 @@
 // Placeholder.qml - Updated with camera, E-STOP, and Flickable content
 import QtQuick
 import QtQuick.Shapes
-import QtQuick.Controls
+import QtQuick.Layouts
 import QtMultimedia
 import Tidalwave_InterfaceContent
 Flickable {
@@ -473,15 +473,17 @@ Flickable {
         }
 
         // E-STOP from TIDALWAVE_INTERFACE_P1.ui.qml
-        Button {
-            objectName: "e_STOP"
-            text:"HEY This is a temporary button tyring to hook up qml signals to c++ slots!"
-        }
         E_STOP {
             id: e_STOP
             x: 32
             y: 1000
+            MouseArea {
+                anchors.fill: parent
+                propagateComposedEvents : true
+                onClicked: {
+                    listeners.EStop();
+                }
+            }
         }
-      
     }
 }

@@ -1,40 +1,25 @@
 #include "listeners.hpp"
-#include <QString>
 #include <iostream>
-#include <QPushButton>
 
-Listeners::Listeners(std::shared_ptr<DataModel> model, QQmlContext *context){
-    this->dataModel = model;
-    this->qmlContext = context;
-    ConnectSlots();
+Listeners::Listeners(std::shared_ptr<DataModel> model, QQmlApplicationEngine *engine) : dataModel(model) {
+    this->setParent(engine->rootObjects().first());
 }
 
-void Listeners::ConnectSlots(void){
-    std::string StopID = "e_STOP";
-    QObject* stop = qmlContext->objectForName(QString::fromStdString(StopID));
-    // FIXME currently this gets a nullptr
-    //if (stop == nullptr) throw MissingItemException(StopID);
-    //QObject::connect((QPushButton*)stop, &QPushButton::clicked, this, [this]{ EStop(); });
-}
-
-void Listeners::SharedSlot(slotFunction update_ui, pathUpdateFunction updatePath){
+void Listeners::SharedSlot(pathUpdateFunction updatePath, slotFunction update_ui){
     ControlPath *path = &(dataModel->control_path);
     std::unique_lock<std::shared_mutex> lk(path->SoftwareDataMutex);
     /*dataModel->control_path.Messenger.wait(
         lk, [&] { return dataModel->control_path.isSoftwareStateCalled; });*/
-    updatePath(path);
+    updatePath();
     path->Messenger.notify_all();
     lk.unlock();
     update_ui();
 }
 
+// This function is used in `TIDALWAVE_INTERFACE_P1.qml` as a slot for the click event of the MouseArea inside the `E_STOP` element.
 void Listeners::EStop(){
-    std::cout << "test" << std::endl;
-    SharedSlot([](){
-        std::cout << "WHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -- oh wait, I was supposed to have stopped?";
-    },
-    [](ControlPath *path){
-        path->isSoftwareStateCalled = true;
-    }
+    SharedSlot(
+        [&](){dataModel->control_path.isSoftwareStateCalled = true;}, // path update function
+        [](){std::cout << "Oh wait, I was supposed to have stopped?" << std::endl;} // UI update function
     );
 }

@@ -60,7 +60,8 @@ int main(int argc, char *argv[]) {
   if (engine.rootObjects().isEmpty())
     return -1;
 
-  Listeners *listeners = new Listeners(dataModel, engine.rootContext());
+  Listeners *listeners = new Listeners(dataModel, &engine);
+  engine.rootContext()->setContextProperty(QStringLiteral("listeners"), listeners);
   // Start the animation system
   animation->init();
  

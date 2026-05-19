@@ -2,8 +2,9 @@
 #define LISTENERS_H
 
 #include <QObject>
-#include <QQmlContext>
+#include <QQmlApplicationEngine>
 #include <string>
+#include <functional>
 #include "../Model.hpp"
 
 class MissingItemException : std::exception {
@@ -19,21 +20,19 @@ public:
 class Listeners : public QObject {
     public: 
 
-        Listeners(std::shared_ptr<DataModel> model, QQmlContext *context);
+        Listeners(std::shared_ptr<DataModel> model, QQmlApplicationEngine *engine);
         
     Q_OBJECT
 
-    using slotFunction = void (*)();
-    using pathUpdateFunction = void (*)(ControlPath *path);
+    using slotFunction = std::function<void(void)>;
+    using pathUpdateFunction = std::function<void(void)>;
 
     public slots:
         void EStop();
 
     private:
         std::shared_ptr<DataModel> dataModel;
-        QQmlContext *qmlContext;
-        void ConnectSlots(void);
-        void SharedSlot(slotFunction update_ui, pathUpdateFunction updatePath);
+        void SharedSlot(pathUpdateFunction updatePath, slotFunction update_ui);
 };
 
 #endif
