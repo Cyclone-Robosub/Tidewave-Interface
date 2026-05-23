@@ -1,4 +1,3 @@
-// Placeholder.qml - Updated with camera, E-STOP, and Flickable content
 import QtQuick
 import QtQuick.Shapes
 import QtQuick.Layouts
@@ -53,6 +52,7 @@ Flickable {
                 color: "transparent"
 
                 // Camera from TIDALWAVE_INTERFACE_P1.ui.qml
+                // FIXME -- this should be replaced with the `Frame_2 {}` component
                 Rectangle {
                     id: camera
 
@@ -402,73 +402,35 @@ Flickable {
                     }
                 }
 
-                Rectangle {
+                BORDER {
                     id: all_Positional_Graphs
-
                     y: 308
-
-                    height: 624
-                    width: 320
-
-                    border.color: "#9ad1d4"
-                    border.width: 1
-                    color: "#ffffff"
-                    radius: 16
-
-                    Rectangle {
-                        id: depth_Graph
-
-                        x: 12
-                        y: 12
-
-                        height: 192
-                        width: 296
-
-                        border.color: "#9ad1d4"
-                        border.width: 1
-                        clip: true
-                        color: "#f1f8f9"
-                        radius: 18
-                    }
-
-                    Rectangle {
-                        id: velocity_Graph
-
-                        x: 12
-                        y: 216
-
-                        height: 192
-                        width: 296
-
-                        border.color: "#9ad1d4"
-                        border.width: 1
-                        clip: true
-                        color: "#f1f8f9"
-                        radius: 18
-                    }
-
-                    Rectangle {
-                        id: acceleration_Graph
-
-                        x: 12
-                        y: 420
-
-                        height: 192
-                        width: 296
-
-                        border.color: "#9ad1d4"
-                        border.width: 1
-                        clip: true
-                        color: "#f1f8f9"
-                        radius: 18
-                    }
                 }
             }
         }
     }
 
+    // Overlay for temperature graph/chart
     Temperature {
         x: 100
         y: 100
+    }
+
+    // Overaly for battery graph/chart
+    BATTERY_OVERLAY {
+        x: 200
+        y: 200
+    }
+
+    // Overlay for status in bar
+    Status_Overlay {
+        x: 500
+        y: 500
+    }
+
+    // Thruster test overlays
+    Test_Overlay {
+        x: 800
+        y: 800
     }
 }
