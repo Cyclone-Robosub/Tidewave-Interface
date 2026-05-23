@@ -11,7 +11,7 @@ Flickable {
     clip: true
     property alias videoSurface: cAMERA
     property alias cameraActive: cAMERA.isCameraActive
- CAMERA {
+    CAMERA {
         id: cAMERA
         visible: false
         property bool isCameraActive: false
@@ -20,23 +20,17 @@ Flickable {
     Rectangle {
         id: tIDALWAVE_INTERFACE_P1
 
-        height: 1440
+        height: 1080
         width: 1920
 
         clip: true
         color: "#295551"
 
-        Rectangle {
+        STATUS_BAR {
             id: status_Bar
 
             x: 32
             y: 32
-
-            height: 66
-            width: 1856
-
-            color: "#ccdbdc"
-            radius: 16
         }
 
         Rectangle {
@@ -471,19 +465,10 @@ Flickable {
                 }
             }
         }
+    }
 
-        // E-STOP from TIDALWAVE_INTERFACE_P1.ui.qml
-        E_STOP {
-            id: e_STOP
-            x: 32
-            y: 1000
-            MouseArea {
-                anchors.fill: parent
-                propagateComposedEvents : true
-                onClicked: {
-                    listeners.EStop();
-                }
-            }
-        }
+    Temperature {
+        x: 100
+        y: 100
     }
 }

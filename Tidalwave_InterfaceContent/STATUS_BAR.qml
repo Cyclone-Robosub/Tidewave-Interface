@@ -454,6 +454,14 @@ Rectangle {
                 color: "#ff4545"
                 radius: 310
             }
+
+            MouseArea {
+                anchors.fill: parent
+                propagateComposedEvents : true
+                onClicked: {
+                    listeners.EStop();
+                }
+            }
         }
     }
 }

@@ -16,7 +16,6 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
             "CustomImage.qml"
             "BATTERY_OVERLAY.qml"
             "CAMERA.qml"
-            "E_STOP.qml"
             "STATUS_OVERLAY_GOOD.qml"
             "STATUS_OVERLAY_FAULT.qml"
             "TEMP_OVERLAY.qml"
@@ -25,8 +24,6 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
             "STATUS_BAR.qml"
             "TEST.ui.qml"
             "MISSION_PATH_TOGGLE.ui.qml"
-            "TIDALWAVE_INTERFACE_P1_1.ui.qml"
-            "TIDALWAVE_INTERFACE_P1_2.ui.qml"
             "DEPTH.ui.qml"
             "NAV_YAW_DEPTH.ui.qml"
             "NAV_TEST_1.ui.qml"
@@ -40,6 +37,7 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
             "Voltage_detail_overlay.ui.qml"
             "AttitudeIndicator.qml"
             "Rectangle_1.ui.qml"
+            "Temperature.qml"
         RESOURCES
             Resources/Images/ai/ai_case.svg
             Resources/Images/ai/ai_back.svg
