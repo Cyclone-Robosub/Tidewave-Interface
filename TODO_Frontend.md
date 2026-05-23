@@ -4,9 +4,7 @@
 - [ ] Request UI/UX design
 - [ ] Implement QT + Model + Controller from Exported Matlab Code
 - [ ] Hardware Testing
-
-### Start Software Button
-- [ ] Controller code for UI. 
+ 
  
 ### Graphs and Tables
 - [ ] Implement Graphs and Tables with the new UI Files.
@@ -14,10 +12,20 @@
 - [ ] Set up Model data values for specific graph and tables
 ### New Design Files Implementation
 - [ ] Incorporate new UI files into front end.
- - [ ] Battery Priority. 
 
 
-### CLI Tool testing
-- [ ] Need to test on Thinkpad
+#### Software Testing May 30th 2026
+- [ ] Heartbeats System Status 
+- [ ] Camera -> NEW FFMPEG COMMAND we fix the delay
+	- [ ] Test with new UI Camera File
+- [ ] To test ESTOP Button
+	- [ ] tmux starts
+	- [ ] tmux stops
+- [ ] Depth, Velocity, Acceleration Graphs and Tables 
+	- [ ] if the Graph updates as time progresses
+	- [ ] Dropdown to switch to table mode. 
+
+
+
 ### Completed Column ✓
 - [x] Completed task title  
