@@ -1,5 +1,6 @@
 #ifndef ROS2_H
 #define ROS2_H
+#ifndef QTBUILDONLY
 //ROS2 is technically part of the Controller section of the backend, but for ease of understanding it is placed with main.
 #include "Model.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -48,4 +49,5 @@ private:
   SDL_Joystick* joystick_;
   bool joystick_connected_ = false;
 };
+#endif
 #endif

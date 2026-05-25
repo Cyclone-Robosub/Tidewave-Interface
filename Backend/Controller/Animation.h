@@ -4,11 +4,12 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include "PrimaryFlightData.h"
 #include "../Model.hpp"
-#include <memory>
+#include "PrimaryFlightData.h"
 #include <QObject>
 #include <QTimer>
+#include <QtCharts/QXYSeries>
+#include <memory>
 
 class Animation : public QObject
 {
@@ -17,15 +18,18 @@ public:
     explicit Animation(QObject *parent = nullptr);
 
     void setPfd(PrimaryFlightData *newPfd, std::shared_ptr<DataModel> givenData);
-
-public slots:
+    Q_INVOKABLE void setTemperatureSeries(QObject *series);
+  public slots:
     void update();
     void init();
 
 private:
+    void updateTemperatureGraph();
     PrimaryFlightData *mPfd;
     QTimer mTimer;
     std::shared_ptr<DataModel> dataModel;
+    QXYSeries *m_series_temp = nullptr;
+    int mTimeElapsed = 0;
     double mPlayTime;
     quint64 mPreviousTime;
 };

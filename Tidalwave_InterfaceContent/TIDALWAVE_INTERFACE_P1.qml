@@ -371,7 +371,7 @@ Flickable {
                         anchors.top: parent.top
                         anchors.margins: 10
                         height: 26
-                        width: 72
+                        width: 100
                         color: "#01696c"
                         radius: 12
 
@@ -383,7 +383,7 @@ Flickable {
                             font.pixelSize: 14
                             font.weight: Font.Normal
                             horizontalAlignment: Text.AlignHCenter
-                            text: "0° | -0°"
+                            text: pfd.roll + "° | "+ pfd.pitch +"°"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignVCenter
                         }

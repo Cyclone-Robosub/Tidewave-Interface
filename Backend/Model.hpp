@@ -15,8 +15,11 @@ struct IMU{
 	
 	double pressure; // pressure
 
-	std::atomic<float> roll = 0.0;
-	std::atomic<float> pitch = 0.0;
+	std::atomic<int> roll = 0.0;
+	std::atomic<int> pitch = 0.0;
+};
+struct Telemetry {
+	std::atomic<int> temp = 0;
 };
 struct HeartBeats{
 
@@ -39,6 +42,7 @@ struct ControlPath{
 
 struct DataModel {
 	IMU imu_data;
+	Telemetry telemetry_data;
 	HeartBeats heartbeats;
 	ControlPath control_path;
 	Joystick joystick_data;
