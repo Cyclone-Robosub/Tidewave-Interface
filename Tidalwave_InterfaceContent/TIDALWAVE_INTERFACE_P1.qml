@@ -408,29 +408,70 @@ Flickable {
                 }
             }
         }
-    }
 
-    // Overlay for temperature graph/chart
-    Temperature {
-        x: 100
-        y: 100
-    }
+        Item {
+            id: status_Bar_overlays
+            // Overlay for temperature graph/chart
+            Temperature {
+                id: temperature_overlay
+                visible: false
+            }
 
-    // Overaly for battery graph/chart
-    BATTERY_OVERLAY {
-        x: 200
-        y: 200
-    }
+            // Overaly for battery graph/chart
+            BATTERY_OVERLAY {
+                id: battery_overlay
+                visible: false
+            }
 
-    // Overlay for status in bar
-    Status_Overlay {
-        x: 500
-        y: 500
-    }
+            // Overlay for status in bar
+            Status_Overlay {
+                id: status_overlay
+                visible: false
+            }
 
-    // Thruster test overlays
-    Test_Overlay {
-        x: 800
-        y: 800
+            // Thruster test overlays
+            Test_Overlay {
+                id: thruster_test_overlay
+                x: status_Bar.options_button.mapToItem(status_Bar_overlays, 0, 0).x
+                y: ((status_Bar.y + status_Bar.height) + (all_Bottom_Components.y))/2
+                visible: false
+            }
+        }
+
+        Item {
+            id: status_Bar_hover_areas
+
+            MouseArea {
+                id: thruster_test_overlay_area
+
+                width: status_Bar.options_button.width
+                height: status_Bar.options_button.height
+                x: status_Bar.options_button.mapToItem(status_Bar_overlays, 0, 0).x;
+                y: status_Bar.options_button.mapToItem(status_Bar_overlays, 0, 0).y;
+
+                propagateComposedEvents : true
+                hoverEnabled: true
+                
+                onEntered: {
+                    // Show the overlay
+                    thruster_test_overlay.visible = true;
+                    status_Bar.options_arrow_rot = 180;
+
+                    // Update the MouseArea to include the dropdown
+                    height = thruster_test_overlay.mapToItem(this, 0, 0).y + thruster_test_overlay.height;
+                    width = status_overlay.width;
+                }
+
+                onExited: {
+                    // Hide the overlay
+                    thruster_test_overlay.visible = false;
+                    status_Bar.options_arrow_rot = 0;
+
+                    // Reset the MouseArea to just include the status bar button
+                    width = status_Bar.options_button.width;
+                    height = status_Bar.options_button.height;
+                }
+            }
+        }
     }
 }

@@ -4,6 +4,9 @@ import QtQuick.Shapes
 Rectangle {
     id: sTATUS_BAR
 
+    property alias options_button : tEST_OPTIONS
+    property alias options_arrow_rot : aRROW_DOWN.rotation
+
     height: 66
     width: 1856
 
