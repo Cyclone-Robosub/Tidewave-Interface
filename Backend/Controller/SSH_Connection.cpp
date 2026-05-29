@@ -103,6 +103,7 @@ void SSH_Connection::SoftwareStateMachine() {
     }
 }
 void SSH_Connection::MMServiceCall(){
+    #ifdef QTBuild
     std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("mission_manager");
 auto MMClient = node->create_client<std_srvs::srv::Trigger>("prime_signal_service");
 		auto MMRequest = std::make_shared<std_srvs::srv::Trigger::Request>();
@@ -118,4 +119,7 @@ auto MMClient = node->create_client<std_srvs::srv::Trigger>("prime_signal_servic
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR MISSION MANAGER SERVICE\n");
 	std::cout << result.get()->message << std::endl;
   }
+  #else
+    std::cout << "Ros 2 would execute here" << std::endl;
+  #endif
 }

@@ -1,4 +1,5 @@
 import QtQuick
+import QtCharts
 
 Rectangle {
     id: temperature
@@ -2432,6 +2433,65 @@ Rectangle {
                     verticalAlignment: Text.AlignTop
                 }
             }
+            // ── LineSeries overlay ──────────────────────────────────────
+            // Positioned to match the _y plot rectangle (x:12 y:18 492×149).
+            // Background and axes are fully transparent so the hand-crafted
+            // grid lines and labels underneath stay visible.
+            ChartView {
+                id: chartView
+                objectName: "temperatureChart"
+
+                x: 12
+                y: 18
+                width: 492
+                height: 149
+
+                backgroundColor: "transparent"
+                plotAreaColor:   "transparent"
+                antialiasing:    true
+
+                // Zero out internal margins so the series fills the exact area.
+                margins { top: 0; bottom: 0; left: 0; right: 0 }
+
+                // X axis — 0 = 36 s ago (left edge), 36 = NOW (right edge).
+                // Adjust min/max to match your data window.
+                ValueAxis {
+                    id: axisX
+                    min: 0
+                    max: 36
+                    visible:       false
+                    gridVisible:   false
+                    labelsVisible: false
+                }
+
+                // Y axis — tune min/max to match the temperature range shown
+                // by the existing static labels (visible label is "80").
+                ValueAxis {
+                    id: axisY
+                    min: 0
+                    max: 100
+                    visible:       false
+                    gridVisible:   false
+                    labelsVisible: false
+                }
+
+                LineSeries {
+                    id: tempSeries
+                    objectName: "temperatureSeries"
+                    axisX: axisX
+                    axisY: axisY
+                    color: "#01696c"
+                    width: 2
+                    // Points are appended from C++ via TemperatureDataProvider.
+                }
+
+                // Wire the series to the C++ provider once the component is ready.
+                Component.onCompleted: {
+                   animation.setTemperatureSeries(tempSeries) 
+                }
+            }
+            // ─────────────────────────────────────────────────────────────
+
             Rectangle {
                 id: tEMPERATURE_1
 

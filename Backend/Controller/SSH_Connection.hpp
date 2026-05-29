@@ -3,7 +3,9 @@
 #include "../Model.hpp"
 #include <iostream>
 #include <libssh/libssh.h>
+#ifdef ROS2
 #include "../ros2.hpp"
+#endif
 #include <memory>
 #include <mutex>
 #include <shared_mutex>
@@ -42,14 +44,7 @@ public:
     // Google Test Constructor
     SSH_Connection(std::shared_ptr<DataModel> givenModel, std::string Test)
         : dataModel(givenModel) {
-        if (ssh_sessionPi5 == NULL) {
-            // Send Error to dashboard
-        } else {
-            if (SetupSSHConnection() == SSH_OK) {
-                // For testing, run in current thread
                 SoftwareStateMachine();
-            }
-        }
     }
 
     ~SSH_Connection() {

@@ -3,14 +3,15 @@
 
 Listeners::Listeners(std::shared_ptr<DataModel> model, QQmlApplicationEngine *engine) : dataModel(model) {
     this->setParent(engine->rootObjects().first());
+    
 }
 
-void Listeners::SharedSlot(pathUpdateFunction updatePath, slotFunction update_ui){
+void Listeners::SharedSlot(updateStateFunc updatestatefunc_, slotFunction update_ui){
     ControlPath *path = &(dataModel->control_path);
     std::unique_lock<std::shared_mutex> lk(path->SoftwareDataMutex);
     /*dataModel->control_path.Messenger.wait(
         lk, [&] { return dataModel->control_path.isSoftwareStateCalled; });*/
-    updatePath();
+    updatestatefunc_();
     path->Messenger.notify_all();
     lk.unlock();
     update_ui();

@@ -13,13 +13,15 @@ Animation::Animation(QObject *parent)
 {
     connect(&mTimer, &QTimer::timeout, this, &Animation::update);
 }
-
+void Animation::setTemperatureSeries(QObject *series) {
+  m_series_temp = qobject_cast<QXYSeries *>(series);
+}
 void Animation::update()
 {
     quint64 currentTime = QDateTime::currentMSecsSinceEpoch();
     mPlayTime += (currentTime - mPreviousTime) / 200.0;
     mPreviousTime = currentTime;
-
+    mTimeElapsed = (int) mPlayTime / 5;
     mPfd->setAngleOfAttack(21.0 * std::sin(mPlayTime / 10.0));
     mPfd->setAngleOfSideSlip(16.0 * std::sin(mPlayTime / 10.0));
     //TODO Use memory ordering for better performance.
@@ -45,17 +47,27 @@ void Animation::update()
     mPfd->setAirspeedBug(-50.0 * std::cos(mPlayTime / 10.0) + 50.0);
     mPfd->setAltitudeBug(-1000.0 * std::cos(mPlayTime / 40.0) + 1000.0);
 
-    mPfd->setLeftTankFuel(15 - 15 * std::cos(mPlayTime / 10.0));
-    mPfd->setRightTankFuel(15 - 15 * std::cos(mPlayTime / 20.0));
-    mPfd->setEgt(1300 - 600 * std::cos(mPlayTime / 10.0));
-    mPfd->setFuelFlow(10 - 10 * std::cos(mPlayTime / 10.0));
-    mPfd->setEngineTemperature(160 - 85 * std::cos(mPlayTime / 10.0));
-    mPfd->setEnginePressure(57.5 - 57.5 * std::cos(mPlayTime / 10.0));
-    mPfd->setVac(5 - 2 * std::cos(mPlayTime / 5.0));
-    mPfd->setAmp(60 * std::sin(mPlayTime / 10.0));
-    mPfd->setRpm(1750 - 1750 * std::cos(mPlayTime / 10.0));
+
+
+    updateTemperatureGraph();
 }
 
+void Animation::updateTemperatureGraph() {
+  if (m_series_temp == nullptr)
+    return;
+
+  
+  int temp = dataModel->telemetry_data.temp.load();
+  int x = mTimeElapsed / 100; // seconds elapsed
+
+  m_series_temp->append(static_cast<qreal>(x), static_cast<qreal>(temp));
+
+  if (m_series_temp->count() > 31) {
+    QList<QPointF> pts = m_series_temp->points();
+    pts.removeFirst();
+    m_series_temp->replace(pts);
+  }
+}
 void Animation::init()
 {
     mPfd->setPressureMode(PrimaryFlightData::PressureMode::IN);
