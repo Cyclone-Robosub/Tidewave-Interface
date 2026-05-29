@@ -31,6 +31,7 @@ qt6_add_qml_module(Tidalwave_InterfaceContent
             "Frame_2.qml"
             "Status_Overlay.qml"
             "Test_Overlay.qml"
+            "Hover_Overlay.qml"
         RESOURCES
             Resources/Images/ai/ai_case.svg
             Resources/Images/ai/ai_back.svg
