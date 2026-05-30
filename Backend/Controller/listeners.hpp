@@ -7,7 +7,9 @@
 #include <QtCharts/QXYSeries>
 #include <functional>
 #include <string>
-
+#ifdef ROS2
+#include "../ros2.hpp"
+#endif
 class MissingItemException : std::exception {
     std::string objectName;
 public:
@@ -29,7 +31,7 @@ class Listeners : public QObject {
     using updateStateFunc = std::function<void(void)>;
     public slots:
         void EStop();
-
+        void MMServiceCall();
     private:
         std::shared_ptr<DataModel> dataModel;
         void SharedSlot(updateStateFunc updatestatefunc_,

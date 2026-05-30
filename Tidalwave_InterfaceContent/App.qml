@@ -40,11 +40,11 @@ Window {
         }
 
         onMediaStatusChanged: {
-            console.log("Media status:", mediaStatus)
             // EndOfMedia can fire on RTSP disconnect — reconnect
             if (mediaStatus === MediaPlayer.EndOfMedia ||
                 mediaStatus === MediaPlayer.InvalidMedia) {
                 reconnectTimer.start()
+                console.log("Media status:", mediaStatus)
             }
         }
     }
