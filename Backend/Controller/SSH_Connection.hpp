@@ -24,6 +24,7 @@ Pros:
 Cons:
   Debugging might be harder if not accounted for.
 */
+using std::chrono_literals;
 class SSH_Connection {
 public:
     SSH_Connection(std::shared_ptr<DataModel> givenModel)
@@ -31,13 +32,16 @@ public:
         ssh_sessionPi5 = ssh_new();
         if (ssh_sessionPi5 == NULL) {
             // Send Error to dashboard
-            std::cout << "No SSH_Connection Session Created" << std::endl;
+            std::cout << "No SSH_Connection Session Created. Library Problem" << std::endl;
         } else {
-            if (SetupSSHConnection() == SSH_OK) {
-                // Start state machines
-                softwareThread = std::thread(&SSH_Connection::SoftwareStateMachine, this);
-                softwareThread.join();
+            while (SetupSSHConnection() != SSH_OK) {
+            std::this_thread::sleep_for(1s);
+                
             }
+            // Start state machines
+            softwareThread =
+                std::thread(&SSH_Connection::SoftwareStateMachine, this);
+            softwareThread.join();
         }
     }
 
