@@ -29,12 +29,12 @@ if(QTBuild AND ROS2)
 message("Normal build")
 set(PROJECT_VERSION "1.0.0")
 cmake_minimum_required(VERSION 3.21.1)
+project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
 find_package(Qt6 REQUIRED COMPONENTS Graphs)
 
-project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 # CMakeLists.txt
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
