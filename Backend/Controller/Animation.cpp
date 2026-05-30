@@ -55,7 +55,7 @@ void Animation::update()
 void Animation::updateTemperatureGraph() {
   if (m_series_temp == nullptr)
     return;
-
+/*
   
   int temp = dataModel->telemetry_data.temp.load();
   int x = mTimeElapsed / 100; // seconds elapsed
@@ -66,7 +66,7 @@ void Animation::updateTemperatureGraph() {
     QList<QPointF> pts = m_series_temp->points();
     pts.removeFirst();
     m_series_temp->replace(pts);
-  }
+  }*/
 }
 void Animation::init()
 {
