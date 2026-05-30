@@ -33,6 +33,7 @@ struct Joystick{
 	double yaw;
 	double pitch;
 };
+//Rename to ControlState
 struct ControlPath{
 	std::condition_variable_any Messenger;
 	std::shared_mutex SoftwareDataMutex;

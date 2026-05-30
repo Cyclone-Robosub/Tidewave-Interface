@@ -3,9 +3,7 @@
 #include "../Model.hpp"
 #include <iostream>
 #include <libssh/libssh.h>
-#ifdef ROS2
-#include "../ros2.hpp"
-#endif
+
 #include <memory>
 #include <mutex>
 #include <shared_mutex>
@@ -24,7 +22,7 @@ Pros:
 Cons:
   Debugging might be harder if not accounted for.
 */
-using std::chrono_literals;
+using namespace std::chrono_literals;
 class SSH_Connection {
 public:
     SSH_Connection(std::shared_ptr<DataModel> givenModel)
@@ -36,7 +34,6 @@ public:
         } else {
             while (SetupSSHConnection() != SSH_OK) {
             std::this_thread::sleep_for(1s);
-                
             }
             // Start state machines
             softwareThread =
@@ -56,7 +53,7 @@ public:
     }
 
 private:
-    void MMServiceCall();
+  //  void MMServiceCall();
     std::thread softwareThread;
     ssh_session ssh_sessionPi5;
     ssh_channel channelSoftware = NULL;

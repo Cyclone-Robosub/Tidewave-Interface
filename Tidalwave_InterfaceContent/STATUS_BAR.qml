@@ -435,9 +435,8 @@ Rectangle {
             }
         }
         Rectangle {
-            id: e_STOP
-
-            x: 506.95
+            id: e_STOP_MM
+            x: 406.95
 
             height: 48
             width: 48
@@ -450,6 +449,41 @@ Rectangle {
 
             Rectangle {
                 id: iNNER_CIRCLE
+
+                x: 6
+                y: 6
+
+                height: 36
+                width: 36
+
+                clip: true
+                color: "#ff4545"
+                radius: 310
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                propagateComposedEvents : true
+                onClicked: {
+                    listeners.MMServiceCall();
+                }
+            }
+        }
+        Rectangle {
+            id: e_START
+            x: 506.95
+
+            height: 48
+            width: 48
+
+            border.color: "#9ad1d4"
+            border.width: 0.62
+            clip: true
+            color: "#f1f8f9"
+            radius: 310
+
+            Rectangle {
+                id: iNNER_CIRCLE_MM
 
                 x: 6
                 y: 6
