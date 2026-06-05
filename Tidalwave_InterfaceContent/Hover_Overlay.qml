@@ -66,7 +66,6 @@ Item {
             function expand() {
                 this.width = area.width - root.button.width;
                 this.height = status_Bar.height;
-                console.warn(this.width, this.height);
             }
 
             function contract() {
