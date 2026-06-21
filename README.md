@@ -80,6 +80,10 @@ colcon build --cmake-args -DQt_ROOT=$HOME/Qt/6.7.3/gcc_64
 ```
 
 #### 4. Executing the Application (WSL / Ubuntu)
+Be default run the following
+```
+./build/Tidalwave_InterfaceApp/Tidalwave_InterfaceApp
+```
 
 To run the application while bypassing potential QML disk caching alignment bugs and forcing graphics display mapping over WSLg, execute:
 ```
