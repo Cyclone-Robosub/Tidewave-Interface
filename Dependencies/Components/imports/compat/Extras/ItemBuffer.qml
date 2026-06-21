@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.12
+import QtQuick 
 //! [ItemBuffer compatibility]
 Item {
     enum ExtraFlag { RedrawItemBufferFlag = 1 }

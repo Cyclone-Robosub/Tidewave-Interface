@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.10
-import QtQuick.Timeline 1.0
+import QtQuick 
+import QtQuick.Timeline 
 
 FlowEffect {
     id: effect

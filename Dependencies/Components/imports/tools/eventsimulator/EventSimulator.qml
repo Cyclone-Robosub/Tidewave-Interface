@@ -28,9 +28,9 @@
 ****************************************************************************/
 
 pragma Singleton
-import QtQuick 2.10
-import QtQuick.Window 2.2
-import QtQuick.Studio.EventSystem 1.0
+import QtQuick 
+import QtQuick.Window 
+import QtQuick.Studio.EventSystem 
 
 QtObject {
     id: root

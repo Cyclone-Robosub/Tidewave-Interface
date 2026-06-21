@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.15
+import QtQuick 2
 //! [AnimatedSpriteDirectory compatibility]
 //  Draws a sprite animation stored in a directory.
 Item {

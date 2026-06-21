@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.15
+import QtQuick
 
 //! [ImageLayer compatibility]
 Item {

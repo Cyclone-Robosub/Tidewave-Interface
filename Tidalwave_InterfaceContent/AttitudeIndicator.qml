@@ -2,7 +2,7 @@
 // https://github.com/berkbavas/QmlFlightInstruments
 // MIT License — Copyright (c) berkbavas
 // SVG assets originally by Marek M. Cel (QFlightinstruments)
-import QtQuick 2.0
+import QtQuick
 import Tidalwave_InterfaceContent
 Item {
     width: 2 * radius

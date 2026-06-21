@@ -33,7 +33,8 @@ project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
-find_package(Qt6 REQUIRED COMPONENTS Graphs)
+find_package(Qt6 REQUIRED COMPONENTS Charts)
+# find_package(Qt6 REQUIRED COMPONENTS Graphs)
 
 # CMakeLists.txt
 find_package(ament_cmake REQUIRED)
@@ -53,7 +54,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 REQUIRED COMPONENTS MultimediaWidgets Core Gui Widgets Qml Quick Multimedia Graphs ShaderTools)
+find_package(Qt6 REQUIRED COMPONENTS MultimediaWidgets Core Gui Widgets Qml Quick Multimedia Charts ShaderTools)
 qt_standard_project_setup()
 
 
@@ -82,7 +83,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 	 Qt6::Quick
 	 Qt6::Qml 
 	 Qt6::Widgets 
-     Qt6::Graphs
+    #  Qt6::Graphs
+     Qt6::Charts
 	 Qt6::Multimedia 
 	 Qt6::MultimediaWidgets
 	 ${rclcpp_LIBRARIES}
@@ -230,7 +232,8 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "
 target_link_libraries(QT_Only_Test PRIVATE gtest_main Qt6::Core 
     Qt6::Gui 
     Qt6::Widgets 
-     Qt6::Graphs
+    # Qt6::Graphs
+    Qt6::Charts
     Qt6::Qml 
     Qt6::Quick 
     ${LIBSSH_LIBRARIES}

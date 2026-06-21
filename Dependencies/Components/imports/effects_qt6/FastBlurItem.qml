@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
+import QtQuick 
 import Qt5Compat.GraphicalEffects
 
 Item {
