@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 pragma Singleton
-import QtQuick 2.10
-import QtQuick.Window 2.2
+import QtQuick 
+import QtQuick.Window 
 
 Item {
     signal eventTriggered(string eventID, string parameters)

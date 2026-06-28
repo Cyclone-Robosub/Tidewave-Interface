@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.12
-import QtQuick.Studio.EventSystem 1.0
+import QtQuick 
+import QtQuick.Studio.EventSystem 
 
 Item {
     width: 80

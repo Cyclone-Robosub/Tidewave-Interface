@@ -2,7 +2,7 @@
 // https://github.com/berkbavas/QmlFlightInstruments
 // MIT License — Copyright (c) berkbavas
 // SVG assets originally by Marek M. Cel (QFlightinstruments)
-import QtQuick 2.15
+import QtQuick 
 
 Image {
     sourceSize.width: 1024
