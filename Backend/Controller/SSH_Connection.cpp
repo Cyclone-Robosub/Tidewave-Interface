@@ -57,10 +57,7 @@ int SSH_Connection::ExecuteScript(ssh_channel channel, const std::string& script
         char cArr[line.length() + 1];
         strcpy(cArr, line.c_str());
         int bitsWritten = ssh_channel_write(channel, cArr, line.length() + 1);
-
         if (bitsWritten != line.length() + 1) {
-            // Send Error to Dashboard
-            channel = ssh_channel_new(ssh_sessionPi5);
             if (channel == NULL) {
                 std::cerr << "Channel Error\n";
                 return 0;
@@ -96,13 +93,15 @@ void SSH_Connection::SoftwareStateMachine() {
             // Start the software
             std::cout << "--------------STARTING ROBOT SOFTWARE--------------\n";
          if(ExecuteScript(channelSoftware, "Scripts/StartRobotSoftware.sh")){
-            MMServiceCall();
+       //     MMServiceCall();
             dataModel->control_path.isSoftwareRunning = true;
         }
         }
     }
 }
+/*
 void SSH_Connection::MMServiceCall(){
+    #ifdef QTBuild
     std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("mission_manager");
 auto MMClient = node->create_client<std_srvs::srv::Trigger>("prime_signal_service");
 		auto MMRequest = std::make_shared<std_srvs::srv::Trigger::Request>();
@@ -118,4 +117,8 @@ auto MMClient = node->create_client<std_srvs::srv::Trigger>("prime_signal_servic
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR MISSION MANAGER SERVICE\n");
 	std::cout << result.get()->message << std::endl;
   }
+  #else
+    std::cout << "Ros 2 would execute here" << std::endl;
+  #endif
 }
+  */

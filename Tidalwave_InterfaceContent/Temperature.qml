@@ -1,13 +1,13 @@
 import QtQuick
+import QtCharts
 
 Rectangle {
-    id: tEMP_OVERLAY
+    id: temperature
 
     height: 243
     width: 564
 
-    clip: true
-    color: "#ccdbdc"
+    color: "#ffffff"
     radius: 24
 
     Rectangle {
@@ -25,91 +25,11 @@ Rectangle {
         color: "#ffffff"
         radius: 16
 
-        Item {
-            id: gRAPH_TITLE
-
-            x: 16
-            y: 16
-
-            height: 29
-            width: 484
-
-            Item {
-                id: nUMBER_DROPDOWN
-
-                x: 4
-                y: 6
-
-                height: 17
-                width: 145
-
-                Text {
-                    id: temperature
-                    x: 0
-                    y: -7
-
-                    height: 17
-                    width: 146
-
-                    color: "#01696c"
-                    font.family: "Univers"
-                    font.pixelSize: 24
-                    font.weight: Font.Normal
-                    horizontalAlignment: Text.AlignLeft
-                    text: "Temperature"
-                    textFormat: Text.PlainText
-                    verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
-                }
-            }
-            Item {
-                id: vALUE_UNOM
-
-                x: 426
-
-                height: 29
-                width: 54
-
-                Rectangle {
-                    id: gRAPH_NUMBER
-
-                    height: 29
-                    width: 54
-
-                    color: "#01696c"
-                    radius: 8
-
-                    Text {
-                        id: element
-
-                        x: 11
-                        y: 0
-
-                        height: 17
-                        width: 33.80
-
-                        color: "#ffffff"
-                        font.family: "Univers"
-                        font.letterSpacing: -1.20
-                        font.pixelSize: 24
-                        font.weight: Font.Normal
-                        horizontalAlignment: Text.AlignLeft
-                        text: "16°"
-                        textFormat: Text.PlainText
-                        verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
-                    }
-                }
-            }
-        }
         Rectangle {
             id: gRAPH_1
 
-            x: 16
-            y: 57
-
-            height: 122
-            width: 484
+            height: 195
+            width: 516
 
             border.color: "#9ad1d4"
             border.width: 0.50
@@ -117,30 +37,35 @@ Rectangle {
             color: "#f1f8f9"
             radius: 12
 
-            Item {
+            Rectangle {
                 id: _y
 
                 x: 12
                 y: 18
 
-                height: 76
-                width: 460
+                height: 149
+                width: 492
 
                 clip: true
+                color: "transparent"
 
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH
@@ -155,7 +80,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_1
+                            id: element
 
                             height: 6
                             width: 12
@@ -168,16 +93,17 @@ Rectangle {
                             text: "80"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_1
@@ -685,21 +611,25 @@ Rectangle {
                         }
                     }
                 }
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE_1
 
-                    y: 21
+                    y: 45.33
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK_1
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_47
@@ -714,7 +644,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_2
+                            id: element_1
 
                             height: 6
                             width: 12
@@ -727,16 +657,17 @@ Rectangle {
                             text: "60"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE_1
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_48
@@ -1244,21 +1175,25 @@ Rectangle {
                         }
                     }
                 }
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE_2
 
-                    y: 42
+                    y: 90.67
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK_2
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_94
@@ -1273,7 +1208,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_3
+                            id: element_2
 
                             height: 6
                             width: 12
@@ -1286,16 +1221,17 @@ Rectangle {
                             text: "40"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE_2
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_95
@@ -1803,21 +1739,25 @@ Rectangle {
                         }
                     }
                 }
-                Item {
+                Rectangle {
                     id: nUM_DASHLINE_3
 
-                    y: 63
+                    y: 136
 
                     height: 13
-                    width: 460
+                    width: 492
 
-                    Item {
+                    color: "transparent"
+
+                    Rectangle {
                         id: nUM_TICK_3
 
                         y: 1
 
                         height: 6
                         width: 11
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_141
@@ -1832,7 +1772,7 @@ Rectangle {
                             visible: false
                         }
                         Text {
-                            id: element_4
+                            id: element_3
 
                             height: 6
                             width: 12
@@ -1845,16 +1785,17 @@ Rectangle {
                             text: "20"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignTop
-                            wrapMode: Text.WordWrap
                         }
                     }
-                    Item {
+                    Rectangle {
                         id: dASH_LINE_3
 
                         y: 11
 
                         height: 1
                         width: 546
+
+                        color: "transparent"
 
                         Rectangle {
                             id: dASH_142
@@ -2363,14 +2304,16 @@ Rectangle {
                     }
                 }
             }
-            Item {
+            Rectangle {
                 id: frame_1
 
                 x: 12
-                y: 104
+                y: 177
 
                 height: 6
-                width: 460
+                width: 492
+
+                color: "transparent"
 
                 Text {
                     id: s
@@ -2386,12 +2329,11 @@ Rectangle {
                     text: "36s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_1
 
-                    x: 74.83
+                    x: 80.17
 
                     height: 6
                     width: 18
@@ -2404,12 +2346,11 @@ Rectangle {
                     text: "30s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_2
 
-                    x: 149.67
+                    x: 160.33
 
                     height: 6
                     width: 18
@@ -2422,12 +2363,11 @@ Rectangle {
                     text: "24s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_3
 
-                    x: 224.50
+                    x: 240.50
 
                     height: 6
                     width: 18
@@ -2440,12 +2380,11 @@ Rectangle {
                     text: "18s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_4
 
-                    x: 299.33
+                    x: 320.67
 
                     height: 6
                     width: 18
@@ -2458,12 +2397,11 @@ Rectangle {
                     text: "12s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: s_5
 
-                    x: 374.17
+                    x: 400.83
 
                     height: 6
                     width: 12
@@ -2476,12 +2414,11 @@ Rectangle {
                     text: "6s"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
                 Text {
                     id: nOW
 
-                    x: 443
+                    x: 475
 
                     height: 6
                     width: 18
@@ -2494,8 +2431,136 @@ Rectangle {
                     text: "NOW"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
+            }
+            // ── LineSeries overlay ──────────────────────────────────────
+            // Positioned to match the _y plot rectangle (x:12 y:18 492×149).
+            // Background and axes are fully transparent so the hand-crafted
+            // grid lines and labels underneath stay visible.
+            ChartView {
+                id: chartView
+                objectName: "temperatureChart"
+
+                x: 12
+                y: 18
+                width: 492
+                height: 149
+
+                backgroundColor: "transparent"
+                plotAreaColor:   "transparent"
+                antialiasing:    true
+
+                // Zero out internal margins so the series fills the exact area.
+                margins { top: 0; bottom: 0; left: 0; right: 0 }
+
+                // X axis — 0 = 36 s ago (left edge), 36 = NOW (right edge).
+                // Adjust min/max to match your data window.
+                ValueAxis {
+                    id: axisX
+                    min: 0
+                    max: 36
+                    visible:       false
+                    gridVisible:   false
+                    labelsVisible: false
+                }
+
+                // Y axis — tune min/max to match the temperature range shown
+                // by the existing static labels (visible label is "80").
+                ValueAxis {
+                    id: axisY
+                    min: 0
+                    max: 100
+                    visible:       false
+                    gridVisible:   false
+                    labelsVisible: false
+                }
+
+                LineSeries {
+                    id: tempSeries
+                    objectName: "temperatureSeries"
+                    axisX: axisX
+                    axisY: axisY
+                    color: "#01696c"
+                    width: 2
+                    // Points are appended from C++ via TemperatureDataProvider.
+                }
+
+                // Wire the series to the C++ provider once the component is ready.
+                Component.onCompleted: {
+                   animation.setTemperatureSeries(tempSeries) 
+                }
+            }
+            // ─────────────────────────────────────────────────────────────
+
+            Rectangle {
+                id: tEMPERATURE_1
+
+                x: 12
+                y: 12
+
+                height: 30
+                width: 157
+
+                border.color: "#9ad1d4"
+                border.width: 1
+                clip: true
+                color: "#ffffff"
+                radius: 12
+
+                Text {
+                    id: tEMPERATURE_2
+
+                    x: 12
+                    y: 4
+
+                    height: 22
+                    width: 134
+
+                    color: "#01696c"
+                    font.family: "Univers"
+                    font.pixelSize: 18
+                    font.weight: Font.Normal
+                    horizontalAlignment: Text.AlignLeft
+                    text: "TEMPERATURE"
+                    textFormat: Text.PlainText
+                    verticalAlignment: Text.AlignTop
+                }
+            }
+        }
+        Rectangle {
+            id: tEMPERATURE_3
+
+            x: 454
+            y: 12
+
+            height: 30
+            width: 50
+
+            border.color: "#9ad1d4"
+            border.width: 1
+            clip: true
+            color: "#01696c"
+            opacity: 0.90
+            radius: 12
+
+            Text {
+                id: element_4
+
+                x: 12
+                y: 4
+
+                height: 22
+                width: 27
+
+                color: "#ffffff"
+                font.family: "Univers"
+                font.letterSpacing: -0.90
+                font.pixelSize: 18
+                font.weight: Font.Normal
+                horizontalAlignment: Text.AlignLeft
+                text: "16°"
+                textFormat: Text.PlainText
+                verticalAlignment: Text.AlignTop
             }
         }
     }

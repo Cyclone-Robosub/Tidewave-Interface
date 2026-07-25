@@ -14,7 +14,8 @@ endif()
  
 include(FetchContent)
 
-
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBSSH REQUIRED libssh)
 FetchContent_Declare(
   SDL2
   GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
@@ -28,15 +29,16 @@ if(QTBuild AND ROS2)
 message("Normal build")
 set(PROJECT_VERSION "1.0.0")
 cmake_minimum_required(VERSION 3.21.1)
+project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
 option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
+find_package(Qt6 REQUIRED COMPONENTS Charts)
+# find_package(Qt6 REQUIRED COMPONENTS Graphs)
 
-project(Tidalwave_InterfaceApp VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 # CMakeLists.txt
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(LibSSH REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(remote_control_interface REQUIRED)
@@ -52,7 +54,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 REQUIRED COMPONENTS MultimediaWidgets Core Gui Widgets Qml Quick Multimedia ShaderTools)
+find_package(Qt6 REQUIRED COMPONENTS MultimediaWidgets Core Gui Widgets Qml Quick Multimedia Charts ShaderTools)
 qt_standard_project_setup()
 
 
@@ -81,6 +83,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 	 Qt6::Quick
 	 Qt6::Qml 
 	 Qt6::Widgets 
+    #  Qt6::Graphs
+     Qt6::Charts
 	 Qt6::Multimedia 
 	 Qt6::MultimediaWidgets
 	 ${rclcpp_LIBRARIES}
@@ -125,9 +129,7 @@ find_package(custom_interfaces REQUIRED)
 find_package(remote_control_interface REQUIRED)
 find_package(ament_cmake_gtest REQUIRED)
 find_package(std_srvs REQUIRED)
-find_package(LibSSH REQUIRED)
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(LIBSSH REQUIRED libssh)
 
 OPTION(ROS2ONLY "only run the ros2 parts" ON)
 add_compile_definitions(ROS2ONLY)
@@ -164,7 +166,7 @@ message("Only QT build")
     project(Tidalwave_InterfaceApp LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
+find_package(LibSSH REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
@@ -173,7 +175,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Core QuickTimeline Gui Widgets Qml Quick Multimedia ShaderTools)
+find_package(Qt6 REQUIRED COMPONENTS Graphs Core QuickTimeline Gui Widgets Qml Quick Multimedia ShaderTools)
 qt_standard_project_setup()
 
 
@@ -214,22 +216,31 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-
+find_package(LibSSH REQUIRED)
 file(GLOB TEST_SOURCES CONFIGURE_DEPENDS Backend/test/QT_ONLY/*.cpp) # ensures all the files in test are included
 add_executable(QT_Only_Test ${TEST_SOURCES} Backend/Controller/Animation.cpp 
-    Backend/Controller/PrimaryFlightData.cpp )
+    Backend/Controller/PrimaryFlightData.cpp
+    Backend/Controller/SSH_Connection.cpp
+    Backend/Controller/listeners.cpp )
+    target_include_directories(QT_Only_Test PRIVATE
+    ${LIBSSH_INCLUDE_DIRS}
+    if(APPLE)
+    /opt/homebrew/opt/libssh/include   # fallback for Homebrew arm64
+    endif()
+)
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "Logo.icns")
 target_link_libraries(QT_Only_Test PRIVATE gtest_main Qt6::Core 
- 
     Qt6::Gui 
     Qt6::Widgets 
+    # Qt6::Graphs
+    Qt6::Charts
     Qt6::Qml 
     Qt6::Quick 
+    ${LIBSSH_LIBRARIES}
     Tidalwave_Interface
     Tidalwave_Interfaceplugin
     Tidalwave_InterfaceContent
     Tidalwave_InterfaceContentplugin)
-
 include(GoogleTest)
 gtest_discover_tests(QT_Only_Test)
 endif()

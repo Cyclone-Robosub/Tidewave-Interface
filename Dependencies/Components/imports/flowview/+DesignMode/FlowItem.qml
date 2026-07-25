@@ -28,8 +28,8 @@
 ****************************************************************************/
 
 
-import QtQuick 2.12
-import FlowView 1.0
+import QtQuick 
+import FlowView 
 
 Item {
     id: flowItem

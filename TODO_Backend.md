@@ -1,5 +1,7 @@
 # Backend
-
+### Heartbeats Status Dropdown
+- [ ] Get the hearbeats topics from the sys-arch repo and implement ROS topics
+- [ ] Link ROS topics to View.
 ### SSH Communication
 - [ ] Authentication Handling
   - [ ] Password hash or SSH key passing

@@ -1,7 +1,9 @@
+#ifndef SSH_CONNECTION_HPP
+#define SSH_CONNECTION_HPP
 #include "../Model.hpp"
 #include <iostream>
 #include <libssh/libssh.h>
-#include "../ros2.hpp"
+
 #include <memory>
 #include <mutex>
 #include <shared_mutex>
@@ -20,6 +22,7 @@ Pros:
 Cons:
   Debugging might be harder if not accounted for.
 */
+using namespace std::chrono_literals;
 class SSH_Connection {
 public:
     SSH_Connection(std::shared_ptr<DataModel> givenModel)
@@ -27,27 +30,22 @@ public:
         ssh_sessionPi5 = ssh_new();
         if (ssh_sessionPi5 == NULL) {
             // Send Error to dashboard
-            std::cout << "No SSH_Connection Session Created" << std::endl;
+            std::cout << "No SSH_Connection Session Created. Library Problem" << std::endl;
         } else {
-            if (SetupSSHConnection() == SSH_OK) {
-                // Start state machines
-                softwareThread = std::thread(&SSH_Connection::SoftwareStateMachine, this);
-                softwareThread.join();
+            while (SetupSSHConnection() != SSH_OK) {
+            std::this_thread::sleep_for(1s);
             }
+            // Start state machines
+            softwareThread =
+                std::thread(&SSH_Connection::SoftwareStateMachine, this);
+            softwareThread.join();
         }
     }
 
     // Google Test Constructor
     SSH_Connection(std::shared_ptr<DataModel> givenModel, std::string Test)
         : dataModel(givenModel) {
-        if (ssh_sessionPi5 == NULL) {
-            // Send Error to dashboard
-        } else {
-            if (SetupSSHConnection() == SSH_OK) {
-                // For testing, run in current thread
                 SoftwareStateMachine();
-            }
-        }
     }
 
     ~SSH_Connection() {
@@ -55,7 +53,7 @@ public:
     }
 
 private:
-    void MMServiceCall();
+  //  void MMServiceCall();
     std::thread softwareThread;
     ssh_session ssh_sessionPi5;
     ssh_channel channelSoftware = NULL;
@@ -71,3 +69,4 @@ private:
 
     bool is_KillSwitchOn;
 };
+#endif

@@ -28,10 +28,10 @@
 ****************************************************************************/
 
 
-import QtQuick 2.12
-import TransitionItem 1.0
-import QtQuick.Controls 2.3
-import QtQuick.Timeline 1.0
+import QtQuick 
+import TransitionItem 
+import QtQuick.Controls 
+import QtQuick.Timeline 
 
 Item {
     id: root

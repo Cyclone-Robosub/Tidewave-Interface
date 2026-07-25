@@ -1,7 +1,6 @@
-// Placeholder.qml - Updated with camera, E-STOP, and Flickable content
 import QtQuick
 import QtQuick.Shapes
-import QtQuick.Controls
+import QtQuick.Layouts
 import QtMultimedia
 import Tidalwave_InterfaceContent
 Flickable {
@@ -11,7 +10,7 @@ Flickable {
     clip: true
     property alias videoSurface: cAMERA
     property alias cameraActive: cAMERA.isCameraActive
- CAMERA {
+    CAMERA {
         id: cAMERA
         visible: false
         property bool isCameraActive: false
@@ -20,23 +19,17 @@ Flickable {
     Rectangle {
         id: tIDALWAVE_INTERFACE_P1
 
-        height: 1440
+        height: 1080
         width: 1920
 
         clip: true
         color: "#295551"
 
-        Rectangle {
+        STATUS_BAR {
             id: status_Bar
 
             x: 32
             y: 32
-
-            height: 66
-            width: 1856
-
-            color: "#ccdbdc"
-            radius: 16
         }
 
         Rectangle {
@@ -59,6 +52,7 @@ Flickable {
                 color: "transparent"
 
                 // Camera from TIDALWAVE_INTERFACE_P1.ui.qml
+                // FIXME -- this should be replaced with the `Frame_2 {}` component
                 Rectangle {
                     id: camera
 
@@ -377,7 +371,7 @@ Flickable {
                         anchors.top: parent.top
                         anchors.margins: 10
                         height: 26
-                        width: 72
+                        width: 100
                         color: "#01696c"
                         radius: 12
 
@@ -389,7 +383,7 @@ Flickable {
                             font.pixelSize: 14
                             font.weight: Font.Normal
                             horizontalAlignment: Text.AlignHCenter
-                            text: "0° | -0°"
+                            text: pfd.roll + "° | "+ pfd.pitch +"°"
                             textFormat: Text.PlainText
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -408,80 +402,86 @@ Flickable {
                     }
                 }
 
-                Rectangle {
+                BORDER {
                     id: all_Positional_Graphs
-
                     y: 308
-
-                    height: 624
-                    width: 320
-
-                    border.color: "#9ad1d4"
-                    border.width: 1
-                    color: "#ffffff"
-                    radius: 16
-
-                    Rectangle {
-                        id: depth_Graph
-
-                        x: 12
-                        y: 12
-
-                        height: 192
-                        width: 296
-
-                        border.color: "#9ad1d4"
-                        border.width: 1
-                        clip: true
-                        color: "#f1f8f9"
-                        radius: 18
-                    }
-
-                    Rectangle {
-                        id: velocity_Graph
-
-                        x: 12
-                        y: 216
-
-                        height: 192
-                        width: 296
-
-                        border.color: "#9ad1d4"
-                        border.width: 1
-                        clip: true
-                        color: "#f1f8f9"
-                        radius: 18
-                    }
-
-                    Rectangle {
-                        id: acceleration_Graph
-
-                        x: 12
-                        y: 420
-
-                        height: 192
-                        width: 296
-
-                        border.color: "#9ad1d4"
-                        border.width: 1
-                        clip: true
-                        color: "#f1f8f9"
-                        radius: 18
-                    }
                 }
             }
         }
 
-        // E-STOP from TIDALWAVE_INTERFACE_P1.ui.qml
-        Button {
-            objectName: "e_STOP"
-            text:"HEY This is a temporary button tyring to hook up qml signals to c++ slots!"
+        Item {
+            id: status_Bar_overlays
+
+            function getX(button){return status_Bar[button].mapToItem(status_Bar_overlays, 0, 0).x;}
+            function getY(){return ((status_Bar.y + status_Bar.height)+(all_Bottom_Components.y))/2;}
+
+            // Overlay for temperature graph/chart
+            Temperature {
+                id: temperature_overlay
+                x: status_Bar_overlays.getX("temperature_button")
+                y: status_Bar_overlays.getY()
+                visible: false
+            }
+
+            // Overaly for battery graph/chart
+            BATTERY_OVERLAY {
+                id: battery_overlay
+                x: status_Bar_overlays.getX("battery_button")
+                y: status_Bar_overlays.getY()
+                visible: false
+            }
+
+            // Overlay for status in bar
+            Status_Overlay {
+                id: status_overlay
+                x: status_Bar_overlays.getX("status_button")
+                y: status_Bar_overlays.getY()
+                visible: false
+            }
+
+            // Thruster test overlays
+            Test_Overlay {
+                id: thruster_test_overlay
+                x: status_Bar_overlays.getX("tests_button")
+                y: status_Bar_overlays.getY()
+                visible: false
+            }
         }
-        E_STOP {
-            id: e_STOP
-            x: 32
-            y: 1000
+
+        Item {
+            id: status_Bar_hover_areas
+
+            // FIXME because of how Hover_Overlay is currently set up, the hover area blocks adjacent buttons.
+
+            Hover_Overlay {
+                id: temperature_hover_area
+
+                button: status_Bar.temperature_button
+                overlay: temperature_overlay
+            }
+
+            Hover_Overlay {
+                id: battery_hover_area
+
+                button: status_Bar.battery_button
+                overlay: battery_overlay
+            }
+
+            Hover_Overlay {
+                id: status_hover_area
+
+                button: status_Bar.status_button
+                overlay: status_overlay
+            }
+
+            Hover_Overlay {
+                id: thruster_test_hover_area
+
+                button: status_Bar.tests_button
+                rotateArrow: true
+                overlay: thruster_test_overlay
+            }
+
         }
-      
     }
 }

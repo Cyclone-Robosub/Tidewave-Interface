@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.15
+import QtQuick
 //! [StaticText compatibility]
 //  Enables optimized drawing of text.
 Text {

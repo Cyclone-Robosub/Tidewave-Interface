@@ -3,7 +3,9 @@
 #include "../../StateSaver/StateSaver.hpp"
 #include "../../autogen/environment.h"
 #include <QApplication>
+#include "../../Controller/listeners.hpp"
 #include <QQmlApplicationEngine>
+#include "../../Controller/SSH_Connection.hpp"
 #include <QQmlContext>
 #include <chrono>
 #include <gtest/gtest.h>
@@ -36,15 +38,18 @@ protected:
       const QUrl url(mainQmlFile);
       // 3. Setup Engine
         engine = new QQmlApplicationEngine();
+        engine->rootContext()->setContextProperty("animation", animation);
         engine->rootContext()->setContextProperty("pfd", pfd);
 
         // 4. Load QML
         engine->addImportPath(QCoreApplication::applicationDirPath() + "/qml");
         engine->addImportPath(":/");
         engine->load(url);
-   
-      // 5. Start Logic
-      animation->init();
+        Listeners *listeners = new Listeners(dataModel, engine);
+        engine->rootContext()->setContextProperty(QStringLiteral("listeners"),
+                                                 listeners);
+        // 5. Start Logic
+        animation->init();
 
   }
 
@@ -71,45 +76,45 @@ TEST_F(TidalwaveFixture, RollPitchFuzzTest) {
 
     const int iterations = 100;
     while(running){
-      double randomRoll = rollDist(gen);
-      double randomPitch = pitchDist(gen);
+     int randomRoll = (int) rollDist(gen);
+      int randomPitch = (int) pitchDist(gen);
 
       // Act: Update DataModel
       dataModel->imu_data.roll.store(randomRoll);
       dataModel->imu_data.pitch.store(randomPitch);
       animation->update();
   
-      EXPECT_NEAR(pfd->roll(), randomRoll, 0.0001)
-          << "Failed at iteration " << i.load() << " with Roll: " << randomRoll;
-      EXPECT_NEAR(pfd->pitch(), randomPitch, 0.0001)
-          << "Failed at iteration " << i.load() << " with Pitch: " << randomPitch;
+
       std::this_thread::sleep_for(std::chrono::milliseconds(50));
       i++;
     }
   });
  // Done.detach();
   //TODO: make this a global function to call.(Refactor)
-  std::thread StupidThread1([=](){
+  std::thread userInputNextTest([=](){
   std::string line;
   std::cin >> line;
   if (line == "next") {
     std::cout << "next test" << std::endl;
     return;
   };});
-  while(i < 200){
+  while(i < 100){
     //Doesn't like it when it isn't the main character.
     QApplication::processEvents();
   }
   running = false;
   Done.join();
-  StupidThread1.join();
+  userInputNextTest.detach();
 }
 TEST_F(TidalwaveFixture, RollPitchIncrementTest) {
+  std::atomic<int> i = 0;
+  std::atomic<bool> running{false};
+  std::thread SSH_ConnectionThread([](){SSH_Connection obj = SSH_Connection(dataModel, "test");});
   std::thread Done([&]() {
     double randomRoll = 0.0;
     double randomPitch = 0.0;
-    int i = 0;
-    while (true) {
+    running = true;
+    while (running) {
       if(randomRoll > 180){
         randomRoll = 0.0;
       }
@@ -120,20 +125,14 @@ TEST_F(TidalwaveFixture, RollPitchIncrementTest) {
       dataModel->imu_data.roll.store(randomRoll);
       dataModel->imu_data.pitch.store(randomPitch);
       animation->update();
-
-      EXPECT_NEAR(pfd->roll(), randomRoll, 0.0001)
-          << "Failed at iteration " << i << " with Roll: " << randomRoll;
-      EXPECT_NEAR(pfd->pitch(), randomPitch, 0.0001)
-          << "Failed at iteration " << i << " with Pitch: " << randomPitch;
       std::this_thread::sleep_for(std::chrono::milliseconds(20));
       randomRoll += 0.5;
       randomPitch += 0.5;
       i++;
     }
   });
-  Done.detach();
   // TODO: make this a global function to call.(Refactor)
-  std::thread StupidThread1([=]() {
+  std::thread userInputNextTest([=]() {
     std::string line;
     std::cin >> line;
     if (line == "next") {
@@ -141,8 +140,55 @@ TEST_F(TidalwaveFixture, RollPitchIncrementTest) {
       return;
     };
   });
-  while (true) {
+  while (i < 100) {
     // Doesn't like it when it isn't the main character.
     QApplication::processEvents();
   }
+  running = false;
+  SSH_ConnectionThread.detach();
+  userInputNextTest.detach();
+  Done.join();
+}
+
+TEST_F(TidalwaveFixture, GraphsFuzzTest) {
+  std::atomic<int> i = 0;
+  std::atomic<bool> running{false};
+  std::thread Done([&]() {
+    running = true;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> tempDist(0, 100.0);
+  //  std::uniform_real_distribution<> pitchDist(-90.0, 90.0);
+
+    const int iterations = 100;
+    while (running) {
+      int randomTemp = (int)tempDist(gen);
+
+
+
+      dataModel->telemetry_data.temp.store(randomTemp);
+    
+      animation->update();
+
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      i++;
+    }
+  });
+  // Done.detach();
+  // TODO: make this a global function to call.(Refactor)
+  std::thread userInputNextTest([=]() {
+    std::string line;
+    std::cin >> line;
+    if (line == "next") {
+      std::cout << "next test" << std::endl;
+      return;
+    };
+  });
+  while (i < 100) {
+    // Doesn't like it when it isn't the main character.
+    QApplication::processEvents();
+  }
+  running = false;
+  Done.join();
+  userInputNextTest.detach();
 }

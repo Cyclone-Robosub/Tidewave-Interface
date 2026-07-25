@@ -9,17 +9,17 @@
 #include <iostream>
 #include <shared_mutex>
 // #include <QVideoWidget>
-#include <QQmlContext>
-#include <thread>
-#include <QVBoxLayout>
-#include <QWidget>
-#ifndef QTBUILDONLY
-#include "ros2.hpp"
 #include "Controller/SSH_Connection.hpp"
 #include "Controller/listeners.hpp"
+#include <QQmlContext>
+#include <QVBoxLayout>
+#include <QWidget>
+#include <thread>
+#ifndef QTBUILDONLY
+#include "ros2.hpp"
 #endif
 
-
+//Consolidate all of the controller code into a main controller file, if this main file keeps adding new controller threads.
 int main(int argc, char *argv[]) {
  std::shared_ptr<DataModel> dataModel = std::make_shared<DataModel>();
 #ifndef QTBUILDONLY
@@ -27,7 +27,6 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<TidalwaveROS> ROSobject =
       std::make_shared<TidalwaveROS>(dataModel);
   std::thread ros_thread([ROSobject]() { rclcpp::spin(ROSobject); });
-#endif
   std::thread connection_thread([&](){
     SSH_Connection connection = SSH_Connection(dataModel);
   });
@@ -44,6 +43,7 @@ int main(int argc, char *argv[]) {
   PrimaryFlightData *pfd = new PrimaryFlightData;
   Animation *animation = new Animation;
   animation->setPfd(pfd, dataModel);
+  engine.rootContext()->setContextProperty("animation", animation);
   // Expose the flight data model to QML
   engine.rootContext()->setContextProperty("pfd", pfd);
   // Load your QML files
@@ -63,7 +63,8 @@ int main(int argc, char *argv[]) {
   if (engine.rootObjects().isEmpty())
     return -1;
 
-  Listeners *listeners = new Listeners(dataModel, engine.rootContext());
+  Listeners *listeners = new Listeners(dataModel, &engine);
+  engine.rootContext()->setContextProperty(QStringLiteral("listeners"), listeners);
   // Start the animation system
   animation->init();
  

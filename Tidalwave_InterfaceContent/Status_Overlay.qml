@@ -1,21 +1,18 @@
 import QtQuick
 
 Rectangle {
-    id: sTATUS_OVERLAY_GOOD
+    id: status_Overlay
 
-    height: 415
-    width: 448
+    height: 398
+    width: 408
 
-    color: "#ccdbdc"
+    color: "#ffffff"
     radius: 40
 
     Rectangle {
         id: sTATUS
 
-        x: 20
-        y: 20
-
-        height: 375
+        height: 398
         width: 408
 
         border.color: "#9ad1d4"
@@ -23,69 +20,80 @@ Rectangle {
         color: "#ffffff"
         radius: 24
 
-        Item {
+        Rectangle {
             id: dIVIDER
 
             x: 24
             y: 24
 
-            height: 43
+            height: 46
             width: 360
 
-            Item {
+            color: "transparent"
+
+            Rectangle {
                 id: aLL
 
-                height: 30
+                height: 33
                 width: 360
 
-                Item {
-                    id: tITLE
+                color: "transparent"
 
-                    height: 30
-                    width: 164
+                Rectangle {
+                    id: sYSTEM_STATUS
+
+                    height: 33
+                    width: 204
+
+                    border.color: "#9ad1d4"
+                    border.width: 1
+                    clip: true
+                    color: "#ffffff"
+                    radius: 12
 
                     Text {
-                        id: system_Status
+                        id: sYSTEMS_STATUS
 
-                        height: 30
-                        width: 165
+                        x: 12
+                        y: 4
+
+                        height: 25
+                        width: 181
 
                         color: "#01696c"
                         font.family: "Univers"
-                        font.pixelSize: 24
+                        font.pixelSize: 20
                         font.weight: Font.Normal
                         horizontalAlignment: Text.AlignLeft
-                        text: "System Status"
+                        text: "SYSTEMS STATUS"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: gOOD
+                    id: fAULTS
 
-                    x: 319
-                    y: 3
+                    x: 279
+                    y: 4.50
 
                     height: 24
-                    width: 41.10
+                    width: 82
 
-                    color: "#00ee14"
+                    color: "#d82000"
                     font.family: "Roboto Mono"
                     font.letterSpacing: -0.90
                     font.pixelSize: 18
                     font.weight: Font.Normal
                     horizontalAlignment: Text.AlignLeft
-                    text: "GOOD"
+                    text: "2 FAULTS"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
             Rectangle {
                 id: dIVIDER_1
 
-                y: 42
+                y: 45
 
                 height: 1
                 width: 360
@@ -94,32 +102,36 @@ Rectangle {
                 color: "#d9d9d9"
             }
         }
-        Item {
+        Rectangle {
             id: aLL_STATUS
 
             x: 24
-            y: 83
+            y: 86
 
-            height: 268
+            height: 288
             width: 360
 
+            color: "transparent"
+
             Rectangle {
-                id: gOOD_1
+                id: bAD
 
                 height: 38
                 width: 360
 
-                color: "transparent"
+                color: "#ebebeb"
                 radius: 12
 
-                Item {
-                    id: tITLE_1
+                Rectangle {
+                    id: tITLE
 
                     x: 16
                     y: 8
 
                     height: 22
                     width: 114
+
+                    color: "transparent"
 
                     Rectangle {
                         id: iNDICATOR
@@ -130,7 +142,7 @@ Rectangle {
                         width: 10
 
                         clip: true
-                        color: "#00d85a"
+                        color: "#d82000"
                         radius: 100
                     }
                     Text {
@@ -149,34 +161,32 @@ Rectangle {
                         text: "Status One"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: oK
+                    id: fAULT
 
-                    x: 325
+                    x: 299
                     y: 8.50
 
                     height: 21
-                    width: 19.20
+                    width: 46
 
-                    color: "#00d85a"
+                    color: "#d82000"
                     font.family: "Roboto Mono"
                     font.letterSpacing: -0.80
                     font.pixelSize: 16
                     font.weight: Font.Normal
                     horizontalAlignment: Text.AlignLeft
-                    text: "OK"
+                    text: "FAULT"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
             Rectangle {
-                id: gOOD_2
+                id: gOOD
 
-                y: 46
+                y: 50
 
                 height: 38
                 width: 360
@@ -184,14 +194,16 @@ Rectangle {
                 color: "transparent"
                 radius: 12
 
-                Item {
-                    id: tITLE_2
+                Rectangle {
+                    id: tITLE_1
 
                     x: 16
                     y: 8
 
                     height: 22
                     width: 112
+
+                    color: "transparent"
 
                     Rectangle {
                         id: iNDICATOR_1
@@ -221,17 +233,16 @@ Rectangle {
                         text: "Status Two"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: oK_1
+                    id: oK
 
                     x: 325
                     y: 8.50
 
                     height: 21
-                    width: 19.20
+                    width: 20
 
                     color: "#00d85a"
                     font.family: "Roboto Mono"
@@ -242,13 +253,12 @@ Rectangle {
                     text: "OK"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
             Rectangle {
-                id: gOOD_3
+                id: gOOD_1
 
-                y: 92
+                y: 100
 
                 height: 38
                 width: 360
@@ -256,14 +266,16 @@ Rectangle {
                 color: "transparent"
                 radius: 12
 
-                Item {
-                    id: tITLE_3
+                Rectangle {
+                    id: tITLE_2
 
                     x: 16
                     y: 8
 
                     height: 22
                     width: 125
+
+                    color: "transparent"
 
                     Rectangle {
                         id: iNDICATOR_2
@@ -293,17 +305,16 @@ Rectangle {
                         text: "Status Three"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: oK_2
+                    id: oK_1
 
                     x: 325
                     y: 8.50
 
                     height: 21
-                    width: 19.20
+                    width: 20
 
                     color: "#00d85a"
                     font.family: "Roboto Mono"
@@ -314,13 +325,12 @@ Rectangle {
                     text: "OK"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
             Rectangle {
-                id: gOOD_4
+                id: gOOD_2
 
-                y: 138
+                y: 150
 
                 height: 38
                 width: 360
@@ -328,14 +338,16 @@ Rectangle {
                 color: "transparent"
                 radius: 12
 
-                Item {
-                    id: tITLE_4
+                Rectangle {
+                    id: tITLE_3
 
                     x: 16
                     y: 8
 
                     height: 22
                     width: 125
+
+                    color: "transparent"
 
                     Rectangle {
                         id: iNDICATOR_3
@@ -365,17 +377,16 @@ Rectangle {
                         text: "Status Three"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: oK_3
+                    id: oK_2
 
                     x: 325
                     y: 8.50
 
                     height: 21
-                    width: 19.20
+                    width: 20
 
                     color: "#00d85a"
                     font.family: "Roboto Mono"
@@ -386,13 +397,12 @@ Rectangle {
                     text: "OK"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
             Rectangle {
-                id: gOOD_5
+                id: gOOD_3
 
-                y: 184
+                y: 200
 
                 height: 38
                 width: 360
@@ -400,14 +410,16 @@ Rectangle {
                 color: "transparent"
                 radius: 12
 
-                Item {
-                    id: tITLE_5
+                Rectangle {
+                    id: tITLE_4
 
                     x: 16
                     y: 8
 
                     height: 22
                     width: 119
+
+                    color: "transparent"
 
                     Rectangle {
                         id: iNDICATOR_4
@@ -437,17 +449,16 @@ Rectangle {
                         text: "Status Four"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: oK_4
+                    id: oK_3
 
                     x: 325
                     y: 8.50
 
                     height: 21
-                    width: 19.20
+                    width: 20
 
                     color: "#00d85a"
                     font.family: "Roboto Mono"
@@ -458,13 +469,12 @@ Rectangle {
                     text: "OK"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
             Rectangle {
-                id: gOOD_6
+                id: gOOD_4
 
-                y: 230
+                y: 250
 
                 height: 38
                 width: 360
@@ -472,14 +482,16 @@ Rectangle {
                 color: "transparent"
                 radius: 12
 
-                Item {
-                    id: tITLE_6
+                Rectangle {
+                    id: tITLE_5
 
                     x: 16
                     y: 8
 
                     height: 22
                     width: 114
+
+                    color: "transparent"
 
                     Rectangle {
                         id: iNDICATOR_5
@@ -509,17 +521,16 @@ Rectangle {
                         text: "Status Five"
                         textFormat: Text.PlainText
                         verticalAlignment: Text.AlignTop
-                        wrapMode: Text.WordWrap
                     }
                 }
                 Text {
-                    id: oK_5
+                    id: oK_4
 
                     x: 325
                     y: 8.50
 
                     height: 21
-                    width: 19.20
+                    width: 20
 
                     color: "#00d85a"
                     font.family: "Roboto Mono"
@@ -530,7 +541,6 @@ Rectangle {
                     text: "OK"
                     textFormat: Text.PlainText
                     verticalAlignment: Text.AlignTop
-                    wrapMode: Text.WordWrap
                 }
             }
         }

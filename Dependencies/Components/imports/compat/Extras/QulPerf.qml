@@ -28,7 +28,7 @@
 ****************************************************************************/
 pragma Singleton
 
-import QtQuick 2.12
+import QtQuick 
 //! [QulPerf compatibility]
 //  Holds information about application performance.
 //  This data is only available if Qt Quick Ultralite is compiled with QUL_ENABLE_PERFORMANCE_LOGGING.

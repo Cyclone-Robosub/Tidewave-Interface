@@ -1,11 +1,15 @@
 #ifndef LISTENERS_H
 #define LISTENERS_H
 
-#include <QObject>
-#include <QQmlContext>
-#include <string>
 #include "../Model.hpp"
-
+#include <QObject>
+#include <QQmlApplicationEngine>
+#include <QtCharts/QXYSeries>
+#include <functional>
+#include <string>
+#ifdef ROS2
+#include "../ros2.hpp"
+#endif
 class MissingItemException : std::exception {
     std::string objectName;
 public:
@@ -19,21 +23,19 @@ public:
 class Listeners : public QObject {
     public: 
 
-        Listeners(std::shared_ptr<DataModel> model, QQmlContext *context);
+        Listeners(std::shared_ptr<DataModel> model, QQmlApplicationEngine *engine);
         
     Q_OBJECT
 
-    using slotFunction = void (*)();
-    using pathUpdateFunction = void (*)(ControlPath *path);
-
+    using slotFunction = std::function<void(void)>;
+    using updateStateFunc = std::function<void(void)>;
     public slots:
         void EStop();
-
+        void MMServiceCall();
     private:
         std::shared_ptr<DataModel> dataModel;
-        QQmlContext *qmlContext;
-        void ConnectSlots(void);
-        void SharedSlot(slotFunction update_ui, pathUpdateFunction updatePath);
+        void SharedSlot(updateStateFunc updatestatefunc_,
+                                            slotFunction update_ui);
 };
 
 #endif
